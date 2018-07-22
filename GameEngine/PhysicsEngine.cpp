@@ -50,9 +50,8 @@ Collider * PhysicsEngine::createCollider(GameObject * _gameObject) {
 	return newCol;
 }
 
-RigidBody * PhysicsEngine::createRigidBody(Collider * _collider) {
-	RigidBody * newRb = new RigidBody(_collider->getGameObject());
-	_collider->setRigidBody(newRb);
+RigidBody * PhysicsEngine::createRigidBody(GameObject * _gameObject) {
+	RigidBody * newRb = new RigidBody(_gameObject);
 
 	m_rigidBodies.push_back(newRb);
 

@@ -3,6 +3,8 @@
 #include "Collider.h"
 #include "RigidBody.h"
 
+class Collider;
+
 /**
 	Engine handling all physics in the game including collision detection and response.
 **/
@@ -25,7 +27,7 @@ public:
 
 	// Collider/RigidBody factory
 	Collider * createCollider(GameObject * _gameObject);
-	RigidBody * createRigidBody(Collider * _collider);
+	RigidBody * createRigidBody(GameObject * _gameObject);
 
 	void deleteCollider(Collider * _collider);
 	void deleteRigidBody(RigidBody * _rigidbody);

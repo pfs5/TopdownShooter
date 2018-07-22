@@ -4,6 +4,7 @@
 #include "RigidBody.h"
 #include "Collider.h"
 #include "PhysicsLayers.h"
+#include "PhysicsEngine.h"
 
 class Collider;
 
@@ -47,6 +48,10 @@ public:
 	
 	// Prototype pattern allows cloning of gameobjects = prefab mechanism
 	virtual GameObject * clone() = 0;
+
+protected:
+	RigidBody *createRigidBody();
+	Collider * createCollider();
 
 	#pragma region Getters and setters
 public:
