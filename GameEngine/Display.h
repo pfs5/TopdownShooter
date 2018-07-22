@@ -6,7 +6,7 @@
 	Handles all display operations including window management and drawing
 **/
 namespace Display {
-	constexpr uint16_t HEIGHT = 800;
+	constexpr uint16_t HEIGHT = 900;
 	constexpr uint16_t WIDTH = static_cast<uint16_t>(HEIGHT * 16.f / 9.f);
 	const std::string TITLE = "Concept game";
 

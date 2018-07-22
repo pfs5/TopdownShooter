@@ -3,7 +3,7 @@
 #include "PhysicsEngine.h"
 
 class PlayState : public GameState {
-	std::vector<GameObject*> m_gameObjects;
+	std::vector<std::vector<GameObject*>> m_gameObjects;
 
 public:
 	PlayState();

@@ -30,12 +30,24 @@
     <ClCompile Include="BoxCharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BasicShot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePerimeter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
       <Filter>Header Files\game-states</Filter>
     </ClInclude>
     <ClInclude Include="BoxCharacter.h">
+      <Filter>Header Files\game-objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicShot.h">
+      <Filter>Header Files\game-objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePerimeter.h">
       <Filter>Header Files\game-objects</Filter>
     </ClInclude>
   </ItemGroup>

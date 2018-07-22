@@ -39,6 +39,11 @@ public:
 	**/
 	static bool getKeyUp(KeyCode _key);
 
+	/**
+		Get current mouse position
+	**/
+	static sf::Vector2i getMousePosition();
+
 	// ## Methods called by the engine ##
 	static void update();
 

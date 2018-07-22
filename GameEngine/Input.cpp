@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "Display.h"
 
 bool Input::m_key[Input::NUMBER_OF_KEYS];
 bool Input::m_keyDown[Input::NUMBER_OF_KEYS];
@@ -14,6 +15,11 @@ bool Input::getKeyDown(KeyCode _key) {
 
 bool Input::getKeyUp(KeyCode _key) {
 	return m_keyUp[static_cast<int>(_key)];
+}
+
+sf::Vector2i Input::getMousePosition()
+{
+	return sf::Mouse::getPosition(Display::getWindow());
 }
 
 void Input::update() {
