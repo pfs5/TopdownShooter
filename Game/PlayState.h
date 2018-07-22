@@ -14,4 +14,7 @@ public:
 	virtual void draw() override;
 	virtual GameObject * instantiateObject(GameObject * _gameObject) override;
 	virtual void destroyObject(GameObject * _gameObject) override;
+
+private:
+	void initState();
 };

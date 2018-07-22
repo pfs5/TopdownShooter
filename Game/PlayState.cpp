@@ -1,7 +1,9 @@
 #include "PlayState.h"
+#include "BoxCharacter.h"
+#include "Debug.h"
 
 PlayState::PlayState() {
-	
+	initState();
 }
 
 
@@ -41,4 +43,10 @@ GameObject * PlayState::instantiateObject(GameObject * _gameObject) {
 
 void PlayState::destroyObject(GameObject * _gameObject) {
 	_gameObject->setActive(false);
+}
+
+void PlayState::initState() {
+	auto boxChar = new BoxCharacter();
+	boxChar->setPosition(sf::Vector2f{ 0.f, 0.f });
+	m_gameObjects.push_back(boxChar);
 }

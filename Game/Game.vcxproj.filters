@@ -16,6 +16,9 @@
     <Filter Include="Header Files\game-states">
       <UniqueIdentifier>{f56c161a-c102-452f-a739-74f2f109727b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game-objects">
+      <UniqueIdentifier>{3c6ebed6-8f4b-44a3-addd-8f8e30ed0421}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -24,10 +27,16 @@
     <ClCompile Include="PlayState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCharacter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
       <Filter>Header Files\game-states</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCharacter.h">
+      <Filter>Header Files\game-objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -149,10 +149,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoxCharacter.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PlayState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxCharacter.h" />
     <ClInclude Include="PlayState.h" />
   </ItemGroup>
   <ItemGroup>
