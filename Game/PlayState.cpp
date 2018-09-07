@@ -7,7 +7,7 @@
 PlayState::PlayState() {
 	// ### Game objects setup ###
 	for (int i = 0; i < GameStateManager::objectLayers; ++i) {
-		m_gameObjects.push_back(std::vector<GameObject*>());
+		m_gameObjects.emplace_back(std::vector<GameObject*>());
 	}
 
 	initState();
