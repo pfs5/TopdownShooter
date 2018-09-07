@@ -1,8 +1,10 @@
 #include "PlayState.h"
 #include "BoxCharacter.h"
 #include "GameStateManager.h"
-#include "GamePerimeter.h"
 #include "Debug.h"
+#include "RandomMazeGenerator.h"
+#include "MazeVizualizer.h"
+#include "BacktrackerMazeGenerator.h"
 
 PlayState::PlayState() {
 	// ### Game objects setup ###
@@ -83,17 +85,20 @@ void PlayState::destroyObject(GameObject * _gameObject) {
 }
 
 void PlayState::initState() {
+	// INITIALIZE STATE
+
 	// Player one
 	auto boxChar1 = new BoxCharacter(BoxCharacter::PlayerOne);
 	boxChar1->setPosition(sf::Vector2f{ 400.f, 500.f });
 	m_gameObjects[1].push_back(boxChar1);
 
-	// Player two
-	auto boxChar2 = new BoxCharacter(BoxCharacter::PlayerTwo);
-	boxChar2->setPosition(sf::Vector2f{ 700.f, 500.f });
-	m_gameObjects[1].push_back(boxChar2);
+	RandomMazeGenerator mazeGen{ 5, 5 };
+	BacktrackerMazeGenerator mazeGen2{ 10, 10 };
 
-	// Perimiter
-	auto perimiter = new GamePerimeter();
-	m_gameObjects[0].push_back(perimiter);
+	Maze m = mazeGen.generateMaze();
+	Maze m2 = mazeGen2.generateMaze();
+
+	auto mazeVisualizer = new MazeVizualizer{ m2, 50.f, 5.f };
+	mazeVisualizer->setPosition(sf::Vector2f{200.f, 200.f});
+	m_gameObjects[1].push_back(mazeVisualizer);
 }

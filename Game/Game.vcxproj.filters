@@ -19,6 +19,9 @@
     <Filter Include="Header Files\game-objects">
       <UniqueIdentifier>{3c6ebed6-8f4b-44a3-addd-8f8e30ed0421}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\maze-generation">
+      <UniqueIdentifier>{c151985f-4eeb-4b1a-bb55-183adaf800e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -33,7 +36,16 @@
     <ClCompile Include="BasicShot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GamePerimeter.cpp">
+    <ClCompile Include="Maze.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomMazeGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MazeVizualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BacktrackerMazeGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,8 +59,20 @@
     <ClInclude Include="BasicShot.h">
       <Filter>Header Files\game-objects</Filter>
     </ClInclude>
-    <ClInclude Include="GamePerimeter.h">
+    <ClInclude Include="Maze.h">
+      <Filter>Header Files\maze-generation</Filter>
+    </ClInclude>
+    <ClInclude Include="IMazeGenerator.h">
+      <Filter>Header Files\maze-generation</Filter>
+    </ClInclude>
+    <ClInclude Include="MazeVizualizer.h">
       <Filter>Header Files\game-objects</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomMazeGenerator.h">
+      <Filter>Header Files\maze-generation</Filter>
+    </ClInclude>
+    <ClInclude Include="BacktrackerMazeGenerator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -65,8 +65,8 @@ public:
 
 	int getLayerNumber();
 
-	virtual void setPosition(sf::Vector2f _pos) = 0;
-	inline sf::Vector2f getPosition() { return m_position; };
+	virtual void setPosition(const sf::Vector2f &_pos) = 0;
+	inline const sf::Vector2f &getPosition() const{ return m_position; };
 
 	inline virtual void setActive(bool _a) { m_isActive = _a; };
 	inline bool isActive() { return m_isActive; };

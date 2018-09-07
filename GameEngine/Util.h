@@ -45,4 +45,10 @@ namespace Util {
 	inline float radianToDegree(const float &_radians) {
 		return _radians * 180.f / PI;
 	}
+
+	template <class T>
+	inline int randomFromVector(std::vector<T> vector)
+	{
+		return randomInt(0, vector.size() - 1);
+	}
 }

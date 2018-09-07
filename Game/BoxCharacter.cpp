@@ -69,7 +69,7 @@ GameObject * BoxCharacter::clone() {
 	return new BoxCharacter(m_playerNo);
 }
 
-void BoxCharacter::setPosition(sf::Vector2f _pos) {
+void BoxCharacter::setPosition(const sf::Vector2f &_pos) {
 	m_position = _pos;
 	for (const auto &col : m_colliders) { col->setPosition(_pos); }
 

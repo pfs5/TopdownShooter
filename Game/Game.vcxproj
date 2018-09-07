@@ -151,17 +151,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BacktrackerMazeGenerator.cpp" />
     <ClCompile Include="BasicShot.cpp" />
     <ClCompile Include="BoxCharacter.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GamePerimeter.cpp" />
+    <ClCompile Include="Maze.cpp" />
+    <ClCompile Include="MazeVizualizer.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="RandomMazeGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BacktrackerMazeGenerator.h" />
     <ClInclude Include="BasicShot.h" />
     <ClInclude Include="BoxCharacter.h" />
-    <ClInclude Include="GamePerimeter.h" />
+    <ClInclude Include="IMazeGenerator.h" />
+    <ClInclude Include="Maze.h" />
+    <ClInclude Include="MazeVizualizer.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="RandomMazeGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">

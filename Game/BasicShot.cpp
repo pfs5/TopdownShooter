@@ -56,7 +56,7 @@ GameObject * BasicShot::clone() {
 	return new BasicShot();
 }
 
-void BasicShot::setPosition(sf::Vector2f _pos) {
+void BasicShot::setPosition(const sf::Vector2f &_pos) {
 	m_position = _pos;
 	m_shape.setPosition(_pos);
 
