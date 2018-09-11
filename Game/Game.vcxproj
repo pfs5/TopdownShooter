@@ -154,7 +154,10 @@
     <ClCompile Include="BacktrackerMazeGenerator.cpp" />
     <ClCompile Include="BasicShot.cpp" />
     <ClCompile Include="BoxCharacter.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MainCharacter.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeVizualizer.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -164,7 +167,10 @@
     <ClInclude Include="BacktrackerMazeGenerator.h" />
     <ClInclude Include="BasicShot.h" />
     <ClInclude Include="BoxCharacter.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="IMazeGenerator.h" />
+    <ClInclude Include="MainCharacter.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeVizualizer.h" />
     <ClInclude Include="PlayState.h" />

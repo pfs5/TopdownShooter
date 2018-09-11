@@ -5,6 +5,9 @@
 #include "RandomMazeGenerator.h"
 #include "MazeVizualizer.h"
 #include "BacktrackerMazeGenerator.h"
+#include "MainCharacter.h"
+#include "Camera.h"
+#include "Map.h"
 
 PlayState::PlayState() {
 	// ### Game objects setup ###
@@ -88,17 +91,16 @@ void PlayState::initState() {
 	// INITIALIZE STATE
 
 	// Player one
-	auto boxChar1 = new BoxCharacter(BoxCharacter::PlayerOne);
-	boxChar1->setPosition(sf::Vector2f{ 400.f, 500.f });
-	m_gameObjects[1].push_back(boxChar1);
+	auto mainChar = new MainCharacter();
+	mainChar->setPosition(sf::Vector2f{ 400.f, 500.f });
+	m_gameObjects[1].push_back(mainChar);
 
-	RandomMazeGenerator mazeGen{ 5, 5 };
-	BacktrackerMazeGenerator mazeGen2{ 10, 10 };
+	// Map
+	BacktrackerMazeGenerator mazeGenerator{ 3, 3 };
+	auto map = new Map(mazeGenerator.generateMaze(), &mainChar->getPosition());
+	m_gameObjects[2].push_back(map);
 
-	Maze m = mazeGen.generateMaze();
-	Maze m2 = mazeGen2.generateMaze();
-
-	auto mazeVisualizer = new MazeVizualizer{ m2, 50.f, 5.f };
-	mazeVisualizer->setPosition(sf::Vector2f{200.f, 200.f});
-	m_gameObjects[1].push_back(mazeVisualizer);
+	// Camera
+	auto camera = new Camera(mainChar);
+	m_gameObjects[1].push_back(camera);
 }
