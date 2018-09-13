@@ -5,5 +5,5 @@ class IMazeGenerator
 {
 public:
 	virtual ~IMazeGenerator() = default;
-	virtual Maze generateMaze() = 0;
+	virtual Maze * generateMaze() = 0;
 };

@@ -19,12 +19,12 @@ BacktrackerMazeGenerator::~BacktrackerMazeGenerator()
  * \brief Generate maze using the backtracker algorithm
  * \return 
  */
-Maze BacktrackerMazeGenerator::generateMaze()
+Maze * BacktrackerMazeGenerator::generateMaze()
 {
-	Maze maze{ _rows, _cols };
+	Maze * maze = new Maze{ _rows, _cols };
 	if (_rows * _cols <= 1) { return maze; }
 	
-	auto & nodes = maze.getNodes();
+	auto & nodes = maze->getNodes();
 
 	unsigned int unvisitedNodes = _rows * _cols - 1;
 	std::stack<Node*> nodeStack;

@@ -9,7 +9,7 @@ public:
 	BacktrackerMazeGenerator(unsigned int rows, unsigned int cols);
 	~BacktrackerMazeGenerator();
 
-	Maze generateMaze() override;
+	Maze * generateMaze() override;
 
 private:
 	static int getNextNode(const Node * curent, const std::vector<Node*> &neighbours);

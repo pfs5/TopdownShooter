@@ -89,9 +89,6 @@
     <ClInclude Include="RandomMazeGenerator.h">
       <Filter>Header Files\maze-generation</Filter>
     </ClInclude>
-    <ClInclude Include="BacktrackerMazeGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MainCharacter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -100,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="BacktrackerMazeGenerator.h">
+      <Filter>Header Files\maze-generation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,6 +12,6 @@ public:
 	RandomMazeGenerator(unsigned int rows = 0, unsigned int cols = 0);
 	~RandomMazeGenerator();
 
-	Maze generateMaze() override;
+	Maze * generateMaze() override;
 };
 

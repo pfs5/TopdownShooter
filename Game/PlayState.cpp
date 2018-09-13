@@ -92,10 +92,15 @@ Maze * createMaze()
 	Maze * m = new Maze{ 3, 3 };
 	auto &nodes = m->getNodes();
 
-	nodes[0][0]->bottom = nodes[1][0];
-	nodes[1][0]->top = nodes[0][0];
-	nodes[1][0]->right = nodes[1][1];
+	nodes[1][1]->top = nodes[0][1];
 	nodes[1][1]->left = nodes[1][0];
+	nodes[1][1]->right = nodes[1][2];
+	nodes[1][1]->bottom = nodes[2][1];
+
+	nodes[0][1]->bottom = nodes[1][1];
+	nodes[1][0]->right = nodes[1][1];
+	nodes[1][2]->left = nodes[1][1];
+	nodes[2][1]->top = nodes[1][1];
 
 	return m;
 }
@@ -111,14 +116,10 @@ void PlayState::initState() {
 	// Map
 	BacktrackerMazeGenerator mazeGenerator{ 3, 3 };
 	
-	auto maze = createMaze();
-
-	auto map = new Map(maze, &mainChar->getPosition());
+	auto map = new Map(createMaze() , &mainChar->getPosition());
 	m_gameObjects[2].push_back(map);
 
 	// Camera
 	auto camera = new Camera(mainChar);
 	m_gameObjects[1].push_back(camera);
-
-
 }
