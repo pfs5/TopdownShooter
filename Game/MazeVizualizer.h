@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "Maze.h"
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 class MazeVizualizer : public GameObject
 {

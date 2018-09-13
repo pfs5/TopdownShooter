@@ -7,7 +7,7 @@
 class Map : public GameObject
 {
 #pragma region Parameters
-	const float DEBUG_BLOCK_SIZE = 200.f;
+	const float DEBUG_BLOCK_SIZE = 500.f;
 	const float DEBUG_WALL_THICKNESS = 40.f;
 	const sf::Color DEBUG_BLOCK_COLOR = sf::Color::White;
 	const sf::Color DEBUG_WALL_COLOR = sf::Color::Black;
@@ -23,12 +23,12 @@ class Map : public GameObject
 	std::vector<sf::RectangleShape*> _shapes;		// shape references array, for easier handling
 	#pragma endregion
 
-	Maze _maze;
+	const Maze * _maze;
 	const sf::Vector2f *_playerPosition;
 
 	sf::Vector2u _currentCell;
 public:
-	Map(const Maze &maze, const sf::Vector2f * playerPosition );
+	Map(const Maze * maze, const sf::Vector2f * playerPosition );
 	~Map();
 	
 	void update(float _dt) override;
@@ -39,6 +39,6 @@ public:
 
 private:
 	void initMap();
-	void drawCellAtPosition(const sf::Vector2f &pos);
+	void drawCellAtPosition(const sf::Vector2f & pos, const sf::Color & color);
 };
 

@@ -8,7 +8,7 @@
  * \param cols 
  */
 Maze::Maze(unsigned int rows, unsigned int cols) : 
-	_nodes{ rows, std::vector<Node>{cols, Node{}} },
+	_nodes{ rows, std::vector<Node*>{cols, nullptr} },
 	_rows {rows},
 	_cols {cols}
 {
@@ -16,8 +16,7 @@ Maze::Maze(unsigned int rows, unsigned int cols) :
 	{
 		for (unsigned int x=0; x<cols; ++x)
 		{
-			_nodes[y][x].x = x;
-			_nodes[y][x].y = y;
+			_nodes[y][x] = new Node{ x, y };
 		}
 	}
 }
@@ -26,7 +25,7 @@ Maze::Maze(unsigned int rows, unsigned int cols) :
  * \brief Generate maze from given nodes
  * \param nodes 
  */
-Maze::Maze(const std::vector<std::vector<Node>> &nodes) :
+Maze::Maze(const std::vector<std::vector<Node*>> &nodes) :
 	_nodes {nodes},
 	_rows {nodes.size()}
 {
@@ -36,6 +35,13 @@ Maze::Maze(const std::vector<std::vector<Node>> &nodes) :
 
 Maze::~Maze()
 {
+	for (unsigned int y = 0; y<_rows; ++y)
+	{
+		for (unsigned int x = 0; x<_cols; ++x)
+		{
+			delete _nodes[y][x];
+		}
+	}
 }
 
 void Maze::printMaze() const
@@ -45,7 +51,7 @@ void Maze::printMaze() const
 		for (int x = 0; x<_cols; ++x)
 		{
 			auto node = _nodes[y][x];
-			std::cout << node.left << " " << node.right << " " << node.top << " " << node.bottom << " . ";
+			std::cout << node->left << " " << node->right << " " << node->top << " " << node->bottom << " . ";
 		}
 
 		std::cout << std::endl;
@@ -62,6 +68,12 @@ Node::Node() :
 	right{nullptr},
 	top{nullptr},
 	bottom{nullptr}
+{
+}
+
+Node::Node(unsigned xVal, unsigned yVal) :
+	x{xVal},
+	y{yVal}
 {
 }
 

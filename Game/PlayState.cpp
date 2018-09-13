@@ -87,6 +87,19 @@ void PlayState::destroyObject(GameObject * _gameObject) {
 	_gameObject->setActive(false);
 }
 
+Maze * createMaze()
+{
+	Maze * m = new Maze{ 3, 3 };
+	auto &nodes = m->getNodes();
+
+	nodes[0][0]->bottom = nodes[1][0];
+	nodes[1][0]->top = nodes[0][0];
+	nodes[1][0]->right = nodes[1][1];
+	nodes[1][1]->left = nodes[1][0];
+
+	return m;
+}
+
 void PlayState::initState() {
 	// INITIALIZE STATE
 
@@ -97,10 +110,15 @@ void PlayState::initState() {
 
 	// Map
 	BacktrackerMazeGenerator mazeGenerator{ 3, 3 };
-	auto map = new Map(mazeGenerator.generateMaze(), &mainChar->getPosition());
+	
+	auto maze = createMaze();
+
+	auto map = new Map(maze, &mainChar->getPosition());
 	m_gameObjects[2].push_back(map);
 
 	// Camera
 	auto camera = new Camera(mainChar);
 	m_gameObjects[1].push_back(camera);
+
+
 }

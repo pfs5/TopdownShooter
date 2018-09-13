@@ -1,6 +1,12 @@
 #include "MazeVizualizer.h"
 #include "Display.h"
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
 
+
+namespace sf {
+	class RectangleShape;
+}
 
 MazeVizualizer::MazeVizualizer(const Maze &maze, float cellSize, float wallThickness) :
 	_maze {maze},
@@ -65,10 +71,10 @@ void MazeVizualizer::draw()
 			
 			// Draw required shapes
 			Display::draw(_cellShape);
-			if (!node.left) Display::draw(_wallLeftShape);
-			if (!node.right) Display::draw(_wallRightShape);
-			if (!node.top) Display::draw(_wallTopShape);
-			if (!node.bottom) Display::draw(_wallBottomShape);
+			if (!node->left) Display::draw(_wallLeftShape);
+			if (!node->right) Display::draw(_wallRightShape);
+			if (!node->top) Display::draw(_wallTopShape);
+			if (!node->bottom) Display::draw(_wallBottomShape);
 		}
 	}
 }

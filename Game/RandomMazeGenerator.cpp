@@ -36,12 +36,12 @@ Maze RandomMazeGenerator::generateMaze()
 			auto &node = nodes[y][x];
 		
 			// check if neighbour broke top or left wall
-			if (x > 0 && nodes[y][x - 1].right) { node.left = &nodes[y][x - 1]; }
-			if (y > 0 && nodes[y - 1][x].bottom) { node.top = &nodes[y - 1][x]; }
+			if (x > 0 && nodes[y][x - 1]->right) { node->left = nodes[y][x - 1]; }
+			if (y > 0 && nodes[y - 1][x]->bottom) { node->top = nodes[y - 1][x]; }
 		
 			// roll the dice to break bottom or right wall
-			if (x < maze.getCols() - 1 && Util::randomFloat() > 0.5f) { node.right = &nodes[y][x + 1]; }
-			if (y < maze.getRows() - 1 && Util::randomFloat() > 0.5f) { node.bottom = &nodes[y + 1][x]; }
+			if (x < maze.getCols() - 1 && Util::randomFloat() > 0.5f) { node->right = nodes[y][x + 1]; }
+			if (y < maze.getRows() - 1 && Util::randomFloat() > 0.5f) { node->bottom = nodes[y + 1][x]; }
 		}
 	}
 
