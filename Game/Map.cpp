@@ -33,6 +33,12 @@ void Map::update(float _dt)
 	_currentCell.y = clamp(static_cast<unsigned int>(floorf(((*_playerPosition).y + DEBUG_BLOCK_SIZE / 2.f) / DEBUG_BLOCK_SIZE)), 0u, _maze->getRows() - 1u);
 }
 
+inline sf::Color &setColorAlpha(sf::Color &color, float alpha)
+{
+	color.a = alpha * 255.f;
+	return color;
+}
+
 void Map::draw()
 {
 	const auto &nodes = _maze->getNodes();
@@ -41,44 +47,44 @@ void Map::draw()
 	// -- Draw cells --
 	drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x, _currentCell.y }) * DEBUG_BLOCK_SIZE, DEBUG_BLOCK_COLOR); // middle cell
 
+	const float distanceLeft = currentNode->left ? abs(static_cast<float>(currentNode->left->x) * DEBUG_BLOCK_SIZE - _playerPosition->x) : std::numeric_limits<float>::max();
+	const float distanceRight = currentNode->right ? abs(static_cast<float>(currentNode->right->x) * DEBUG_BLOCK_SIZE - _playerPosition->x) : std::numeric_limits<float>::max();
+	const float distanceTop = currentNode->top ? abs(static_cast<float>(currentNode->top->y) * DEBUG_BLOCK_SIZE - _playerPosition->y) : std::numeric_limits<float>::max();
+	const float distanceBottom = currentNode->bottom ? abs(static_cast<float>(currentNode->bottom->y) * DEBUG_BLOCK_SIZE - _playerPosition->y) : std::numeric_limits<float>::max();
+
+	const float alphaLeft = clamp(1.5f - distanceLeft / DEBUG_BLOCK_SIZE, 0.f, 1.f);
+	const float alphaRight = clamp(1.5f - distanceRight / DEBUG_BLOCK_SIZE, 0.f, 1.f);
+	const float alphaTop = clamp(1.5f - distanceTop / DEBUG_BLOCK_SIZE, 0.f, 1.f);
+	const float alphaBottom = clamp(1.5f - distanceBottom / DEBUG_BLOCK_SIZE, 0.f, 1.f);
+
 	// -- Neighbouring cells --
-	if (currentNode->left) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x - 1u, _currentCell.y }) * DEBUG_BLOCK_SIZE, DEBUG_BLOCK_COLOR); }
-	if (currentNode->right) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x + 1u, _currentCell.y }) * DEBUG_BLOCK_SIZE, DEBUG_BLOCK_COLOR); }
-	if (currentNode->top) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x, _currentCell.y - 1u}) * DEBUG_BLOCK_SIZE, DEBUG_BLOCK_COLOR); }
-	if (currentNode->bottom) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x, _currentCell.y + 1u}) * DEBUG_BLOCK_SIZE, DEBUG_BLOCK_COLOR); }
-
-	// corner cells
-	//if ((currentNode.left && currentNode.left->top) || (currentNode.top && currentNode.top->left))
-	//{
-	//	float distance = VectorOperations::distance(VectorOperations::utof(sf::Vector2u{ _currentCell.x - 1u, _currentCell.y - 1u }) * DEBUG_BLOCK_SIZE, *_playerPosition);
-	//	float alpha = 1.f - clamp(distance / (2.f * DEBUG_BLOCK_SIZE), 0.f, 1.f);
-
-	//	drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x - 1u, _currentCell.y - 1u }) * DEBUG_BLOCK_SIZE, sf::Color{255, 255, 255, static_cast<sf::Uint8>(alpha * 255)});
-	//}
-
-	//std::cout << currentNode << std::endl;
+	sf::Color cellColor{ DEBUG_BLOCK_COLOR };
+	if (currentNode->left) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x - 1u, _currentCell.y }) * DEBUG_BLOCK_SIZE, setColorAlpha(cellColor, alphaLeft)); }
+	if (currentNode->right) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x + 1u, _currentCell.y }) * DEBUG_BLOCK_SIZE, setColorAlpha(cellColor, alphaRight)); }
+	if (currentNode->top) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x, _currentCell.y - 1u}) * DEBUG_BLOCK_SIZE, setColorAlpha(cellColor, alphaTop)); }
+	if (currentNode->bottom) { drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x, _currentCell.y + 1u}) * DEBUG_BLOCK_SIZE, setColorAlpha(cellColor, alphaBottom)); }
 
 	// -- Corner cells --
-	const float distanceX_1 = (currentNode->left && currentNode->left->top) ? abs(static_cast<float>(currentNode->left->x) * DEBUG_BLOCK_SIZE - _playerPosition->x) : std::numeric_limits<float>::max();
-	const float distanceY_1 = (currentNode->top && currentNode->top->left) ? abs(static_cast<float>(currentNode->top->y) * DEBUG_BLOCK_SIZE - _playerPosition->y) : std::numeric_limits<float>::max();
+	const float distanceX_1 = (currentNode->left && currentNode->left->top) ? distanceLeft : std::numeric_limits<float>::max();
+	const float distanceY_1 = (currentNode->top && currentNode->top->left) ? distanceTop : std::numeric_limits<float>::max();
 	const float distance_1 = std::min(distanceX_1, distanceY_1);
 	const float alpha_1 = clamp(1.5f - distance_1 / DEBUG_BLOCK_SIZE, 0.f, 1.f);
 	drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x - 1u, _currentCell.y - 1u }) * DEBUG_BLOCK_SIZE, sf::Color{ 255, 255, 255, static_cast<sf::Uint8>(alpha_1 * 255) });
 
-	const float distanceX_2 = (currentNode->right && currentNode->right->top) ? abs(static_cast<float>(currentNode->right->x) * DEBUG_BLOCK_SIZE - _playerPosition->x) : std::numeric_limits<float>::max();
-	const float distanceY_2 = (currentNode->top && currentNode->top->right) ? abs(static_cast<float>(currentNode->top->y) * DEBUG_BLOCK_SIZE - _playerPosition->y) : std::numeric_limits<float>::max();
+	const float distanceX_2 = (currentNode->right && currentNode->right->top) ? distanceRight : std::numeric_limits<float>::max();
+	const float distanceY_2 = (currentNode->top && currentNode->top->right) ? distanceTop : std::numeric_limits<float>::max();
 	const float distance_2 = std::min(distanceX_2, distanceY_2);
 	const float alpha_2 = clamp(1.5f - distance_2 / DEBUG_BLOCK_SIZE, 0.f, 1.f);
 	drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x + 1u, _currentCell.y - 1u }) * DEBUG_BLOCK_SIZE, sf::Color{ 255, 255, 255, static_cast<sf::Uint8>(alpha_2 * 255) });
 	
-	const float distanceX_3 = (currentNode->right && currentNode->right->bottom) ? abs(static_cast<float>(currentNode->right->x) * DEBUG_BLOCK_SIZE - _playerPosition->x) : std::numeric_limits<float>::max();
-	const float distanceY_3 = (currentNode->bottom && currentNode->bottom->right) ? abs(static_cast<float>(currentNode->bottom->y) * DEBUG_BLOCK_SIZE - _playerPosition->y) : std::numeric_limits<float>::max();
+	const float distanceX_3 = (currentNode->right && currentNode->right->bottom) ? distanceRight : std::numeric_limits<float>::max();
+	const float distanceY_3 = (currentNode->bottom && currentNode->bottom->right) ? distanceBottom : std::numeric_limits<float>::max();
 	const float distance_3 = std::min(distanceX_3, distanceY_3);
 	const float alpha_3 = clamp(1.5f - distance_3 / DEBUG_BLOCK_SIZE, 0.f, 1.f);
 	drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x + 1u, _currentCell.y + 1u }) * DEBUG_BLOCK_SIZE, sf::Color{ 255, 255, 255, static_cast<sf::Uint8>(alpha_3 * 255) });
 	
-	const float distanceX_4 = (currentNode->left && currentNode->left->bottom) ? abs(static_cast<float>(currentNode->left->x) * DEBUG_BLOCK_SIZE - _playerPosition->x) : std::numeric_limits<float>::max();
-	const float distanceY_4 = (currentNode->bottom && currentNode->bottom->left) ? abs(static_cast<float>(currentNode->bottom->y) * DEBUG_BLOCK_SIZE - _playerPosition->y) : std::numeric_limits<float>::max();
+	const float distanceX_4 = (currentNode->left && currentNode->left->bottom) ? distanceLeft : std::numeric_limits<float>::max();
+	const float distanceY_4 = (currentNode->bottom && currentNode->bottom->left) ? distanceBottom : std::numeric_limits<float>::max();
 	const float distance_4 = std::min(distanceX_4, distanceY_4);
 	const float alpha_4 = clamp(1.5f - distance_4 / DEBUG_BLOCK_SIZE, 0.f, 1.f);
 	drawCellAtPosition(VectorOperations::utof(sf::Vector2u{ _currentCell.x - 1u, _currentCell.y + 1u }) * DEBUG_BLOCK_SIZE, sf::Color{ 255, 255, 255, static_cast<sf::Uint8>(alpha_4 * 255) });

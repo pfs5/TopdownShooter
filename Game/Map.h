@@ -7,7 +7,7 @@
 class Map : public GameObject
 {
 #pragma region Parameters
-	const float DEBUG_BLOCK_SIZE = 400.f;
+	const float DEBUG_BLOCK_SIZE = 600.f;
 	const float DEBUG_WALL_THICKNESS = 40.f;
 	const sf::Color DEBUG_BLOCK_COLOR = sf::Color::White;
 	const sf::Color DEBUG_WALL_COLOR = sf::Color::Black;
