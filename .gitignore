@@ -3,4 +3,11 @@ Debug/*.pdb
 .vs/
 Game/Debug/
 GameEngine/Debug/
-Builds/
+Builds/Debug/*.exe
+Builds/Debug/*.ilk
+Builds/Debug/*.pdb
+Builds/Debug/*.lib
+Builds/Release/*.exe
+Builds/Release/*.ilk
+Builds/Release/*.pdb
+Builds/Release/*.lib
