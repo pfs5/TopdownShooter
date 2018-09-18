@@ -35,7 +35,9 @@ void Application::runMainLoop() {
 			return;
 		}
 
-		Input::update();
+		if (Display::isInFocus()) {
+			Input::update();
+		}
 
 		// Physics
 		accumulator += clock.restart();

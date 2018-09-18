@@ -4,6 +4,7 @@
 
 namespace Display {
 	std::unique_ptr<sf::RenderWindow> window;
+	bool isWindowInFocus = true;
 
 	void init() {
 		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT), TITLE);
@@ -34,11 +35,21 @@ namespace Display {
 			if (e.type == sf::Event::Closed) {
 				window->close();
 			}
+			if (e.type == sf::Event::GainedFocus) {
+				isWindowInFocus = true;
+			}
+			if (e.type == sf::Event::LostFocus) {
+				isWindowInFocus = false;
+			}
 		}
 	}
 
 	bool isOpen() {
 		return window->isOpen();
+	}
+
+	bool isInFocus() {
+		return isWindowInFocus;
 	}
 
 	sf::RenderWindow &getWindow() {

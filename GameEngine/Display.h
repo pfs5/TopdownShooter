@@ -44,6 +44,12 @@ namespace Display {
 	*/
 	bool isOpen();
 
+	/*
+	* Check if window is in focus
+	* @return true if window is in focus, false otherwise
+	*/
+	bool isInFocus();
+
 	/**
 	* Returns window reference
 	* @return

@@ -1,6 +1,6 @@
-
 Debug/*.ilk
 Debug/*.pdb
 .vs/
 Game/Debug/
+GameEngine/Debug/
 Builds/
