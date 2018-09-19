@@ -39,4 +39,9 @@ public:
 	static void pushGameState(GameState *_state);
 	static void popGameState();
 	static GameState * activeGameState();
+
+	// Deleted constructors
+public:
+	GameStateManager() = delete;
+	GameStateManager(const GameStateManager &other) = delete;
 };
