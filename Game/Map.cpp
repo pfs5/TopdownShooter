@@ -11,7 +11,7 @@ Map::Map(const Maze *maze, const sf::Vector2f * playerPosition) :
 {
 	initMap();
 
-	m_position = sf::Vector2f{ 0.f, 0.f };
+	_position = sf::Vector2f{ 0.f, 0.f };
 }
 
 
@@ -129,7 +129,7 @@ GameObject* Map::clone()
 
 void Map::setPosition(const sf::Vector2f & pos)
 {
-	m_position = pos;
+	_position = pos;
 }
 
 void Map::initMap()

@@ -36,7 +36,7 @@ GameObject* MainCharacter::clone()
 
 void MainCharacter::setPosition(const sf::Vector2f & _pos)
 {
-	m_position = _pos;
+	_position = _pos;
 
 	_debugShape.setPosition(_pos);
 }

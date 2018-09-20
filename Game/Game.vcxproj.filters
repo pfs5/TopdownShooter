@@ -31,6 +31,9 @@
     <Filter Include="Header Files\maps">
       <UniqueIdentifier>{06df2470-f6d0-49bb-9e63-871a55718727}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game-objects\main-character">
+      <UniqueIdentifier>{777e4796-c1d5-49f0-9597-5a6c8332a440}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -89,9 +92,6 @@
     <ClInclude Include="RandomMazeGenerator.h">
       <Filter>Header Files\maze-generation</Filter>
     </ClInclude>
-    <ClInclude Include="MainCharacter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Header Files\maps</Filter>
     </ClInclude>
@@ -100,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="BacktrackerMazeGenerator.h">
       <Filter>Header Files\maze-generation</Filter>
+    </ClInclude>
+    <ClInclude Include="MainCharacter.h">
+      <Filter>Header Files\game-objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,7 +4,6 @@
 #include "RigidBody.h"
 #include "Collider.h"
 #include "PhysicsLayers.h"
-#include "PhysicsEngine.h"
 
 class Collider;
 
@@ -14,19 +13,19 @@ class Collider;
 **/
 class GameObject {
 protected:
-	std::string m_objectTag = "";
-	std::size_t m_objectTagHash;
-	int m_physicsLayer = 0;
+	std::string _objectTag = "";
+	std::size_t _objectTagHash;
+	int _physicsLayer = 0;
 
 	// Transform
-	sf::Vector2f m_position;
+	sf::Vector2f _position;
 
 	// State
-	bool m_isActive = true;
+	bool _isActive = true;
 	
 	// Physics
-	RigidBody * m_rigidBody;
-	std::vector<Collider*> m_colliders;
+	RigidBody * _rigidBody;
+	std::vector<Collider*> _colliders;
 
 public:
 	GameObject();
@@ -55,21 +54,21 @@ protected:
 
 	#pragma region Getters and setters
 public:
-	inline void setObjectTag(std::string _tag) { m_objectTag = _tag; m_objectTagHash = std::hash<std::string>{}(_tag); };
-	inline std::string getObjectTag() const { return m_objectTag; };
-	inline bool isObjectTag(std::string _tag) { return m_objectTagHash == std::hash<std::string>{}(_tag); };
+	inline void setObjectTag(std::string _tag) { _objectTag = _tag; _objectTagHash = std::hash<std::string>{}(_tag); };
+	inline std::string getObjectTag() const { return _objectTag; };
+	inline bool isObjectTag(std::string _tag) { return _objectTagHash == std::hash<std::string>{}(_tag); };
 
 	void setObjectLayer(std::string layer);
 	std::string getObjectLayer();
-	bool isObjectLayer(std::string _layer) { return PhysicsLayers::layerNumber(_layer) == m_physicsLayer; };
+	bool isObjectLayer(std::string _layer) { return PhysicsLayers::layerNumber(_layer) == _physicsLayer; };
 
 	int getLayerNumber();
 
 	virtual void setPosition(const sf::Vector2f &_pos) = 0;
-	inline const sf::Vector2f &getPosition() const{ return m_position; };
+	inline const sf::Vector2f &getPosition() const{ return _position; };
 
-	inline virtual void setActive(bool _a) { m_isActive = _a; };
-	inline bool isActive() { return m_isActive; };
+	inline virtual void setActive(bool _a) { _isActive = _a; };
+	inline bool isActive() { return _isActive; };
 	#pragma endregion
 };
 

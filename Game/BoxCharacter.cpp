@@ -60,7 +60,7 @@ void BoxCharacter::onCollision(Collider * _this, Collider * _other) {
 			bullet->destroy();
 
 			// Recoil
-			m_rigidBody->setVelocity(recoilDir * hitPower);
+			_rigidBody->setVelocity(recoilDir * hitPower);
 		}
 	}
 }
@@ -70,8 +70,8 @@ GameObject * BoxCharacter::clone() {
 }
 
 void BoxCharacter::setPosition(const sf::Vector2f &_pos) {
-	m_position = _pos;
-	for (const auto &col : m_colliders) { col->setPosition(_pos); }
+	_position = _pos;
+	for (const auto &col : _colliders) { col->setPosition(_pos); }
 
 	m_shape.setPosition(_pos);
 	m_aimShape.setPosition(_pos + m_aimDirection * AIM_VISUAL_DISTANCE);

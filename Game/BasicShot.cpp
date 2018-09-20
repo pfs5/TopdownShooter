@@ -57,8 +57,8 @@ GameObject * BasicShot::clone() {
 }
 
 void BasicShot::setPosition(const sf::Vector2f &_pos) {
-	m_position = _pos;
+	_position = _pos;
 	m_shape.setPosition(_pos);
 
-	for (const auto &col : m_colliders) { col->setPosition(_pos); }
+	for (const auto &col : _colliders) { col->setPosition(_pos); }
 }
