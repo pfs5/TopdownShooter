@@ -1,0 +1,21 @@
+{
+    "config": [
+        {
+            "section": "game",
+            "entries": [
+                {
+                    "key": "key1",
+                    "value": "String test value"
+                },
+                {
+                    "key": "key2",
+                    "value": "123"
+                },
+                {
+                    "key": "key3",
+                    "value": "1.23"
+                }
+            ]
+        }
+    ]
+}
