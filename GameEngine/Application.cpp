@@ -14,10 +14,6 @@ Application::Application() :
 	m_fpsText{"fps: ", *ResourceManager::getInstance().getFont("couriernew1"), 15} {
 	Display::init();
 
-	std::cout << "Reading key1 from game section: " << ConfigManager::getInstance().getString("game", "key1") << std::endl;
-	std::cout << "Reading key2 from game section: " << ConfigManager::getInstance().getString("game", "key2") << std::endl;
-	std::cout << "Reading key3 from game section: " << ConfigManager::getInstance().getString("game", "key3") << std::endl;
-
 	// Debug text init
 	m_fpsText.setFillColor(sf::Color::Black);
 }
