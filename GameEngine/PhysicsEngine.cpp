@@ -4,7 +4,7 @@
 #include "Display.h"
 #include "Debug.h"
 #include "VectorOperations.h"
-#include "VectorOperations.h"
+#include "ConfigManager.h"
 
 PhysicsEngine::PhysicsEngine() {
 }
@@ -34,7 +34,7 @@ void PhysicsEngine::update(float _dt) {
 
 void PhysicsEngine::draw() {
 	// Draw colliders
-	if (GameSettings::SHOW_COLLIDERS) {
+	if (ConfigManager::getInstance().getBool("debug", "show-colliders", false)) {
 		for (Collider * c : m_colliders) {
 			if (c->getGameObject()->isActive()) {
 				Display::draw(c->getDrawable());
