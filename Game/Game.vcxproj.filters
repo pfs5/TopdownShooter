@@ -72,6 +72,9 @@
     <ClCompile Include="PrototypeMap1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PrototypeMap2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files\maps</Filter>
     </ClInclude>
     <ClInclude Include="PrototypeMap1.h">
+      <Filter>Header Files\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="PrototypeMap2.h">
       <Filter>Header Files\maps</Filter>
     </ClInclude>
   </ItemGroup>
