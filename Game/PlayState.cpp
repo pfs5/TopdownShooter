@@ -7,6 +7,7 @@
 
 #include "Debug.h"
 #include "PrototypeMap1.h"
+#include "PrototypeMap2.h"
 
 PlayState::PlayState() {
 	// ### Game objects setup ###
@@ -138,7 +139,7 @@ void PlayState::initState()
 
 	// Player one
 	auto mainChar = new MainCharacter();
-	mainChar->setPosition(sf::Vector2f{ 400.f, 500.f });
+	mainChar->setPosition(sf::Vector2f{ 2000.f, 1000.f });
 	m_gameObjects[1].push_back(mainChar);
 
 	// Camera
@@ -146,5 +147,5 @@ void PlayState::initState()
 	m_gameObjects[1].push_back(camera);
 
 	// Map
-	m_map = std::make_unique<PrototypeMap1>(4);
+	m_map = std::make_unique<PrototypeMap2>(1);
 }
