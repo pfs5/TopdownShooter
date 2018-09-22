@@ -18,15 +18,23 @@ private:
 
 	/* ------------------------- Members ------------------------------------------------- */
 	// Constants
-	const float MOVEMENT_SPEED = 500.f;
 	const std::string TEX_NAME_PLAYER = "prototype-1-player";
+	const std::string TEX_NAME_CROSSHAIR = "prototype-1-player-crosshair";
+
+	const float MOVEMENT_SPEED = 500.f;
 	const float SIZE_SCALE = 0.7f;
+	const float CROSSHAIR_DISTANCE = 100.f;
 
 	// Visuals
 	sf::Sprite _sprite;
+	sf::Sprite _crosshairSprite;
+
+	// Shooting
+	sf::Vector2f _aimDirection;
 
 private:
 	/* ------------------------- Functions ------------------------------------------------ */
-	void movement(float dt);
+	void moveAction(float dt);
+	void aimAction();
 };
 

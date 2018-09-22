@@ -52,7 +52,13 @@ namespace Display {
 
 	/**
 	* Returns window reference
-	* @return
+	* @return window reference
 	*/
 	sf::RenderWindow &getWindow();
+
+	/**
+	 * Convert world position to screen position
+	 * @return
+	 */
+	sf::Vector2f worldToScreenPosition(const sf::Vector2f &worldPos);
 };

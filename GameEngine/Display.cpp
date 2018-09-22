@@ -1,4 +1,5 @@
 #include "Display.h"
+#include "VectorOperations.h"
 #include <memory>
 #include <iostream>
 
@@ -54,5 +55,12 @@ namespace Display {
 
 	sf::RenderWindow &getWindow() {
 		return *window;
+	}
+	sf::Vector2f worldToScreenPosition(const sf::Vector2f & worldPos)
+	{
+		sf::Vector2f viewCenter = getWindow().getView().getCenter();
+		sf::Vector2f viewPosition = viewCenter - VectorOperations::utof(getWindow().getSize()) / 2.f;
+
+		return worldPos - viewPosition;
 	}
 }
