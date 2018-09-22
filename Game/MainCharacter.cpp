@@ -1,15 +1,26 @@
 #include "MainCharacter.h"
 #include "Input.h"
 #include "Display.h"
+#include "ResourceManager.h"
+#include "VectorOperations.h"
+
+#include "Debug.h"
 
 MainCharacter::MainCharacter()
 {
-	_debugShape.setFillColor(sf::Color{ 244, 179, 66 });
-	_debugShape.setOutlineColor(sf::Color{ 100, 100, 100 });
-	_debugShape.setOutlineThickness(5.f);
+	setObjectLayer("Player");
 
-	_debugShape.setRadius(SHAPE_SIZE);
-	_debugShape.setOrigin(_debugShape.getRadius() / 2.f, _debugShape.getRadius() / 2.f);
+	auto playerTex = ResourceManager::getTextureStatic(TEX_NAME_PLAYER);
+	_sprite.setTexture(*playerTex);
+	_sprite.setOrigin(VectorOperations::utof(playerTex->getSize()) / 2.f);
+	_sprite.setScale(SIZE_SCALE, SIZE_SCALE);
+
+	auto baseCol = createCollider(sf::Vector2f{ 0.f , 0.f }, VectorOperations::utof(playerTex->getSize()) * SIZE_SCALE);
+	auto rb = createRigidBody();
+	rb->setGravity(false);
+
+	baseCol->setStatic(false);
+	baseCol->setTrigger(false, rb);
 }
 
 
@@ -24,7 +35,7 @@ void MainCharacter::update(float _dt)
 
 void MainCharacter::draw()
 {
-	Display::draw(_debugShape);
+	Display::draw(_sprite);
 }
 
 void MainCharacter::onCollision(Collider* _this, Collider* _other)
@@ -40,7 +51,12 @@ void MainCharacter::setPosition(const sf::Vector2f & _pos)
 {
 	_position = _pos;
 
-	_debugShape.setPosition(_pos);
+	_sprite.setPosition(_pos);
+
+	for(const auto &col : _colliders)
+	{
+		col->setPosition(_pos);
+	}
 }
 
 void MainCharacter::movement(float dt)

@@ -43,6 +43,12 @@
 		{
 			"name": "prototype-1-map-2-background",
 			"path": "prototype-1-map-2-background.png"
+		},
+
+
+		{
+			"name": "prototype-1-player",
+			"path": "prototype-1-player.png"
 		}
 	],
 

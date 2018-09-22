@@ -3,12 +3,6 @@
 
 class MainCharacter : public GameObject
 {
-#pragma region Parameters
-	const float MOVEMENT_SPEED = 250.f;
-	const float SHAPE_SIZE = 20.f;
-#pragma endregion
-
-	sf::CircleShape _debugShape;
 public:
 	MainCharacter();
 	~MainCharacter();
@@ -19,7 +13,20 @@ public:
 	GameObject* clone() override;
 	void setPosition(const sf::Vector2f &_pos) override;
 
+
 private:
+
+	/* ------------------------- Members ------------------------------------------------- */
+	// Constants
+	const float MOVEMENT_SPEED = 500.f;
+	const std::string TEX_NAME_PLAYER = "prototype-1-player";
+	const float SIZE_SCALE = 0.7f;
+
+	// Visuals
+	sf::Sprite _sprite;
+
+private:
+	/* ------------------------- Functions ------------------------------------------------ */
 	void movement(float dt);
 };
 

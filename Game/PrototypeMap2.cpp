@@ -9,12 +9,14 @@
 PrototypeMap2::PrototypeMap2(float scale) :
 	_scale {scale}
 {
+	setObjectLayer("Map");
+
 	// Init sprite
 	auto mapTex = ResourceManager::getTextureStatic(MAP_TEXT_NAME);
 	_mapSprite.setTexture(*mapTex);
 	_mapSprite.setScale(scale, scale);
 
-	loadColliders();
+	setupCollisions();
 }
 
 PrototypeMap2::~PrototypeMap2()
@@ -41,6 +43,27 @@ GameObject* PrototypeMap2::clone()
 
 void PrototypeMap2::setPosition(const sf::Vector2f& _pos)
 {
+	_position = _pos;
+	_mapSprite.setPosition(_pos);
+
+	for (auto &col : _colliders)
+	{
+		col->setPosition(_pos);
+	}
+}
+
+void PrototypeMap2::setupCollisions()
+{
+	loadColliders();
+
+	auto rb = createRigidBody();
+	rb->setGravity(false);
+
+	for (auto &col : _colliders)
+	{
+		col->setStatic(true);
+		col->setTrigger(false, rb);
+	}
 }
 
 void PrototypeMap2::loadColliders()
@@ -60,7 +83,7 @@ void PrototypeMap2::loadColliders()
 			float width = col["width"];
 			float height = col["height"];
 
-			auto newCol = createCollider(sf::Vector2f{x, y} , sf::Vector2f{width, height});
+			auto newCol = createCollider(sf::Vector2f{ x + width / 2.f, y + height  / 2.f }, sf::Vector2f{ width, height });
 		}
 	} else
 	{

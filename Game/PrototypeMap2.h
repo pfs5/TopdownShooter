@@ -18,7 +18,7 @@ public:
 	void setPosition(const sf::Vector2f& _pos) override;
 
 private:
-	/* ---- Members ---- */
+	/* ------------------------- Members ------------------------------------------------- */
 	// Constants
 	const std::string MAP_TEXT_NAME = "prototype-1-map-2-background";
 	const std::string COLLIDERS_DATAFILE_NAME = "prototype-1-map-2-colliders.json";
@@ -30,6 +30,7 @@ private:
 	sf::Sprite _mapSprite;
 
 private:
-	/* ---- Functions ---- */
+	/* ------------------------- Functions ------------------------------------------------ */
+	void setupCollisions();
 	void loadColliders();
 };

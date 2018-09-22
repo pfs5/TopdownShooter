@@ -1,11 +1,12 @@
 #include "Collider.h"
 #include "PhysicsEngine.h"
+#include "Debug.h"
 
 Collider::Collider(GameObject * _gameObject, sf::Vector2f _position, sf::Vector2f _size, int _id) : 
 	m_id(_id), m_gameObject(_gameObject), m_position(_position), m_size(_size) {
 	// Init shape
 	m_shape.setOutlineColor(COLLIDER_COLOR);
-	m_shape.setFillColor(sf::Color::Transparent);
+	m_shape.setFillColor(sf::Color{COLLIDER_COLOR.r, COLLIDER_COLOR.g, COLLIDER_COLOR.b, 10});
 	m_shape.setOutlineThickness(m_lineThickness);
 
 	updateShape();
@@ -21,7 +22,8 @@ const sf::Drawable & Collider::getDrawable() {
 
 void Collider::setTrigger(bool _trigger, RigidBody * _rb) {
 	if (!_trigger && !_rb) {
-		throw new std::exception("Not trigger colliders require rigid bodies");
+		Debug::logError("Non trigger colliders require rigid bodies");
+		throw new std::exception("Non trigger colliders require rigid bodies");
 	}
 	
 	m_isTrigger = _trigger;
