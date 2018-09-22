@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "GameStateManager.h"
 #include "ResourceManager.h"
+#include "ConfigManager.h"
 #include "Util.h"
 
 #include <SFML/System/Clock.hpp>
@@ -12,7 +13,7 @@
 Application::Application() :
 	m_fpsText{"fps: ", *ResourceManager::getInstance().getFont("couriernew1"), 15} {
 	Display::init();
-
+ 
 	// Debug text init
 	m_fpsText.setFillColor(sf::Color::Black);
 }
