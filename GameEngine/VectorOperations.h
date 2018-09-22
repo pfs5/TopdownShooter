@@ -29,4 +29,13 @@ namespace VectorOperations {
 	inline float distance(const sf::Vector2f &_v1, const sf::Vector2f &_v2) {
 		return norm(_v2 - _v1);
 	}
+
+	inline float vectorAngle(const sf::Vector2f &_v1, const sf::Vector2f &_v2) {
+		const float norm_1 = norm(_v1);
+		const float norm_2 = norm(_v2);
+
+		// doesn't check zero vectors
+
+		return acosf(dotProduct(_v1, _v2) / norm_1 / norm_2);
+	}
 }
