@@ -53,6 +53,10 @@
 		{
 			"name": "prototype-1-player-crosshair",
 			"path": "prototype-1-player-crosshair.png"
+		},
+		{
+			"name": "prototype-1-player-projectile",
+			"path": "prototype-1-player-projectile.png"
 		}
 	],
 

@@ -161,6 +161,7 @@
     <ClCompile Include="MazeMap.cpp" />
     <ClCompile Include="MazeVizualizer.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PrototypeMap1.cpp" />
     <ClCompile Include="PrototypeMap2.cpp" />
     <ClCompile Include="RandomMazeGenerator.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="MazeMap.h" />
     <ClInclude Include="MazeVizualizer.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="PrototypeMap1.h" />
     <ClInclude Include="PrototypeMap2.h" />
     <ClInclude Include="RandomMazeGenerator.h" />

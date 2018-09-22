@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Input.h"
 
 class MainCharacter : public GameObject
 {
@@ -21,6 +22,11 @@ private:
 	const std::string TEX_NAME_PLAYER = "prototype-1-player";
 	const std::string TEX_NAME_CROSSHAIR = "prototype-1-player-crosshair";
 
+	const float SHOOT_SPEED = 500.f;
+
+	// Controlls
+	const Input::KeyCode CONTROL_SHOOT = Input::SPACE;
+
 	const float MOVEMENT_SPEED = 500.f;
 	const float SIZE_SCALE = 0.7f;
 	const float CROSSHAIR_DISTANCE = 100.f;
@@ -29,12 +35,13 @@ private:
 	sf::Sprite _sprite;
 	sf::Sprite _crosshairSprite;
 
-	// Shooting
+	sf::Vector2f _movementVelocity;
 	sf::Vector2f _aimDirection;
 
 private:
 	/* ------------------------- Functions ------------------------------------------------ */
 	void moveAction(float dt);
 	void aimAction();
+	void shootAction();
 };
 

@@ -75,6 +75,9 @@
     <ClCompile Include="PrototypeMap2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="PrototypeMap2.h">
       <Filter>Header Files\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files\game-objects\main-character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

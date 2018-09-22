@@ -5,6 +5,8 @@
 #include "VectorOperations.h"
 
 #include "Debug.h"
+#include "GameStateManager.h"
+#include "Projectile.h"
 
 MainCharacter::MainCharacter()
 {
@@ -37,6 +39,7 @@ void MainCharacter::update(float _dt)
 {
 	moveAction(_dt);
 	aimAction();
+	shootAction();
 }
 
 void MainCharacter::draw()
@@ -78,6 +81,9 @@ void MainCharacter::moveAction(float dt)
 	if (Input::getKey(Input::S)) { dy += MOVEMENT_SPEED; }
 	if (Input::getKey(Input::D)) { dx += MOVEMENT_SPEED; }
 
+	_movementVelocity.x = dx;
+	_movementVelocity.y = dy;
+
 	move(sf::Vector2f{ dx, dy } * dt);
 }
 
@@ -88,4 +94,21 @@ void MainCharacter::aimAction()
 
 	_aimDirection = mousePos - screenPos;
 	_aimDirection /= VectorOperations::norm(_aimDirection);
+}
+
+void MainCharacter::shootAction()
+{
+	if (Input::getKeyDown(CONTROL_SHOOT))
+	{
+		// Shoot projectile
+		auto newProjectile = dynamic_cast<Projectile*>(GameStateManager::instantiate(&Projectile{}, 2));
+		newProjectile->setPosition(getPosition());
+
+		sf::Vector2f shootVel = _aimDirection * SHOOT_SPEED;
+		if (VectorOperations::dotProduct(_aimDirection, _movementVelocity) > 0.f)
+		{
+			shootVel += _movementVelocity;
+		}
+		newProjectile->shootProjectile(shootVel);
+	}
 }
