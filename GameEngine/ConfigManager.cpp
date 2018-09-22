@@ -28,12 +28,12 @@ std::map<std::string, std::map<std::string, std::string>> ConfigManager::loadCon
 				sectionData.emplace(entry[KEY_KEY], entry[VALUE_KEY]);
 			}
 
-			std::cout << "Read section of length: " << sectionData.size() << std::endl;
+			//std::cout << "Read section of length: " << sectionData.size() << std::endl;
 
 			config.emplace(section[SECTION_KEY], sectionData);
 		}
 
-		std::cout << "Read config of section count: " << config.size() << std::endl;
+		//std::cout << "Read config of section count: " << config.size() << std::endl;
 	}
 
 	return config;
@@ -130,6 +130,47 @@ bool ConfigManager::getBool(std::string section, std::string key, bool defaultVa
 		}
 
 		return value == "true";
+	}
+
+	return defaultValue;
+}
+
+sf::Vector2f ConfigManager::getVector2(std::string section, std::string key, sf::Vector2f defaultValue)
+{
+	if (isSectionAndKeyValid(section, key))
+	{
+		std::string value = m_config.at(section).at(key);
+		char delimiter = ' ';
+
+		// Split string into 2 components separated by delimiter
+		std::vector<std::string> vectorComponents;		
+		std::size_t foundDelimiter = value.find(delimiter);
+		if (foundDelimiter == std::string::npos)
+		{
+			std::cerr << "Invalid format for Vector2";
+			return defaultValue;
+		}
+		vectorComponents.push_back(value.substr(0, foundDelimiter));
+		value = value.substr(foundDelimiter + 1, value.length() - foundDelimiter);		
+		vectorComponents.push_back(value);
+
+		// Try to convert the components into a valid vector
+		sf::Vector2f result;
+		try
+		{
+			result.x = std::stof(vectorComponents[0]);
+			result.y = std::stof(vectorComponents[1]);
+
+			return result;
+		}
+		catch (std::invalid_argument e)
+		{
+			std::cerr << "[" << value << "] is not a valid float";
+		}
+		catch (std::out_of_range e)
+		{
+			std::cerr << "[" << value << "] is to large for float";
+		}
 	}
 
 	return defaultValue;

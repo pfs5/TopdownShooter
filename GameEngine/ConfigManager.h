@@ -38,6 +38,7 @@ public:
 	int getInt(std::string section, std::string key, int defaultValue = 0);
 	float getFloat(std::string section, std::string key, float defaultValue = 0.f);
 	bool getBool(std::string section, std::string key, bool defaultValue = false);
-	sf::Vector3f getVector3(std::string section, std::string key, sf::Vector3f defaultValue = sf::Vector3f(0.f,0.f,0.f));
+	sf::Vector2f getVector2(std::string section, std::string key, sf::Vector2f defaultValue = sf::Vector2f(0.f, 0.f));
+	sf::Vector3f getVector3(std::string section, std::string key, sf::Vector3f defaultValue = sf::Vector3f(0.f, 0.f, 0.f));
 };
 
