@@ -4,8 +4,8 @@
 class MainCharacter : public GameObject
 {
 #pragma region Parameters
-	const float MOVEMENT_SPEED = 10.f;
-	const float SHAPE_SIZE = 25.f;
+	const float MOVEMENT_SPEED = 250.f;
+	const float SHAPE_SIZE = 20.f;
 #pragma endregion
 
 	sf::CircleShape _debugShape;

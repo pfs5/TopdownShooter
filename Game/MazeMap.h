@@ -1,10 +1,11 @@
 #pragma once
-#include "GameObject.h"
+
 #include "Maze.h"
+#include "IMap.h"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-class Map : public GameObject
+class MazeMap : public IMap
 {
 #pragma region Parameters
 	const float DEBUG_BLOCK_SIZE = 600.f;
@@ -21,21 +22,18 @@ class Map : public GameObject
 	sf::RectangleShape _wallBottomShape;
 
 	std::vector<sf::RectangleShape*> _shapes;		// shape references array, for easier handling
-	#pragma endregion
+#pragma endregion
 
 	const Maze * _maze;
 	const sf::Vector2f *_playerPosition;
 
 	sf::Vector2u _currentCell;
 public:
-	Map(const Maze * maze, const sf::Vector2f * playerPosition );
-	~Map();
-	
+	MazeMap(const Maze * maze, const sf::Vector2f * playerPosition);
+	virtual ~MazeMap() override;
+
 	void update(float _dt) override;
 	void draw() override;
-	void onCollision(Collider* _this, Collider* _other) override;
-	GameObject* clone() override;
-	void setPosition(const sf::Vector2f &pos) override;
 
 private:
 	void initMap();

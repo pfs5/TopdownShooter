@@ -1,17 +1,17 @@
 #include "PlayState.h"
 #include "BoxCharacter.h"
 #include "GameStateManager.h"
-#include "Debug.h"
-#include "RandomMazeGenerator.h"
 #include "MazeVizualizer.h"
-#include "BacktrackerMazeGenerator.h"
 #include "MainCharacter.h"
 #include "Camera.h"
-#include "Map.h"
+
+#include "Debug.h"
+#include "PrototypeMap1.h"
 
 PlayState::PlayState() {
 	// ### Game objects setup ###
-	for (int i = 0; i < GameStateManager::objectLayers; ++i) {
+	for (int i = 0; i < GameStateManager::objectLayers; ++i) 
+	{
 		m_gameObjects.emplace_back(std::vector<GameObject*>());
 	}
 
@@ -21,17 +21,28 @@ PlayState::PlayState() {
 
 PlayState::~PlayState() {
 	// Destroy game objects
-	for (auto layer : m_gameObjects) {
-		for (GameObject * g : layer) {
+	for (auto layer : m_gameObjects) 
+	{
+		for (GameObject * g : layer) 
+		{
 			delete g;
 		}
 	}
 }
 
 void PlayState::update(float _dt) {
-	for (int i = m_gameObjects.size() - 1; i >= 0; --i) {
-		for (GameObject * g : m_gameObjects[i]) {
-			if (g->isActive()) {
+	// Map
+	if (m_map != nullptr)
+	{
+		m_map->update(_dt);
+	}
+
+	for (int i = m_gameObjects.size() - 1; i >= 0; --i) 
+	{
+		for (GameObject * g : m_gameObjects[i]) 
+		{
+			if (g->isActive()) 
+			{
 				g->update(_dt);
 			}
 		}
@@ -41,16 +52,20 @@ void PlayState::update(float _dt) {
 
 	// Add new objects
 	GameObject * newObj = nullptr;
-	for (int i = m_gameObjects.size() - 1; i >= 0; --i) {
-		while (newObj = GameStateManager::popNewGameObject(i)) {
+	for (int i = m_gameObjects.size() - 1; i >= 0; --i) 
+	{
+		while (newObj = GameStateManager::popNewGameObject(i))
+		{
 			m_gameObjects[i].push_back(newObj);
 		}
 	}
 
 	// Destroy objects
 	GameObject * destrObj = nullptr;
-	while (destrObj = GameStateManager::popDestroyedGameObject()) {
-		for (auto &layer : m_gameObjects) {
+	while (destrObj = GameStateManager::popDestroyedGameObject()) 
+	{
+		for (auto &layer : m_gameObjects) 
+		{
 			layer.erase(std::remove(layer.begin(), layer.end(), destrObj), layer.end());
 		}
 		delete destrObj;
@@ -58,9 +73,17 @@ void PlayState::update(float _dt) {
 }
 
 void PlayState::draw() {
+	// Map
+	if (m_map != nullptr)
+	{
+		m_map->draw();
+	}
+	
 	// Objects
-	for (int i = m_gameObjects.size() - 1; i > 0; --i) {
-		for (GameObject * g : m_gameObjects[i]) {
+	for (int i = m_gameObjects.size() - 1; i > 0; --i) 
+	{
+		for (GameObject * g : m_gameObjects[i]) 
+		{
 			if (g->isActive()) {
 				g->draw();
 			}
@@ -68,8 +91,10 @@ void PlayState::draw() {
 	}
 
 	// Draw foreground object layer
-	for (GameObject * g : m_gameObjects[0]) {
-		if (g->isActive()) {
+	for (GameObject * g : m_gameObjects[0]) 
+	{
+		if (g->isActive()) 
+		{
 			g->draw();
 		}
 	}
@@ -77,13 +102,15 @@ void PlayState::draw() {
 	PhysicsEngine::getInstance().draw();
 }
 
-GameObject * PlayState::instantiateObject(GameObject * _gameObject) {
+GameObject * PlayState::instantiateObject(GameObject * _gameObject) 
+{
 	GameObject * newInstance = _gameObject->clone();
 
 	return newInstance;
 }
 
-void PlayState::destroyObject(GameObject * _gameObject) {
+void PlayState::destroyObject(GameObject * _gameObject) 
+{
 	_gameObject->setActive(false);
 }
 
@@ -105,7 +132,8 @@ Maze * createMaze()
 	return m;
 }
 
-void PlayState::initState() {
+void PlayState::initState() 
+{
 	// INITIALIZE STATE
 
 	// Player one
@@ -113,13 +141,10 @@ void PlayState::initState() {
 	mainChar->setPosition(sf::Vector2f{ 400.f, 500.f });
 	m_gameObjects[1].push_back(mainChar);
 
-	// Map
-	BacktrackerMazeGenerator mazeGenerator{ 3, 3 };
-	
-	auto map = new Map(createMaze() , &mainChar->getPosition());
-	m_gameObjects[2].push_back(map);
-
 	// Camera
 	auto camera = new Camera(mainChar);
 	m_gameObjects[1].push_back(camera);
+
+	// Map
+	m_map = std::make_unique<PrototypeMap1>(4);
 }

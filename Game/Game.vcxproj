@@ -157,10 +157,11 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Maze.cpp" />
+    <ClCompile Include="MazeMap.cpp" />
     <ClCompile Include="MazeVizualizer.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="PrototypeMap1.cpp" />
     <ClCompile Include="RandomMazeGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,12 +169,14 @@
     <ClInclude Include="BasicShot.h" />
     <ClInclude Include="BoxCharacter.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="IMap.h" />
     <ClInclude Include="IMazeGenerator.h" />
     <ClInclude Include="MainCharacter.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="Maze.h" />
+    <ClInclude Include="MazeMap.h" />
     <ClInclude Include="MazeVizualizer.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="PrototypeMap1.h" />
     <ClInclude Include="RandomMazeGenerator.h" />
   </ItemGroup>
   <ItemGroup>

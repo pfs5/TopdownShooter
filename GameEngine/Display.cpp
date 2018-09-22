@@ -8,7 +8,7 @@ namespace Display {
 
 	void init() {
 		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT), TITLE);
-		//window.get()->setFramerateLimit(60);
+		window.get()->setFramerateLimit(250);
 	}
 
 	void clear(const sf::Color& _color) {

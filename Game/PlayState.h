@@ -1,10 +1,12 @@
 #pragma once
 #include "GameState.h"
 #include "PhysicsEngine.h"
+#include "IMap.h"
 
 class PlayState : public GameState {
 	std::vector<std::vector<GameObject*>> m_gameObjects;
 
+	std::shared_ptr<IMap> m_map;
 public:
 	PlayState();
 	~PlayState();

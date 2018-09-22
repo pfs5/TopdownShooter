@@ -23,7 +23,22 @@
 	],
 
 	"textures" : [
-		
+		{
+			"name": "prototype-1-map-1-background",
+			"path": "prototype-1-map-1-background.png"
+		},
+		{
+			"name": "prototype-1-map-1-clouds-back",
+			"path": "prototype-1-map-1-clouds-back.png"
+		},
+		{
+			"name": "prototype-1-map-1-clouds-front",
+			"path": "prototype-1-map-1-clouds-front.png"
+		},
+		{
+			"name": "prototype-1-map-1-platforms",
+			"path": "prototype-1-map-1-platforms.png"
+		}
 	],
 
 	"sounds" : [

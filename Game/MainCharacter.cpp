@@ -4,8 +4,10 @@
 
 MainCharacter::MainCharacter()
 {
-	_debugShape.setFillColor(sf::Color{ 150, 150, 150 });
+	_debugShape.setFillColor(sf::Color{ 244, 179, 66 });
 	_debugShape.setOutlineColor(sf::Color{ 100, 100, 100 });
+	_debugShape.setOutlineThickness(5.f);
+
 	_debugShape.setRadius(SHAPE_SIZE);
 	_debugShape.setOrigin(_debugShape.getRadius() / 2.f, _debugShape.getRadius() / 2.f);
 }
@@ -51,5 +53,5 @@ void MainCharacter::movement(float dt)
 	if (Input::getKey(Input::S)) { dy += MOVEMENT_SPEED; }
 	if (Input::getKey(Input::D)) { dx += MOVEMENT_SPEED; }
 
-	move(sf::Vector2f{ dx, dy });
+	move(sf::Vector2f{ dx, dy } * dt);
 }

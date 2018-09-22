@@ -66,7 +66,10 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="MazeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PrototypeMap1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +95,6 @@
     <ClInclude Include="RandomMazeGenerator.h">
       <Filter>Header Files\maze-generation</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files\maps</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\camera</Filter>
     </ClInclude>
@@ -102,7 +102,16 @@
       <Filter>Header Files\maze-generation</Filter>
     </ClInclude>
     <ClInclude Include="MainCharacter.h">
-      <Filter>Header Files\game-objects</Filter>
+      <Filter>Header Files\game-objects\main-character</Filter>
+    </ClInclude>
+    <ClInclude Include="IMap.h">
+      <Filter>Header Files\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MazeMap.h">
+      <Filter>Header Files\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="PrototypeMap1.h">
+      <Filter>Header Files\maps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
