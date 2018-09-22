@@ -31,6 +31,9 @@ void GameObject::move(sf::Vector2f _delta) {
 	setPosition(getPosition() + _delta);
 }
 
+/**
+ * Creates a new rigid body, registers it with the physics engine and attaches to all existing colliders.
+ */
 RigidBody * GameObject::createRigidBody() {
 	_rigidBody = PhysicsEngine::getInstance().createRigidBody(this);
 	for (const auto &col : _colliders) { col->setRigidBody(_rigidBody); }
@@ -40,7 +43,7 @@ RigidBody * GameObject::createRigidBody() {
 
 Collider * GameObject::createCollider(const sf::Vector2f &position, const sf::Vector2f &size) {
 	Collider * col = PhysicsEngine::getInstance().createCollider(this);
-	col->setPosition(position);
+	col->setOffset(position);
 	col->setSize(size);
 	_colliders.push_back(col);
 	if (_rigidBody != nullptr) { col->setRigidBody(_rigidBody); }
