@@ -50,7 +50,7 @@ public:
 
 protected:
 	RigidBody *createRigidBody();
-	Collider * createCollider();
+	Collider * createCollider(const sf::Vector2f &position = sf::Vector2f{}, const sf::Vector2f &size = sf::Vector2f{});
 
 	#pragma region Getters and setters
 public:

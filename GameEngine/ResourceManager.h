@@ -15,6 +15,7 @@ class ResourceManager {
 	const std::string FONT_FOLDER = "../resources/fonts/";
 	const std::string TEXTURE_FOLDER = "../resources/textures/";
 	const std::string AUDIO_FOLDER = "../resources/audio/";
+	const std::string RAW_DATA_FOLDER = "../resources/raw_data/";
 
 	const std::map<std::string, sf::Font*> m_fonts = loadFonts();
 	const std::map<std::string, sf::Texture*> m_textures = loadTextures();
@@ -30,10 +31,18 @@ public:
 	}
 	#pragma endregion
 
-	sf::Font * getFont(std::string _fontName);
-	sf::Texture * getTexture(std::string _textureName);
-	sf::SoundBuffer * getSound(std::string _soundName);
-	sf::Music * getMusic(std::string _musicName);
+
+	static sf::Font * getFontStatic(const std::string &_fontName) { return getInstance().getFont(_fontName); }
+	static sf::Texture * getTextureStatic(const std::string &_textureName) { return getInstance().getTexture(_textureName); }
+	static sf::SoundBuffer * getSoundStatic(const std::string &_soundName) { return getInstance().getSound(_soundName); }
+	static sf::Music * getMusicStatic(const std::string &_musicName) { return getInstance().getMusic(_musicName); }
+	
+	static std::string getRawDataPath(const std::string &_dataName) { return ResourceManager::getInstance().RAW_DATA_FOLDER + _dataName; }
+
+	sf::Font * getFont(const std::string &_fontName) const;
+	sf::Texture * getTexture(const std::string &_textureName) const;
+	sf::SoundBuffer * getSound(const std::string &_soundName) const;
+	sf::Music * getMusic(const std::string &_musicName) const;
 private:
 	std::map<std::string, sf::Font*> loadFonts();
 	sf::Font * loadFont(const std::string & _fileName);

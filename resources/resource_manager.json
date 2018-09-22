@@ -38,6 +38,11 @@
 		{
 			"name": "prototype-1-map-1-platforms",
 			"path": "prototype-1-map-1-platforms.png"
+		},
+
+		{
+			"name": "prototype-1-map-2-background",
+			"path": "prototype-1-map-2-background.png"
 		}
 	],
 

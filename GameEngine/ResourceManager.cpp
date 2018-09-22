@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-sf::Font * ResourceManager::getFont(std::string _fontName) {
+sf::Font * ResourceManager::getFont(const std::string &_fontName) const {
 	try {
 		return m_fonts.at(_fontName);
 	} catch (std::out_of_range e) {
@@ -12,7 +12,7 @@ sf::Font * ResourceManager::getFont(std::string _fontName) {
 	}
 }
 
-sf::Texture * ResourceManager::getTexture(std::string _textureName) {
+sf::Texture * ResourceManager::getTexture(const std::string &_textureName) const {
 	try {
 		return m_textures.at(_textureName);
 	} catch (std::out_of_range e) {
@@ -20,7 +20,7 @@ sf::Texture * ResourceManager::getTexture(std::string _textureName) {
 	}
 }
 
-sf::SoundBuffer * ResourceManager::getSound(std::string _soundName) {
+sf::SoundBuffer * ResourceManager::getSound(const std::string &_soundName) const {
 	try {
 		return m_sounds.at(_soundName);
 	}
@@ -29,7 +29,7 @@ sf::SoundBuffer * ResourceManager::getSound(std::string _soundName) {
 	}
 }
 
-sf::Music * ResourceManager::getMusic(std::string _musicName) {
+sf::Music * ResourceManager::getMusic(const std::string &_musicName) const {
 	try {
 		return m_music.at(_musicName);
 	}

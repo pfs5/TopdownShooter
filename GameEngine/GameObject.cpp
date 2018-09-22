@@ -38,8 +38,10 @@ RigidBody * GameObject::createRigidBody() {
 	return _rigidBody;
 }
 
-Collider * GameObject::createCollider() {
+Collider * GameObject::createCollider(const sf::Vector2f &position, const sf::Vector2f &size) {
 	Collider * col = PhysicsEngine::getInstance().createCollider(this);
+	col->setPosition(position);
+	col->setSize(size);
 	_colliders.push_back(col);
 	if (_rigidBody != nullptr) { col->setRigidBody(_rigidBody); }
 	return col;
