@@ -134,3 +134,49 @@ bool ConfigManager::getBool(std::string section, std::string key, bool defaultVa
 
 	return defaultValue;
 }
+
+sf::Vector3f ConfigManager::getVector3(std::string section, std::string key, sf::Vector3f defaultValue)
+{
+	if (isSectionAndKeyValid(section, key))
+	{
+		std::string value = m_config.at(section).at(key);
+		char delimiter = ' ';
+
+		// Split string into 3 components separated by delimiter
+		std::vector<std::string> vectorComponents;
+		for (int i = 0; i < 2; ++i)
+		{
+			std::size_t foundDelimiter = value.find(delimiter);
+			if (foundDelimiter == std::string::npos)
+			{
+				std::cerr << "Invalid format for Vector3";
+				return defaultValue;
+			}
+
+			vectorComponents.push_back(value.substr(0, foundDelimiter));
+			value = value.substr(foundDelimiter+1, value.length() - foundDelimiter);
+		}
+		vectorComponents.push_back(value);
+	
+		// Try to convert the components into a valid vector
+		sf::Vector3f result;
+		try
+		{
+			result.x = std::stof(vectorComponents[0]);
+			result.y = std::stof(vectorComponents[1]);
+			result.z = std::stof(vectorComponents[2]);
+
+			return result;
+		}
+		catch (std::invalid_argument e)
+		{
+			std::cerr << "[" << value << "] is not a valid float";
+		}
+		catch (std::out_of_range e)
+		{
+			std::cerr << "[" << value << "] is to large for float";
+		}
+	}
+
+	return defaultValue;
+}

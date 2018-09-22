@@ -13,7 +13,7 @@
 Application::Application() :
 	m_fpsText{"fps: ", *ResourceManager::getInstance().getFont("couriernew1"), 15} {
 	Display::init();
-
+ 
 	// Debug text init
 	m_fpsText.setFillColor(sf::Color::Black);
 }

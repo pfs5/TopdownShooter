@@ -11,7 +11,7 @@
 		int		- tries to parse the string to int, NOTICE: will parse floats as int
 		float	- tries to parse the string to float
 		bool	- tries to parse the string to bool, 'True','true' will return true, everything else will return false
-		Vector3 - TODO
+		Vector3 - tries to parse the string to Vector3f, x, y and z components must be separated by space e.g. "1.2 -1.3 1.4"
 
 	Usage: ConfigManager::getInstance().getInt("game", "key2")
 */
@@ -38,5 +38,6 @@ public:
 	int getInt(std::string section, std::string key, int defaultValue = 0);
 	float getFloat(std::string section, std::string key, float defaultValue = 0.f);
 	bool getBool(std::string section, std::string key, bool defaultValue = false);
+	sf::Vector3f getVector3(std::string section, std::string key, sf::Vector3f defaultValue = sf::Vector3f(0.f,0.f,0.f));
 };
 
