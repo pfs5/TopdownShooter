@@ -1,9 +1,11 @@
 #pragma once
 #include <functional>
+#include <vector>
 
 #include "RigidBody.h"
 #include "Collider.h"
 #include "PhysicsLayers.h"
+#include "ITransformable.h"
 
 class Collider;
 
@@ -11,14 +13,11 @@ class Collider;
 	Generic game object for the engine. All objects in the game inherit the class
 	in order to work with the engine and game.
 **/
-class GameObject {
+class GameObject : public ITransformable{
 protected:
 	std::string _objectTag = "";
 	std::size_t _objectTagHash;
 	int _physicsLayer = 0;
-
-	// Transform
-	sf::Vector2f _position;
 
 	// State
 	bool _isActive = true;
@@ -26,6 +25,9 @@ protected:
 	// Physics
 	RigidBody * _rigidBody;
 	std::vector<Collider*> _colliders;
+
+	// Transform
+	std::vector<ITransformable*> _children;
 
 public:
 	GameObject();
@@ -51,6 +53,8 @@ public:
 protected:
 	RigidBody *createRigidBody();
 	Collider * createCollider(const sf::Vector2f &position = sf::Vector2f{}, const sf::Vector2f &size = sf::Vector2f{});
+	inline void attachChild(ITransformable * child) { _children.push_back(child); }
+	inline void dettachChild(ITransformable * child) { _children.erase(std::remove(_children.begin(), _children.end(), child), _children.end()); }
 
 	#pragma region Getters and setters
 public:
@@ -64,8 +68,7 @@ public:
 
 	int getLayerNumber();
 
-	virtual void setPosition(const sf::Vector2f &_pos) = 0;
-	inline const sf::Vector2f &getPosition() const{ return _position; };
+	virtual void setPosition(const sf::Vector2f &_pos) override;
 
 	inline virtual void setActive(bool _a) { _isActive = _a; };
 	inline bool isActive() { return _isActive; };

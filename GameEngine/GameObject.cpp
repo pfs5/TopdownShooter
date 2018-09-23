@@ -62,3 +62,13 @@ std::string GameObject::getObjectLayer() {
 int GameObject::getLayerNumber() {
 	return _physicsLayer;
 }
+
+inline void GameObject::setPosition(const sf::Vector2f & _pos)
+{
+	ITransformable::setPosition(_pos);
+
+	for (auto &child : _children)
+	{
+		child->setPosition(_pos);
+	}
+}
