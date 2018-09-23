@@ -65,7 +65,7 @@ void MazeVizualizer::draw()
 		for (int x = 0; x < _maze.getCols(); ++x)
 		{
 			const sf::Vector2f nodePos{ x * (_cellSize + 0.f), y * (_cellSize + 0.f)};	// TODO remove spacing
-			for (const auto &shape : _shapes) { shape->setPosition(nodePos + _position); }
+			for (const auto &shape : _shapes) { shape->setPosition(nodePos + getLocalPosition()); }
 			
 			const auto &node = nodes[y][x];
 			
@@ -88,7 +88,7 @@ GameObject* MazeVizualizer::clone()
 	return nullptr;
 }
 
-void MazeVizualizer::setPosition(const sf::Vector2f &_pos)
+void MazeVizualizer::setLocalPosition(const sf::Vector2f &_pos)
 {
-	_position = _pos;
+	GameObject::setLocalPosition(_pos);
 }

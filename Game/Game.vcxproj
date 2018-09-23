@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="BacktrackerMazeGenerator.cpp" />
     <ClCompile Include="BasicShot.cpp" />
+    <ClCompile Include="BasicWeapon.cpp" />
     <ClCompile Include="BoxCharacter.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -169,10 +170,13 @@
   <ItemGroup>
     <ClInclude Include="BacktrackerMazeGenerator.h" />
     <ClInclude Include="BasicShot.h" />
+    <ClInclude Include="BasicWeapon.h" />
     <ClInclude Include="BoxCharacter.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="IMap.h" />
     <ClInclude Include="IMazeGenerator.h" />
+    <ClInclude Include="IPlayerWeapon.h" />
+    <ClInclude Include="IWeaponReactor.h" />
     <ClInclude Include="MainCharacter.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeMap.h" />

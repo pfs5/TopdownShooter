@@ -26,9 +26,6 @@ protected:
 	RigidBody * _rigidBody;
 	std::vector<Collider*> _colliders;
 
-	// Transform
-	std::vector<ITransformable*> _children;
-
 public:
 	GameObject();
 	virtual ~GameObject();
@@ -53,8 +50,6 @@ public:
 protected:
 	RigidBody *createRigidBody();
 	Collider * createCollider(const sf::Vector2f &position = sf::Vector2f{}, const sf::Vector2f &size = sf::Vector2f{});
-	inline void attachChild(ITransformable * child) { _children.push_back(child); }
-	inline void dettachChild(ITransformable * child) { _children.erase(std::remove(_children.begin(), _children.end(), child), _children.end()); }
 
 	#pragma region Getters and setters
 public:
@@ -68,7 +63,7 @@ public:
 
 	int getLayerNumber();
 
-	virtual void setPosition(const sf::Vector2f &_pos) override;
+	virtual void setLocalPosition(const sf::Vector2f &_pos) override;
 
 	inline virtual void setActive(bool _a) { _isActive = _a; };
 	inline bool isActive() { return _isActive; };

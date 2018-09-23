@@ -41,9 +41,10 @@ GameObject* PrototypeMap2::clone()
 	return new PrototypeMap2(_scale);
 }
 
-void PrototypeMap2::setPosition(const sf::Vector2f& _pos)
+void PrototypeMap2::setLocalPosition(const sf::Vector2f& _pos)
 {
-	_position = _pos;
+	GameObject::setLocalPosition(_pos);
+
 	_mapSprite.setPosition(_pos);
 
 	for (auto &col : _colliders)

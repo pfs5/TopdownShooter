@@ -1,13 +1,28 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include <vector>
 
 class ITransformable
 {
 public:
-	inline virtual void setPosition(const sf::Vector2f &_pos) { _position = _pos; }
-	inline const sf::Vector2f &getPosition() const { return _position; }
+	ITransformable() : _parent {nullptr} {}
+	virtual ~ITransformable() = default;
 
-	protected:
-	sf::Vector2f _position;
+	virtual void setLocalPosition(const sf::Vector2f &_pos);
+	inline const sf::Vector2f &getLocalPosition() const { return _localPosition; }
+	inline const sf::Vector2f &getGlobalPosition() const { return _globalPosition; }
 
+	void attachChild(ITransformable * child);
+	void clearParent();
+
+protected:
+	sf::Vector2f _localPosition;						
+	sf::Vector2f _globalPosition;						
+	sf::Vector2f _parentGlobalPosition;
+
+	ITransformable * _parent;
+	std::vector<ITransformable *> _children;
+
+private:
+	void setParentGlobalPosition(sf::Vector2f pos);
 };

@@ -1,8 +1,10 @@
 #pragma once
 #include "GameObject.h"
 #include "Input.h"
+#include "IPlayerWeapon.h"
+#include "IWeaponReactor.h"
 
-class MainCharacter : public GameObject
+class MainCharacter : public GameObject, public IWeaponReactor
 {
 public:
 	MainCharacter();
@@ -12,9 +14,11 @@ public:
 	void draw() override;
 	void onCollision(Collider* _this, Collider* _other) override;
 	GameObject* clone() override;
-	void setPosition(const sf::Vector2f &_pos) override;
+	void setLocalPosition(const sf::Vector2f &_pos) override;
 
-
+	// IWeaponReactor
+	void onShoot() override;
+	void applyKnockback(sf::Vector2f velocity) override;
 private:
 
 	/* ------------------------- Members ------------------------------------------------- */
@@ -37,6 +41,10 @@ private:
 
 	sf::Vector2f _movementVelocity;
 	sf::Vector2f _aimDirection;
+
+	// Weapons
+	std::vector<std::unique_ptr<IPlayerWeapon>> _weapons;
+	int _currentWeapon;
 
 private:
 	/* ------------------------- Functions ------------------------------------------------ */

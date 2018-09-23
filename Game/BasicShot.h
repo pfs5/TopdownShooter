@@ -26,5 +26,5 @@ public:
 	virtual void draw() override;
 	virtual void onCollision(Collider * _this, Collider * _other) override;
 	virtual GameObject * clone() override;
-	virtual void setPosition(const sf::Vector2f &_pos) override;
+	virtual void setLocalPosition(const sf::Vector2f &_pos) override;
 };

@@ -69,8 +69,10 @@ GameObject * BoxCharacter::clone() {
 	return new BoxCharacter(m_playerNo);
 }
 
-void BoxCharacter::setPosition(const sf::Vector2f &_pos) {
-	_position = _pos;
+void BoxCharacter::setLocalPosition(const sf::Vector2f &_pos) {
+	GameObject::setLocalPosition(_pos);
+	
+	_localPosition = _pos;
 	for (const auto &col : _colliders) { col->setPosition(_pos); }
 
 	m_shape.setPosition(_pos);
@@ -93,7 +95,7 @@ void BoxCharacter::movement() {
 
 void BoxCharacter::aim() {
 	auto mousePos = static_cast<sf::Vector2f>(Input::getMousePosition());
-	m_aimDirection = mousePos - getPosition();
+	m_aimDirection = mousePos - getLocalPosition();
 	m_aimDirection /= VectorOperations::norm(m_aimDirection);
 }
 
@@ -101,8 +103,8 @@ void BoxCharacter::shoot() {
 	if (Input::getKeyDown(Input::SPACE)) {
 		auto newShot = dynamic_cast<BasicShot*>(GameStateManager::instantiate(&BasicShot{}));
 		if (newShot) {
-			auto pos = getPosition();
-			newShot->setPosition(getPosition());
+			auto pos = getLocalPosition();
+			newShot->setLocalPosition(getLocalPosition());
 			newShot->setObjectLayer("Bullet1");
 			newShot->shoot(m_aimDirection * 500.f);
 		}

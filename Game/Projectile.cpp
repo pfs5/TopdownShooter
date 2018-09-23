@@ -39,9 +39,9 @@ GameObject* Projectile::clone()
 	return new Projectile();
 }
 
-void Projectile::setPosition(const sf::Vector2f& _pos)
+void Projectile::setLocalPosition(const sf::Vector2f& _pos)
 {
-	_position = _pos;
+	GameObject::setLocalPosition(_pos);
 
 	_mainSprite.setPosition(_pos);
 }

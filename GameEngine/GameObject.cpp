@@ -28,7 +28,7 @@ void GameObject::addCollider(Collider * _c) {
 }
 
 void GameObject::move(sf::Vector2f _delta) {
-	setPosition(getPosition() + _delta);
+	setLocalPosition(getLocalPosition() + _delta);
 }
 
 /**
@@ -63,12 +63,7 @@ int GameObject::getLayerNumber() {
 	return _physicsLayer;
 }
 
-inline void GameObject::setPosition(const sf::Vector2f & _pos)
+inline void GameObject::setLocalPosition(const sf::Vector2f & _pos)
 {
-	ITransformable::setPosition(_pos);
-
-	for (auto &child : _children)
-	{
-		child->setPosition(_pos);
-	}
+	ITransformable::setLocalPosition(_pos);
 }

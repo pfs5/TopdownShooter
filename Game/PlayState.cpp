@@ -139,7 +139,7 @@ void PlayState::initState()
 
 	// Player one
 	auto mainChar = new MainCharacter();
-	mainChar->setPosition(sf::Vector2f{ 2000.f, 1000.f });
+	mainChar->setLocalPosition(sf::Vector2f{ 2000.f, 1000.f });
 	m_gameObjects[1].push_back(mainChar);
 
 	// Camera

@@ -17,6 +17,6 @@ public:
 	void draw() override;
 	void onCollision(Collider* _this, Collider* _other) override;
 	GameObject* clone() override;
-	void setPosition(const sf::Vector2f &_pos) override;
+	void setLocalPosition(const sf::Vector2f &_pos) override;
 };
 

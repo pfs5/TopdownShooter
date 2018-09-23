@@ -34,6 +34,12 @@
     <Filter Include="Header Files\game-objects\main-character">
       <UniqueIdentifier>{777e4796-c1d5-49f0-9597-5a6c8332a440}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game-objects\weapons">
+      <UniqueIdentifier>{a43ead76-c0d9-47ce-8ed7-52a06d924deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game-objects\weapons\concrete-weapons">
+      <UniqueIdentifier>{de86b8bb-2d30-483e-a7ae-dd8219fd5cb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -76,6 +82,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicWeapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -124,6 +133,15 @@
     </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Header Files\game-objects\main-character</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerWeapon.h">
+      <Filter>Header Files\game-objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="IWeaponReactor.h">
+      <Filter>Header Files\game-objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicWeapon.h">
+      <Filter>Header Files\game-objects\weapons\concrete-weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
