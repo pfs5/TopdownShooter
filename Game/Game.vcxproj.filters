@@ -40,6 +40,9 @@
     <Filter Include="Header Files\game-objects\weapons\concrete-weapons">
       <UniqueIdentifier>{de86b8bb-2d30-483e-a7ae-dd8219fd5cb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game-objects\debug">
+      <UniqueIdentifier>{298549d3-a819-4a6a-b04f-06d81d29d765}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -87,6 +90,9 @@
     <ClCompile Include="BasicWeapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoxShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -131,9 +137,6 @@
     <ClInclude Include="PrototypeMap2.h">
       <Filter>Header Files\maps</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Header Files\game-objects\main-character</Filter>
-    </ClInclude>
     <ClInclude Include="IPlayerWeapon.h">
       <Filter>Header Files\game-objects\weapons</Filter>
     </ClInclude>
@@ -142,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="BasicWeapon.h">
       <Filter>Header Files\game-objects\weapons\concrete-weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxShape.h">
+      <Filter>Header Files\game-objects\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files\game-objects\weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

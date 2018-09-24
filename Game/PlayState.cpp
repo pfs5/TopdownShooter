@@ -8,6 +8,7 @@
 #include "Debug.h"
 #include "PrototypeMap1.h"
 #include "PrototypeMap2.h"
+#include "BoxShape.h"
 
 PlayState::PlayState() {
 	// ### Game objects setup ###

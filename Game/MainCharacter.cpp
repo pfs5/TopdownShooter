@@ -37,6 +37,11 @@ MainCharacter::MainCharacter() :
 
 	// Init weapons
 	_weapons.push_back(std::make_unique<BasicWeapon>(this));
+
+	for (const auto &wep : _weapons)
+	{
+		attachChild(wep.get());
+	}
 }
 
 
@@ -70,13 +75,13 @@ void MainCharacter::setLocalPosition(const sf::Vector2f & _pos)
 {
 	GameObject::setLocalPosition(_pos);
 
-	_sprite.setPosition(_pos);
-	_crosshairSprite.setPosition(_pos + _aimDirection * CROSSHAIR_DISTANCE);
+	_sprite.setPosition(_globalPosition);
+	_crosshairSprite.setPosition(_globalPosition + _aimDirection * CROSSHAIR_DISTANCE);
 
 
 	for(const auto &col : _colliders)
 	{
-		col->setPosition(_pos);
+		col->setPosition(_globalPosition);
 	}
 }
 
@@ -117,6 +122,7 @@ void MainCharacter::shootAction()
 {
 	if (Input::getKeyDown(CONTROL_SHOOT))
 	{
+		_weapons[_currentWeapon]->setDirection(_aimDirection);
 		_weapons[_currentWeapon]->shootWeapon();
 	}
 }

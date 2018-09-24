@@ -155,6 +155,7 @@
     <ClCompile Include="BasicShot.cpp" />
     <ClCompile Include="BasicWeapon.cpp" />
     <ClCompile Include="BoxCharacter.cpp" />
+    <ClCompile Include="BoxShape.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="BasicShot.h" />
     <ClInclude Include="BasicWeapon.h" />
     <ClInclude Include="BoxCharacter.h" />
+    <ClInclude Include="BoxShape.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="IMap.h" />
     <ClInclude Include="IMazeGenerator.h" />
