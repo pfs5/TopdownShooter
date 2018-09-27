@@ -18,10 +18,12 @@ namespace VectorOperations {
 		return sf::Vector2f{ static_cast<float>(_v.x), static_cast<float>(_v.y) };
 	}
 
+	// TODO Change to magnitude?
 	inline float norm(const sf::Vector2f &_v) {
 		return sqrt(powf(_v.x, 2) + powf(_v.y, 2));
 	}
 
+	// TODO Change to magnitude?
 	inline float squaredNorm(const sf::Vector2f &_v) {
 		return powf(_v.x, 2) + powf(_v.y, 2);
 	}
@@ -37,5 +39,19 @@ namespace VectorOperations {
 		// doesn't check zero vectors
 
 		return acosf(dotProduct(_v1, _v2) / norm_1 / norm_2);
+	}
+
+	inline sf::Vector2f normalize(const sf::Vector2f &_v)
+	{
+		sf::Vector2f result;
+		float magnitude = norm(_v);
+
+		if (magnitude > 0)
+		{
+			result.x = _v.x / magnitude;
+			result.y = _v.y / magnitude;
+		}
+
+		return result;
 	}
 }
