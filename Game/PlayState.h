@@ -4,9 +4,10 @@
 #include "IMap.h"
 
 class PlayState : public GameState {
-	std::vector<std::vector<GameObject*>> m_gameObjects;
+	// Scenes
+	friend class SceneJosipTest;
+	friend class ScenePatrikTest;
 
-	std::shared_ptr<IMap> m_map;
 public:
 	PlayState();
 	~PlayState();
@@ -19,4 +20,8 @@ public:
 
 private:
 	void initState();
+
+private:
+	std::vector<std::vector<GameObject*>> m_gameObjects;
+	std::shared_ptr<IMap> m_map;
 };

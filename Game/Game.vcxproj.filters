@@ -43,6 +43,9 @@
     <Filter Include="Header Files\game-objects\debug">
       <UniqueIdentifier>{298549d3-a819-4a6a-b04f-06d81d29d765}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game-states\scenes">
+      <UniqueIdentifier>{51756d33-7dab-429c-adc4-9c35f301ae59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -94,6 +97,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneJosipTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePatrikTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -157,6 +166,15 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Header Files\game-states</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneJosipTest.h">
+      <Filter>Header Files\game-states\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePatrikTest.h">
+      <Filter>Header Files\game-states\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,8 +10,10 @@
 #include "PrototypeMap1.h"
 #include "PrototypeMap2.h"
 #include "BoxShape.h"
+#include "SceneJosipTest.h"
 
-PlayState::PlayState() {
+PlayState::PlayState() 
+{
 	// ### Game objects setup ###
 	for (int i = 0; i < GameStateManager::objectLayers; ++i) 
 	{
@@ -22,7 +24,8 @@ PlayState::PlayState() {
 }
 
 
-PlayState::~PlayState() {
+PlayState::~PlayState() 
+{
 	// Destroy game objects
 	for (auto layer : m_gameObjects) 
 	{
@@ -33,7 +36,8 @@ PlayState::~PlayState() {
 	}
 }
 
-void PlayState::update(float _dt) {
+void PlayState::update(float _dt) 
+{
 	// Map
 	if (m_map != nullptr)
 	{
@@ -75,7 +79,8 @@ void PlayState::update(float _dt) {
 	}
 }
 
-void PlayState::draw() {
+void PlayState::draw() 
+{
 	// Map
 	if (m_map != nullptr)
 	{
@@ -138,21 +143,6 @@ Maze * createMaze()
 void PlayState::initState() 
 {
 	// INITIALIZE STATE
-
-	// Player one
-	auto mainChar = new MainCharacter();
-	mainChar->setLocalPosition(sf::Vector2f{ 2000.f, 1000.f });
-	m_gameObjects[1].push_back(mainChar);
-
-	// Player one
-	auto enemy = new Enemy(mainChar);
-	enemy->setLocalPosition(sf::Vector2f{ 2300.f, 1000.f });
-	m_gameObjects[1].push_back(enemy);
-
-	// Camera
-	auto camera = new Camera(mainChar);
-	m_gameObjects[1].push_back(camera);
-
-	// Map
-	m_map = std::make_unique<PrototypeMap2>(1);
+	SceneJosipTest scene;
+	scene.InitState(*this);
 }
