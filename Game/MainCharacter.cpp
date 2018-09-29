@@ -8,11 +8,16 @@
 #include "GameStateManager.h"
 #include "Projectile.h"
 #include "BasicWeapon.h"
+#include "Util.h"
 
 #include <memory>
+#include <math.h>
 
 MainCharacter::MainCharacter() :
-	_currentWeapon{0}
+	_currentWeapon{0},
+	_externalVelocity{sf::Vector2f{0.f, 0.f}},
+	_initialRecoilVelocity{sf::Vector2f{0.f, 0.f}},
+	_recoilTimer{0.f}
 {
 	setObjectLayer("Player");
 
@@ -54,6 +59,8 @@ void MainCharacter::update(float _dt)
 	moveAction(_dt);
 	aimAction();
 	shootAction();
+
+	applyDrag(_dt);
 }
 
 void MainCharacter::draw()
@@ -91,6 +98,8 @@ void MainCharacter::onShoot()
 
 void MainCharacter::applyKnockback(sf::Vector2f velocity)
 {
+	_initialRecoilVelocity = velocity;
+	_recoilTimer = 0.f;
 }
 
 void MainCharacter::moveAction(float dt)
@@ -103,10 +112,35 @@ void MainCharacter::moveAction(float dt)
 	if (Input::getKey(Input::S)) { dy += MOVEMENT_SPEED; }
 	if (Input::getKey(Input::D)) { dx += MOVEMENT_SPEED; }
 
-	_movementVelocity.x = dx;
-	_movementVelocity.y = dy;
+	// Update velocity
+	_movementVelocity.x = dx + _externalVelocity.x;
+	_movementVelocity.y = dy + _externalVelocity.y;
 
-	move(sf::Vector2f{ dx, dy } * dt);
+	// Update external velocity
+	/*if (_movementVelocity.x * _externalVelocity.x < 0.f)
+	{
+		if (_externalVelocity.x < 0.f)
+		{
+			_externalVelocity.x = std::min(0.f, _externalVelocity.x + _movementVelocity.x * dt);
+		} else
+		{
+			_externalVelocity.x = std::max(0.f, _externalVelocity.x + _movementVelocity.x * dt);
+		}
+	}
+
+	if (_movementVelocity.y * _externalVelocity.y < 0.f)
+	{
+		if (_externalVelocity.y < 0.f)
+		{
+			_externalVelocity.y = std::min(0.f, _externalVelocity.y + _movementVelocity.y * dt);
+		}
+		else
+		{
+			_externalVelocity.y = std::max(0.f, _externalVelocity.y + _movementVelocity.y * dt);
+		}
+	}*/
+
+	move(_movementVelocity * dt);
 }
 
 void MainCharacter::aimAction()
@@ -125,4 +159,12 @@ void MainCharacter::shootAction()
 		_weapons[_currentWeapon]->setDirection(_aimDirection);
 		_weapons[_currentWeapon]->shootWeapon();
 	}
+}
+
+void MainCharacter::applyDrag(float dt)
+{
+	// Linear damping
+	_externalVelocity = (-_initialRecoilVelocity / RECOIL_DAMP_TIME) * _recoilTimer + _initialRecoilVelocity;
+
+	_recoilTimer = std::min(RECOIL_DAMP_TIME, _recoilTimer + dt);
 }

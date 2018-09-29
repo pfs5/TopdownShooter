@@ -27,8 +27,9 @@ private:
 	const std::string TEX_NAME_CROSSHAIR = "prototype-1-player-crosshair";
 
 	const float SHOOT_SPEED = 500.f;
+	const float RECOIL_DAMP_TIME = .5f;
 
-	// Controlls
+	// Controls
 	const Input::KeyCode CONTROL_SHOOT = Input::SPACE;
 
 	const float MOVEMENT_SPEED = 500.f;
@@ -40,7 +41,11 @@ private:
 	sf::Sprite _crosshairSprite;
 
 	sf::Vector2f _movementVelocity;
+	sf::Vector2f _externalVelocity;
 	sf::Vector2f _aimDirection;
+
+	sf::Vector2f _initialRecoilVelocity;
+	float _recoilTimer;
 
 	// Weapons
 	std::vector<std::unique_ptr<IPlayerWeapon>> _weapons;
@@ -51,5 +56,7 @@ private:
 	void moveAction(float dt);
 	void aimAction();
 	void shootAction();
+
+	void applyDrag(float dt);
 };
 

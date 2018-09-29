@@ -17,6 +17,9 @@ void BasicWeapon::shootWeapon()
 	auto projectile = dynamic_cast<Projectile*>(GameStateManager::instantiate(&Projectile{}));
 	projectile->setLocalPosition(_globalPosition);
 	projectile->shootProjectile(_direction * 500.f);
+
+	_reactor->onShoot();
+	_reactor->applyKnockback(-_direction * 500.f);
 }
 
 void BasicWeapon::setDirection(sf::Vector2f dir)

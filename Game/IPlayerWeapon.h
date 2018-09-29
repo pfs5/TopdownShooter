@@ -17,7 +17,7 @@ public:
 
 	void setLocalPosition(const sf::Vector2f& _pos) override;
 
-private:
+protected:
 	IWeaponReactor * _reactor;
 };
 
