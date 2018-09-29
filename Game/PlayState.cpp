@@ -18,7 +18,7 @@ PlayState::PlayState()
 	// ### Game objects setup ###
 	for (int i = 0; i < GameStateManager::objectLayers; ++i) 
 	{
-		m_gameObjects.emplace_back(std::vector<GameObject*>());
+		_gameObjects.emplace_back(std::vector<GameObject*>());
 	}
 
 	initState();
@@ -28,7 +28,7 @@ PlayState::PlayState()
 PlayState::~PlayState() 
 {
 	// Destroy game objects
-	for (auto layer : m_gameObjects) 
+	for (auto layer : _gameObjects) 
 	{
 		for (GameObject * g : layer) 
 		{
@@ -37,34 +37,34 @@ PlayState::~PlayState()
 	}
 }
 
-void PlayState::update(float _dt) 
+void PlayState::update(float dt) 
 {
 	// Map
-	if (m_map != nullptr)
+	if (_map != nullptr)
 	{
-		m_map->update(_dt);
+		_map->update(dt);
 	}
 
-	for (int i = m_gameObjects.size() - 1; i >= 0; --i) 
+	for (int i = _gameObjects.size() - 1; i >= 0; --i) 
 	{
-		for (GameObject * g : m_gameObjects[i]) 
+		for (GameObject * g : _gameObjects[i]) 
 		{
 			if (g->isActive()) 
 			{
-				g->update(_dt);
+				g->update(dt);
 			}
 		}
 	}
 
-	PhysicsEngine::getInstance().update(_dt);
+	PhysicsEngine::getInstance().update(dt);
 
 	// Add new objects
 	GameObject * newObj = nullptr;
-	for (int i = m_gameObjects.size() - 1; i >= 0; --i) 
+	for (int i = _gameObjects.size() - 1; i >= 0; --i) 
 	{
 		while (newObj = GameStateManager::popNewGameObject(i))
 		{
-			m_gameObjects[i].push_back(newObj);
+			_gameObjects[i].push_back(newObj);
 		}
 	}
 
@@ -72,7 +72,7 @@ void PlayState::update(float _dt)
 	GameObject * destrObj = nullptr;
 	while (destrObj = GameStateManager::popDestroyedGameObject()) 
 	{
-		for (auto &layer : m_gameObjects) 
+		for (auto &layer : _gameObjects) 
 		{
 			layer.erase(std::remove(layer.begin(), layer.end(), destrObj), layer.end());
 		}
@@ -83,15 +83,15 @@ void PlayState::update(float _dt)
 void PlayState::draw() 
 {
 	// Map
-	if (m_map != nullptr)
+	if (_map != nullptr)
 	{
-		m_map->draw();
+		_map->draw();
 	}
 	
 	// Objects
-	for (int i = m_gameObjects.size() - 1; i > 0; --i) 
+	for (int i = _gameObjects.size() - 1; i > 0; --i) 
 	{
-		for (GameObject * g : m_gameObjects[i]) 
+		for (GameObject * g : _gameObjects[i]) 
 		{
 			if (g->isActive()) {
 				g->draw();
@@ -100,7 +100,7 @@ void PlayState::draw()
 	}
 
 	// Draw foreground object layer
-	for (GameObject * g : m_gameObjects[0]) 
+	for (GameObject * g : _gameObjects[0]) 
 	{
 		if (g->isActive()) 
 		{
@@ -150,10 +150,10 @@ void PlayState::initState()
 
 void PlayState::addGameObjectToState(GameObject * gameObject, unsigned int layer)
 {
-	while(m_gameObjects.size() < layer + 1)
+	while(_gameObjects.size() < layer + 1)
 	{
-		m_gameObjects.emplace_back(std::vector<GameObject*>());
+		_gameObjects.emplace_back(std::vector<GameObject*>());
 	}
 
-	m_gameObjects[layer].push_back(gameObject);
+	_gameObjects[layer].push_back(gameObject);
 }

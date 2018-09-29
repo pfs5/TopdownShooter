@@ -15,5 +15,5 @@ void ScenePatrikTest::InitState(PlayState & playState)
 	playState.addGameObjectToState(camera, 1);
 
 	// Map
-	playState.m_map = std::make_unique<PrototypeMap2>(1);
+	playState._map = std::make_unique<PrototypeMap2>(1);
 }

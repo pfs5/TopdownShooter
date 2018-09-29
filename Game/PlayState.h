@@ -13,16 +13,16 @@ public:
 	~PlayState();
 
 	// Inherited via GameState
-	virtual void update(float _dt) override;
+	virtual void update(float dt) override;
 	virtual void draw() override;
-	virtual GameObject * instantiateObject(GameObject * _gameObject) override;
-	virtual void destroyObject(GameObject * _gameObject) override;
+	virtual GameObject * instantiateObject(GameObject * gameObject) override;
+	virtual void destroyObject(GameObject * gameObject) override;
 
 private:
 	void initState();
 	void addGameObjectToState(GameObject* gameObject, unsigned int layer = 0);
 
 private:
-	std::vector<std::vector<GameObject*>> m_gameObjects;
-	std::shared_ptr<IMap> m_map;
+	std::vector<std::vector<GameObject*>> _gameObjects;
+	std::shared_ptr<IMap> _map;
 };

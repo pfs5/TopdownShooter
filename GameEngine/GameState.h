@@ -8,9 +8,9 @@ class GameState {
 public:
 	virtual ~GameState() {};
 
-	virtual void update(float _dt) = 0;
+	virtual void update(float dt) = 0;
 	virtual void draw() = 0;
 
-	virtual GameObject * instantiateObject(GameObject  * _gameObject) = 0;
-	virtual void destroyObject(GameObject * _gameObject) = 0;
+	virtual GameObject * instantiateObject(GameObject  * gameObject) = 0;
+	virtual void destroyObject(GameObject * gameObject) = 0;
 };
