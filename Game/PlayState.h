@@ -20,6 +20,7 @@ public:
 
 private:
 	void initState();
+	void addGameObjectToState(GameObject* gameObject, unsigned int layer = 0);
 
 private:
 	std::vector<std::vector<GameObject*>> m_gameObjects;

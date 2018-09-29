@@ -11,6 +11,7 @@
 #include "PrototypeMap2.h"
 #include "BoxShape.h"
 #include "SceneJosipTest.h"
+#include "ScenePatrikTest.h"
 
 PlayState::PlayState() 
 {
@@ -143,6 +144,16 @@ Maze * createMaze()
 void PlayState::initState() 
 {
 	// INITIALIZE STATE
-	SceneJosipTest scene;
+	ScenePatrikTest scene;
 	scene.InitState(*this);
+}
+
+void PlayState::addGameObjectToState(GameObject * gameObject, unsigned int layer)
+{
+	while(m_gameObjects.size() < layer + 1)
+	{
+		m_gameObjects.emplace_back(std::vector<GameObject*>());
+	}
+
+	m_gameObjects[layer].push_back(gameObject);
 }
