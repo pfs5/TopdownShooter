@@ -22,21 +22,25 @@ public:
 private:
 
 	/* ------------------------- Members ------------------------------------------------- */
-	// Constants
+	// ### Constants ### 
 	const std::string TEX_NAME_PLAYER = "prototype-1-player";
 	const std::string TEX_NAME_CROSSHAIR = "prototype-1-player-crosshair";
 
 	const float SHOOT_SPEED = 500.f;
 	const float RECOIL_DAMP_TIME = .5f;
 
-	// Controls
+	// ###  Controls ### 
 	const Input::KeyCode CONTROL_SHOOT = Input::SPACE;
+	const Input::KeyCode CHOOSE_WEAPON_1 = Input::Num1;
+	const Input::KeyCode CHOOSE_WEAPON_2 = Input::Num2;
+	const Input::KeyCode CHOOSE_WEAPON_3 = Input::Num3;
+	const Input::KeyCode CHOOSE_WEAPON_4 = Input::Num4;
 
 	const float MOVEMENT_SPEED = 500.f;
 	const float SIZE_SCALE = 0.7f;
 	const float CROSSHAIR_DISTANCE = 100.f;
 
-	// Visuals
+	// ###  Visuals ### 
 	sf::Sprite _sprite;
 	sf::Sprite _crosshairSprite;
 
@@ -47,7 +51,7 @@ private:
 	sf::Vector2f _initialRecoilVelocity;
 	float _recoilTimer;
 
-	// Weapons
+	// ###  Weapons ### 
 	std::vector<std::unique_ptr<IPlayerWeapon>> _weapons;
 	int _currentWeapon;
 
@@ -55,8 +59,9 @@ private:
 	/* ------------------------- Functions ------------------------------------------------ */
 	void moveAction(float dt);
 	void aimAction();
-	void shootAction();
+	void shootAction(float dt);
 
+	void handleWeaponSwitching();
 	void applyDrag(float dt);
 };
 

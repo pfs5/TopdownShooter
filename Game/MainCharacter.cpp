@@ -21,7 +21,7 @@ MainCharacter::MainCharacter() :
 {
 	setObjectLayer("Player");
 
-	// Init visuals
+	// -------- Init visuals -------- 
 	auto playerTex = ResourceManager::getTextureStatic(TEX_NAME_PLAYER);
 	_sprite.setTexture(*playerTex);
 	_sprite.setOrigin(VectorOperations::utof(playerTex->getSize()) / 2.f);
@@ -32,7 +32,7 @@ MainCharacter::MainCharacter() :
 	_crosshairSprite.setOrigin(VectorOperations::utof(crosshairTex->getSize()) / 2.f);
 	_crosshairSprite.setScale(SIZE_SCALE, SIZE_SCALE);
 
-	// Init physics
+	// --------  Init physics -------- 
 	auto baseCol = createCollider(sf::Vector2f{ 0.f , 0.f }, VectorOperations::utof(playerTex->getSize()) * SIZE_SCALE);
 	auto rb = createRigidBody();
 	rb->setGravity(false);
@@ -40,8 +40,14 @@ MainCharacter::MainCharacter() :
 	baseCol->setStatic(false);
 	baseCol->setTrigger(false, rb);
 
-	// Init weapons
-	_weapons.push_back(std::make_unique<BasicWeapon>(this));
+	// --------  Init weapons -------- 
+	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.f).setRecoil(500.f);
+	BasicWeaponDescription wpnDescSlowMachineGun = BasicWeaponDescription{}.setRateOfFire(2.f).setRecoil(200.f);
+	BasicWeaponDescription wpnDescFastMachineGun = BasicWeaponDescription{}.setRateOfFire(10.f).setRecoil(50.f);
+
+	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSingleShot));
+	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSlowMachineGun));
+	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescFastMachineGun));
 
 	for (const auto &wep : _weapons)
 	{
@@ -58,8 +64,9 @@ void MainCharacter::update(float _dt)
 {
 	moveAction(_dt);
 	aimAction();
-	shootAction();
+	shootAction(_dt);
 
+	handleWeaponSwitching();
 	applyDrag(_dt);
 }
 
@@ -116,30 +123,6 @@ void MainCharacter::moveAction(float dt)
 	_movementVelocity.x = dx + _externalVelocity.x;
 	_movementVelocity.y = dy + _externalVelocity.y;
 
-	// Update external velocity
-	/*if (_movementVelocity.x * _externalVelocity.x < 0.f)
-	{
-		if (_externalVelocity.x < 0.f)
-		{
-			_externalVelocity.x = std::min(0.f, _externalVelocity.x + _movementVelocity.x * dt);
-		} else
-		{
-			_externalVelocity.x = std::max(0.f, _externalVelocity.x + _movementVelocity.x * dt);
-		}
-	}
-
-	if (_movementVelocity.y * _externalVelocity.y < 0.f)
-	{
-		if (_externalVelocity.y < 0.f)
-		{
-			_externalVelocity.y = std::min(0.f, _externalVelocity.y + _movementVelocity.y * dt);
-		}
-		else
-		{
-			_externalVelocity.y = std::max(0.f, _externalVelocity.y + _movementVelocity.y * dt);
-		}
-	}*/
-
 	move(_movementVelocity * dt);
 }
 
@@ -152,12 +135,39 @@ void MainCharacter::aimAction()
 	_aimDirection /= VectorOperations::norm(_aimDirection);
 }
 
-void MainCharacter::shootAction()
+void MainCharacter::shootAction(float dt)
 {
+	_weapons[_currentWeapon]->update(dt);
+	_weapons[_currentWeapon]->setDirection(_aimDirection);
+
 	if (Input::getKeyDown(CONTROL_SHOOT))
 	{
-		_weapons[_currentWeapon]->setDirection(_aimDirection);
 		_weapons[_currentWeapon]->shootWeapon();
+	}
+
+	_weapons[_currentWeapon]->setIsShooting(Input::getKey(CONTROL_SHOOT));
+}
+
+void MainCharacter::handleWeaponSwitching()
+{
+	if (Input::getKeyDown(Input::Num1) && _weapons.size() > 0)
+	{
+		_currentWeapon = 0;
+	}
+
+	if (Input::getKeyDown(Input::Num2) && _weapons.size() > 1)
+	{
+		_currentWeapon = 1;
+	}
+
+	if (Input::getKeyDown(Input::Num3) && _weapons.size() > 2)
+	{
+		_currentWeapon = 2;
+	}
+
+	if (Input::getKeyDown(Input::Num4) && _weapons.size() > 3)
+	{
+		_currentWeapon = 3;
 	}
 }
 
