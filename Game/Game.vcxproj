@@ -170,6 +170,7 @@
     <ClCompile Include="RandomMazeGenerator.cpp" />
     <ClCompile Include="SceneJosipTest.cpp" />
     <ClCompile Include="ScenePatrikTest.cpp" />
+    <ClCompile Include="UISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BacktrackerMazeGenerator.h" />
@@ -195,6 +196,8 @@
     <ClInclude Include="RandomMazeGenerator.h" />
     <ClInclude Include="SceneJosipTest.h" />
     <ClInclude Include="ScenePatrikTest.h" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UISlider.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">

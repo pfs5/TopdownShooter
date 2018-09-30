@@ -6,18 +6,17 @@
 
 #include "Debug.h"
 #include "GameStateManager.h"
-#include "Projectile.h"
 #include "BasicWeapon.h"
 #include "Util.h"
 
 #include <memory>
-#include <math.h>
 
 MainCharacter::MainCharacter() :
 	_currentWeapon{0},
 	_externalVelocity{sf::Vector2f{0.f, 0.f}},
 	_initialRecoilVelocity{sf::Vector2f{0.f, 0.f}},
-	_recoilTimer{0.f}
+	_recoilTimer{0.f},
+	_reloadSlider{ sf::Vector2f{80.f, 10.f}, sf::Color{171, 165, 145}, sf::Color{ 227, 222, 203 } }
 {
 	setObjectLayer("Player");
 
@@ -32,6 +31,9 @@ MainCharacter::MainCharacter() :
 	_crosshairSprite.setOrigin(VectorOperations::utof(crosshairTex->getSize()) / 2.f);
 	_crosshairSprite.setScale(SIZE_SCALE, SIZE_SCALE);
 
+	attachChild(&_reloadSlider);
+	_reloadSlider.setLocalPosition(sf::Vector2f{ 40.f, -70.f });
+
 	// --------  Init physics -------- 
 	auto baseCol = createCollider(sf::Vector2f{ 0.f , 0.f }, VectorOperations::utof(playerTex->getSize()) * SIZE_SCALE);
 	auto rb = createRigidBody();
@@ -41,7 +43,7 @@ MainCharacter::MainCharacter() :
 	baseCol->setTrigger(false, rb);
 
 	// --------  Init weapons -------- 
-	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.f).setRecoil(500.f);
+	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.5f).setRecoil(500.f);
 	BasicWeaponDescription wpnDescSlowMachineGun = BasicWeaponDescription{}.setRateOfFire(2.f).setRecoil(200.f);
 	BasicWeaponDescription wpnDescFastMachineGun = BasicWeaponDescription{}.setRateOfFire(10.f).setRecoil(50.f);
 
@@ -74,6 +76,8 @@ void MainCharacter::draw()
 {
 	Display::draw(_sprite);
 	Display::draw(_crosshairSprite);
+
+	_reloadSlider.draw();
 }
 
 void MainCharacter::onCollision(Collider* _this, Collider* _other)
@@ -140,12 +144,9 @@ void MainCharacter::shootAction(float dt)
 	_weapons[_currentWeapon]->update(dt);
 	_weapons[_currentWeapon]->setDirection(_aimDirection);
 
-	if (Input::getKeyDown(CONTROL_SHOOT))
-	{
-		_weapons[_currentWeapon]->shootWeapon();
-	}
-
 	_weapons[_currentWeapon]->setIsShooting(Input::getKey(CONTROL_SHOOT));
+
+	_reloadSlider.setValue(_weapons[_currentWeapon]->getReloadPercentage());
 }
 
 void MainCharacter::handleWeaponSwitching()

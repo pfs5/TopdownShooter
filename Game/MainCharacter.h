@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "IPlayerWeapon.h"
 #include "IWeaponReactor.h"
+#include "UISlider.h"
 
 class MainCharacter : public GameObject, public IWeaponReactor
 {
@@ -50,6 +51,9 @@ private:
 
 	sf::Vector2f _initialRecoilVelocity;
 	float _recoilTimer;
+
+	// ### UI ###
+	UISlider _reloadSlider;
 
 	// ###  Weapons ### 
 	std::vector<std::unique_ptr<IPlayerWeapon>> _weapons;

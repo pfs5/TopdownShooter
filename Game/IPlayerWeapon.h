@@ -15,6 +15,8 @@ public:
 	virtual void setIsShooting(bool value) = 0;
 	virtual void update(float dt) = 0;			
 
+	virtual float getReloadPercentage() const = 0;
+
 	virtual void setDirection(sf::Vector2f dir) = 0;
 
 	void setLocalPosition(const sf::Vector2f& _pos) override;

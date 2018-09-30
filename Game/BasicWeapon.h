@@ -25,6 +25,7 @@ public:
 	void shootWeapon() override;
 	void setIsShooting(bool value) override;
 	void update(float dt) override;
+	float getReloadPercentage() const override;
 
 	void setDirection(sf::Vector2f dir) override;
 
@@ -39,4 +40,5 @@ private:
 
 private:
 	void shoot() const;
+
 };
