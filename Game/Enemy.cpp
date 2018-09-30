@@ -7,10 +7,7 @@
 
 Enemy::Enemy(const MainCharacter * mainCharacter) :
 	_isTrackingPlayer{false},
-	_testLine{2.f},
-	_testLine2{2.f, sf::Color::Blue},
-	_testLine3{2.f, sf::Color::White},
-	_testLine4{2.f, sf::Color::Yellow}
+	_testLine{2.f}
 {
 	_mainCharacter = mainCharacter;
 
@@ -39,15 +36,7 @@ void Enemy::update(float _dt)
 		return;
 
 	// move towards main character
-	//followPlayer(_dt);
-
-	// draw debug
-	RaycastData raycastData = PhysicsEngine::getInstance().raycast2(getGlobalPosition(),
-		_mainCharacter->getGlobalPosition() - getGlobalPosition(),
-		std::vector<std::string>{"Player", "Map"});
-
-	_testLine.setStartPoint(getGlobalPosition());
-	_testLine.setEndPoint(raycastData.hitPoint);
+	followPlayer(_dt);
 }
 
 void Enemy::draw()
@@ -55,9 +44,6 @@ void Enemy::draw()
 	Display::draw(_sprite);
 
 	_testLine.draw();
-	//_testLine2.draw();
-	//_testLine3.draw();
-	//_testLine4.draw();
 }
 
 void Enemy::onCollision(Collider * _this, Collider * _other)
@@ -91,12 +77,27 @@ void Enemy::applyKnockback(sf::Vector2f velocity)
 
 void Enemy::followPlayer(float dt)
 {
-	auto playerPosition = _mainCharacter->getGlobalPosition();
-	auto playerEnemyDirection = playerPosition - getGlobalPosition();
+	RaycastData raycastData = PhysicsEngine::getInstance().raycast2(getGlobalPosition(),
+		_mainCharacter->getGlobalPosition() - getGlobalPosition(),
+		std::vector<std::string>{"Player", "Map"});
 
-	if (VectorOperations::norm(playerEnemyDirection) <= ATTACK_DISTANCE)
-		return;
+	_isTrackingPlayer = false;
+	if (raycastData.hitCollider != nullptr && raycastData.hitCollider->getGameObject()->getObjectTag() == "Player")
+	{
+		auto playerPosition = _mainCharacter->getGlobalPosition();
+		auto playerEnemyDirection = playerPosition - getGlobalPosition();
 
-	playerEnemyDirection = VectorOperations::normalize(playerEnemyDirection);
-	move(playerEnemyDirection * MOVEMENT_SPEED * dt);
+		if (VectorOperations::norm(playerEnemyDirection) <= ATTACK_DISTANCE)
+			return;
+
+		playerEnemyDirection = VectorOperations::normalize(playerEnemyDirection);
+		move(playerEnemyDirection * MOVEMENT_SPEED * dt);
+
+		_isTrackingPlayer = true;
+	}
+
+	_testLine.setVisible(_isTrackingPlayer);
+
+	_testLine.setStartPoint(getGlobalPosition());
+	_testLine.setEndPoint(raycastData.hitPoint);
 }

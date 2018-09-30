@@ -28,7 +28,7 @@ private:
 	const std::string TEX_NAME_ENEMY = "prototype-1-player";
 
 	const float MOVEMENT_SPEED = 200.f;
-	const float SIZE_SCALE = 0.7f;
+	const float SIZE_SCALE = 0.4f;
 	const float ATTACK_DISTANCE = 50.f;
 
 	// Visuals
@@ -40,9 +40,6 @@ private:
 
 	// Debug UI
 	UILine _testLine;
-	UILine _testLine2;
-	UILine _testLine3;
-	UILine _testLine4;
 private:
 	/* ------------------------- Functions ------------------------------------------------ */
 	void followPlayer(float dt);
