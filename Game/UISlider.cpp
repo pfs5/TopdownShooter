@@ -4,6 +4,7 @@
 #include "Debug.h"
 
 UISlider::UISlider(const sf::Vector2f &size, const sf::Color &backgroundColor, const sf::Color &fillColor) :
+	_isVisible{true},
 	_size{size},
 	_value{0.f}
 {
@@ -21,11 +22,21 @@ void UISlider::setLocalPosition(const sf::Vector2f & _pos)
 
 void UISlider::draw()
 {
+	if (!_isVisible)
+	{
+		return;
+	}
+
 	_backgroundShape.setPosition(_globalPosition);
 	_fillShape.setPosition(_globalPosition - _size / 2.f);
 
 	Display::draw(_backgroundShape);
 	Display::draw(_fillShape);
+}
+
+void UISlider::setVisible(bool value)
+{
+	_isVisible = value;
 }
 
 void UISlider::setValue(float value)

@@ -10,12 +10,16 @@ public:
 
 	void setLocalPosition(const sf::Vector2f& _pos) override;
 	void draw() override;
+	void setVisible(bool value) override;
 
 	// Slider methods
 	void setValue(float value);
 	float getValue() const;
 
 private:
+	// UI
+	bool _isVisible;
+
 	// Data
 	sf::Vector2f _size;
 	float _value;			// [0, 1] range

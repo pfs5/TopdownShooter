@@ -43,9 +43,9 @@ MainCharacter::MainCharacter() :
 	baseCol->setTrigger(false, rb);
 
 	// --------  Init weapons -------- 
-	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.5f).setRecoil(500.f);
-	BasicWeaponDescription wpnDescSlowMachineGun = BasicWeaponDescription{}.setRateOfFire(2.f).setRecoil(200.f);
-	BasicWeaponDescription wpnDescFastMachineGun = BasicWeaponDescription{}.setRateOfFire(10.f).setRecoil(50.f);
+	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.5f).setRecoil(1000.f);
+	BasicWeaponDescription wpnDescSlowMachineGun = BasicWeaponDescription{}.setRateOfFire(2.f).setRecoil(500.f);
+	BasicWeaponDescription wpnDescFastMachineGun = BasicWeaponDescription{}.setRateOfFire(10.f).setRecoil(100.f);
 
 	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSingleShot));
 	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSlowMachineGun));
@@ -147,6 +147,7 @@ void MainCharacter::shootAction(float dt)
 	_weapons[_currentWeapon]->setIsShooting(Input::getKey(CONTROL_SHOOT));
 
 	_reloadSlider.setValue(_weapons[_currentWeapon]->getReloadPercentage());
+	_reloadSlider.setVisible(_weapons[_currentWeapon]->getReloadPercentage() < 0.999f);
 }
 
 void MainCharacter::handleWeaponSwitching()
