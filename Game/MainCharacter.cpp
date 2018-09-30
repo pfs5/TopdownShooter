@@ -6,17 +6,21 @@
 
 #include "Debug.h"
 #include "GameStateManager.h"
-#include "Projectile.h"
 #include "BasicWeapon.h"
+#include "Util.h"
 
 #include <memory>
 
 MainCharacter::MainCharacter() :
-	_currentWeapon{0}
+	_currentWeapon{0},
+	_externalVelocity{sf::Vector2f{0.f, 0.f}},
+	_initialRecoilVelocity{sf::Vector2f{0.f, 0.f}},
+	_recoilTimer{0.f},
+	_reloadSlider{ sf::Vector2f{80.f, 10.f}, sf::Color{171, 165, 145}, sf::Color{ 227, 222, 203 } }
 {
 	setObjectLayer("Player");
 
-	// Init visuals
+	// -------- Init visuals -------- 
 	auto playerTex = ResourceManager::getTextureStatic(TEX_NAME_PLAYER);
 	_sprite.setTexture(*playerTex);
 	_sprite.setOrigin(VectorOperations::utof(playerTex->getSize()) / 2.f);
@@ -27,7 +31,10 @@ MainCharacter::MainCharacter() :
 	_crosshairSprite.setOrigin(VectorOperations::utof(crosshairTex->getSize()) / 2.f);
 	_crosshairSprite.setScale(SIZE_SCALE, SIZE_SCALE);
 
-	// Init physics
+	attachChild(&_reloadSlider);
+	_reloadSlider.setLocalPosition(sf::Vector2f{ 40.f, -70.f });
+
+	// --------  Init physics -------- 
 	auto baseCol = createCollider(sf::Vector2f{ 0.f , 0.f }, VectorOperations::utof(playerTex->getSize()) * SIZE_SCALE);
 	auto rb = createRigidBody();
 	rb->setGravity(false);
@@ -35,8 +42,19 @@ MainCharacter::MainCharacter() :
 	baseCol->setStatic(false);
 	baseCol->setTrigger(false, rb);
 
-	// Init weapons
-	_weapons.push_back(std::make_unique<BasicWeapon>(this));
+	// --------  Init weapons -------- 
+	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.5f).setRecoil(1000.f);
+	BasicWeaponDescription wpnDescSlowMachineGun = BasicWeaponDescription{}.setRateOfFire(2.f).setRecoil(500.f);
+	BasicWeaponDescription wpnDescFastMachineGun = BasicWeaponDescription{}.setRateOfFire(10.f).setRecoil(100.f);
+
+	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSingleShot));
+	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSlowMachineGun));
+	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescFastMachineGun));
+
+	for (const auto &wep : _weapons)
+	{
+		attachChild(wep.get());
+	}
 }
 
 
@@ -48,13 +66,18 @@ void MainCharacter::update(float _dt)
 {
 	moveAction(_dt);
 	aimAction();
-	shootAction();
+	shootAction(_dt);
+
+	handleWeaponSwitching();
+	applyDrag(_dt);
 }
 
 void MainCharacter::draw()
 {
 	Display::draw(_sprite);
 	Display::draw(_crosshairSprite);
+
+	_reloadSlider.draw();
 }
 
 void MainCharacter::onCollision(Collider* _this, Collider* _other)
@@ -70,13 +93,13 @@ void MainCharacter::setLocalPosition(const sf::Vector2f & _pos)
 {
 	GameObject::setLocalPosition(_pos);
 
-	_sprite.setPosition(_pos);
-	_crosshairSprite.setPosition(_pos + _aimDirection * CROSSHAIR_DISTANCE);
+	_sprite.setPosition(_globalPosition);
+	_crosshairSprite.setPosition(_globalPosition + _aimDirection * CROSSHAIR_DISTANCE);
 
 
 	for(const auto &col : _colliders)
 	{
-		col->setPosition(_pos);
+		col->setPosition(_globalPosition);
 	}
 }
 
@@ -86,6 +109,8 @@ void MainCharacter::onShoot()
 
 void MainCharacter::applyKnockback(sf::Vector2f velocity)
 {
+	_initialRecoilVelocity = velocity;
+	_recoilTimer = 0.f;
 }
 
 void MainCharacter::moveAction(float dt)
@@ -98,10 +123,11 @@ void MainCharacter::moveAction(float dt)
 	if (Input::getKey(Input::S)) { dy += MOVEMENT_SPEED; }
 	if (Input::getKey(Input::D)) { dx += MOVEMENT_SPEED; }
 
-	_movementVelocity.x = dx;
-	_movementVelocity.y = dy;
+	// Update velocity
+	_movementVelocity.x = dx + _externalVelocity.x;
+	_movementVelocity.y = dy + _externalVelocity.y;
 
-	move(sf::Vector2f{ dx, dy } * dt);
+	move(_movementVelocity * dt);
 }
 
 void MainCharacter::aimAction()
@@ -113,10 +139,44 @@ void MainCharacter::aimAction()
 	_aimDirection /= VectorOperations::norm(_aimDirection);
 }
 
-void MainCharacter::shootAction()
+void MainCharacter::shootAction(float dt)
 {
-	if (Input::getKeyDown(CONTROL_SHOOT))
+	_weapons[_currentWeapon]->update(dt);
+	_weapons[_currentWeapon]->setDirection(_aimDirection);
+
+	_weapons[_currentWeapon]->setIsShooting(Input::getKey(CONTROL_SHOOT));
+
+	_reloadSlider.setValue(_weapons[_currentWeapon]->getReloadPercentage());
+	_reloadSlider.setVisible(_weapons[_currentWeapon]->getReloadPercentage() < 0.999f);
+}
+
+void MainCharacter::handleWeaponSwitching()
+{
+	if (Input::getKeyDown(Input::Num1) && _weapons.size() > 0)
 	{
-		_weapons[_currentWeapon]->shootWeapon();
+		_currentWeapon = 0;
 	}
+
+	if (Input::getKeyDown(Input::Num2) && _weapons.size() > 1)
+	{
+		_currentWeapon = 1;
+	}
+
+	if (Input::getKeyDown(Input::Num3) && _weapons.size() > 2)
+	{
+		_currentWeapon = 2;
+	}
+
+	if (Input::getKeyDown(Input::Num4) && _weapons.size() > 3)
+	{
+		_currentWeapon = 3;
+	}
+}
+
+void MainCharacter::applyDrag(float dt)
+{
+	// Linear damping
+	_externalVelocity = (-_initialRecoilVelocity / RECOIL_DAMP_TIME) * _recoilTimer + _initialRecoilVelocity;
+
+	_recoilTimer = std::min(RECOIL_DAMP_TIME, _recoilTimer + dt);
 }

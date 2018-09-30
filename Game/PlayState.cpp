@@ -4,25 +4,31 @@
 #include "MazeVizualizer.h"
 #include "MainCharacter.h"
 #include "Camera.h"
+#include "Enemy.h"
 
 #include "Debug.h"
 #include "PrototypeMap1.h"
 #include "PrototypeMap2.h"
+#include "BoxShape.h"
+#include "SceneJosipTest.h"
+#include "ScenePatrikTest.h"
 
-PlayState::PlayState() {
+PlayState::PlayState() 
+{
 	// ### Game objects setup ###
 	for (int i = 0; i < GameStateManager::objectLayers; ++i) 
 	{
-		m_gameObjects.emplace_back(std::vector<GameObject*>());
+		_gameObjects.emplace_back(std::vector<GameObject*>());
 	}
 
 	initState();
 }
 
 
-PlayState::~PlayState() {
+PlayState::~PlayState() 
+{
 	// Destroy game objects
-	for (auto layer : m_gameObjects) 
+	for (auto layer : _gameObjects) 
 	{
 		for (GameObject * g : layer) 
 		{
@@ -31,33 +37,34 @@ PlayState::~PlayState() {
 	}
 }
 
-void PlayState::update(float _dt) {
+void PlayState::update(float dt) 
+{
 	// Map
-	if (m_map != nullptr)
+	if (_map != nullptr)
 	{
-		m_map->update(_dt);
+		_map->update(dt);
 	}
 
-	for (int i = m_gameObjects.size() - 1; i >= 0; --i) 
+	for (int i = _gameObjects.size() - 1; i >= 0; --i) 
 	{
-		for (GameObject * g : m_gameObjects[i]) 
+		for (GameObject * g : _gameObjects[i]) 
 		{
 			if (g->isActive()) 
 			{
-				g->update(_dt);
+				g->update(dt);
 			}
 		}
 	}
 
-	PhysicsEngine::getInstance().update(_dt);
+	PhysicsEngine::getInstance().update(dt);
 
 	// Add new objects
 	GameObject * newObj = nullptr;
-	for (int i = m_gameObjects.size() - 1; i >= 0; --i) 
+	for (int i = _gameObjects.size() - 1; i >= 0; --i) 
 	{
 		while (newObj = GameStateManager::popNewGameObject(i))
 		{
-			m_gameObjects[i].push_back(newObj);
+			_gameObjects[i].push_back(newObj);
 		}
 	}
 
@@ -65,7 +72,7 @@ void PlayState::update(float _dt) {
 	GameObject * destrObj = nullptr;
 	while (destrObj = GameStateManager::popDestroyedGameObject()) 
 	{
-		for (auto &layer : m_gameObjects) 
+		for (auto &layer : _gameObjects) 
 		{
 			layer.erase(std::remove(layer.begin(), layer.end(), destrObj), layer.end());
 		}
@@ -73,17 +80,18 @@ void PlayState::update(float _dt) {
 	}
 }
 
-void PlayState::draw() {
+void PlayState::draw() 
+{
 	// Map
-	if (m_map != nullptr)
+	if (_map != nullptr)
 	{
-		m_map->draw();
+		_map->draw();
 	}
 	
 	// Objects
-	for (int i = m_gameObjects.size() - 1; i > 0; --i) 
+	for (int i = _gameObjects.size() - 1; i > 0; --i) 
 	{
-		for (GameObject * g : m_gameObjects[i]) 
+		for (GameObject * g : _gameObjects[i]) 
 		{
 			if (g->isActive()) {
 				g->draw();
@@ -92,7 +100,7 @@ void PlayState::draw() {
 	}
 
 	// Draw foreground object layer
-	for (GameObject * g : m_gameObjects[0]) 
+	for (GameObject * g : _gameObjects[0]) 
 	{
 		if (g->isActive()) 
 		{
@@ -136,16 +144,16 @@ Maze * createMaze()
 void PlayState::initState() 
 {
 	// INITIALIZE STATE
+	ScenePatrikTest scene;
+	scene.InitState(*this);
+}
 
-	// Player one
-	auto mainChar = new MainCharacter();
-	mainChar->setLocalPosition(sf::Vector2f{ 2000.f, 1000.f });
-	m_gameObjects[1].push_back(mainChar);
+void PlayState::addGameObjectToState(GameObject * gameObject, unsigned int layer)
+{
+	while(_gameObjects.size() < layer + 1)
+	{
+		_gameObjects.emplace_back(std::vector<GameObject*>());
+	}
 
-	// Camera
-	auto camera = new Camera(mainChar);
-	m_gameObjects[1].push_back(camera);
-
-	// Map
-	m_map = std::make_unique<PrototypeMap2>(1);
+	_gameObjects[layer].push_back(gameObject);
 }

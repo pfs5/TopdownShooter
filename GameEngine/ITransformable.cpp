@@ -11,13 +11,13 @@ void ITransformable::setLocalPosition(const sf::Vector2f & _pos)
 	}
 }
 
- inline void ITransformable::attachChild(ITransformable* child)
+ void ITransformable::attachChild(ITransformable* child)
 {
 	 child->_parent = this;
 	 _children.push_back(child);
 }
 
-inline void ITransformable::clearParent()
+void ITransformable::clearParent()
 {
 	if (_parent == nullptr) return;
 
@@ -25,7 +25,7 @@ inline void ITransformable::clearParent()
 	_parent = nullptr;
 }
 
-inline void ITransformable::setParentGlobalPosition(sf::Vector2f pos)
+void ITransformable::setParentGlobalPosition(sf::Vector2f pos)
 {
 	_globalPosition = pos + _localPosition;
 }

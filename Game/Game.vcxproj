@@ -155,7 +155,9 @@
     <ClCompile Include="BasicShot.cpp" />
     <ClCompile Include="BasicWeapon.cpp" />
     <ClCompile Include="BoxCharacter.cpp" />
+    <ClCompile Include="BoxShape.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="Maze.cpp" />
@@ -166,16 +168,22 @@
     <ClCompile Include="PrototypeMap1.cpp" />
     <ClCompile Include="PrototypeMap2.cpp" />
     <ClCompile Include="RandomMazeGenerator.cpp" />
+    <ClCompile Include="SceneJosipTest.cpp" />
+    <ClCompile Include="ScenePatrikTest.cpp" />
+    <ClCompile Include="UISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BacktrackerMazeGenerator.h" />
     <ClInclude Include="BasicShot.h" />
     <ClInclude Include="BasicWeapon.h" />
     <ClInclude Include="BoxCharacter.h" />
+    <ClInclude Include="BoxShape.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="IMap.h" />
     <ClInclude Include="IMazeGenerator.h" />
     <ClInclude Include="IPlayerWeapon.h" />
+    <ClInclude Include="IScene.h" />
     <ClInclude Include="IWeaponReactor.h" />
     <ClInclude Include="MainCharacter.h" />
     <ClInclude Include="Maze.h" />
@@ -186,6 +194,10 @@
     <ClInclude Include="PrototypeMap1.h" />
     <ClInclude Include="PrototypeMap2.h" />
     <ClInclude Include="RandomMazeGenerator.h" />
+    <ClInclude Include="SceneJosipTest.h" />
+    <ClInclude Include="ScenePatrikTest.h" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UISlider.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">

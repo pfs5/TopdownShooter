@@ -51,4 +51,10 @@ namespace Util {
 	{
 		return randomInt(0, vector.size() - 1);
 	}
+
+	template<class T>
+	inline T clamp(T value, T minValue, T maxValue)
+	{
+		return std::min(maxValue, std::max(minValue, value));
+	}
 }
