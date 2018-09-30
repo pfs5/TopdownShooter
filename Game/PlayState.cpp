@@ -144,7 +144,8 @@ Maze * createMaze()
 void PlayState::initState() 
 {
 	// INITIALIZE STATE
-	ScenePatrikTest scene;
+	//ScenePatrikTest scene;
+	SceneJosipTest scene;
 	scene.InitState(*this);
 }
 

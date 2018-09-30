@@ -16,6 +16,7 @@ class RigidBody {
 
 	bool m_hasGravity = true;
 	float m_bounceFactor = .3f;
+	float m_mass = 1.f;
 
 	GameObject * m_gameObject = nullptr;
 public:
@@ -34,6 +35,9 @@ public:
 
 	inline float getBounceFactor() { return m_bounceFactor; };
 	inline void setBounceFactor(float _b) { m_bounceFactor = _b; };
+
+	inline float getMass() { return m_mass; };
+	inline void setMass(float _mass) { m_mass = _mass; };
 
 	inline GameObject * getGameObject() { return m_gameObject; };
 #pragma endregion

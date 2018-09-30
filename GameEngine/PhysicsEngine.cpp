@@ -218,6 +218,15 @@ void PhysicsEngine::collisionDetection() {
 					// Base movement
 					float moveAmount1 = c1->isStatic() ? 0.f : finalDiff / 2.f;
 					float moveAmount2 = c2->isStatic() ? 0.f : finalDiff / 2.f;
+									   
+					float mass1 = c1->getRigidBody()->getMass();
+					float mass2 = c2->getRigidBody()->getMass();
+
+					float massFactor1 = 2.f * mass2 / (mass1 + mass2);
+					float massFactor2 = 2.f * mass1 / (mass1 + mass2);
+
+					moveAmount1 *= c2->isStatic() ? 1.f : massFactor1;
+					moveAmount2 *= c1->isStatic() ? 1.f : massFactor2;
 
 					// If one is static, move other for full amount
 					moveAmount1 *= c2->isStatic() ? 2.f : 1.f;

@@ -7,7 +7,8 @@
 class Enemy : public GameObject, public IWeaponReactor
 {
 public:
-	Enemy(const MainCharacter * mainCharacter);
+	Enemy(const MainCharacter * mainCharacter, sf::Color color = sf::Color(255, 0, 0));
+	Enemy(sf::Color color = sf::Color(255, 0, 0));
 	~Enemy();
 
 	void update(float _dt) override;
@@ -19,6 +20,8 @@ public:
 	// IWeaponReactor
 	void onShoot() override;
 	void applyKnockback(sf::Vector2f velocity) override;
+
+	void attack(const MainCharacter * mainCharacter);
 
 private:
 

@@ -5,13 +5,16 @@
 
 
 
-Enemy::Enemy(const MainCharacter * mainCharacter)
+Enemy::Enemy(const MainCharacter * mainCharacter, sf::Color color) : Enemy(color)
 {
 	_mainCharacter = mainCharacter;
+}
 
+Enemy::Enemy(sf::Color color)
+{
 	auto enemyTex = ResourceManager::getTextureStatic(TEX_NAME_ENEMY);
 	_sprite.setTexture(*enemyTex);
-	_sprite.setColor(sf::Color(255, 0, 0));
+	_sprite.setColor(color);
 	_sprite.setOrigin(VectorOperations::utof(enemyTex->getSize()) / 2.f);
 	_sprite.setScale(SIZE_SCALE, SIZE_SCALE);
 
@@ -69,6 +72,11 @@ void Enemy::onShoot()
 
 void Enemy::applyKnockback(sf::Vector2f velocity)
 {
+}
+
+void Enemy::attack(const MainCharacter * mainCharacter)
+{
+	_mainCharacter = mainCharacter;
 }
 
 void Enemy::followPlayer(float dt)
