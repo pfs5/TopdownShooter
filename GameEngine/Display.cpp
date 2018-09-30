@@ -8,7 +8,10 @@ namespace Display {
 	bool isWindowInFocus = true;
 
 	void init() {
-		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT), TITLE);
+		sf::ContextSettings settings;
+		settings.antialiasingLevel = 16;
+
+		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT), TITLE, sf::Style::Default, settings);
 		window.get()->setFramerateLimit(60);
 	}
 

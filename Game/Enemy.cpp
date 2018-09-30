@@ -2,10 +2,15 @@
 #include "ResourceManager.h"
 #include "Display.h"
 #include "VectorOperations.h"
+#include "PhysicsEngine.h"
+#include "Debug.h"
 
-
-
-Enemy::Enemy(const MainCharacter * mainCharacter)
+Enemy::Enemy(const MainCharacter * mainCharacter) :
+	_isTrackingPlayer{false},
+	_testLine{2.f},
+	_testLine2{2.f, sf::Color::Blue},
+	_testLine3{2.f, sf::Color::White},
+	_testLine4{2.f, sf::Color::Yellow}
 {
 	_mainCharacter = mainCharacter;
 
@@ -34,12 +39,25 @@ void Enemy::update(float _dt)
 		return;
 
 	// move towards main character
-	followPlayer(_dt);
+	//followPlayer(_dt);
+
+	// draw debug
+	RaycastData raycastData = PhysicsEngine::getInstance().raycast2(getGlobalPosition(),
+		_mainCharacter->getGlobalPosition() - getGlobalPosition(),
+		std::vector<std::string>{"Player", "Map"});
+
+	_testLine.setStartPoint(getGlobalPosition());
+	_testLine.setEndPoint(raycastData.hitPoint);
 }
 
 void Enemy::draw()
 {
 	Display::draw(_sprite);
+
+	_testLine.draw();
+	//_testLine2.draw();
+	//_testLine3.draw();
+	//_testLine4.draw();
 }
 
 void Enemy::onCollision(Collider * _this, Collider * _other)

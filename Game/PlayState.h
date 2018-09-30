@@ -7,6 +7,7 @@ class PlayState : public GameState {
 	// Scenes
 	friend class SceneJosipTest;
 	friend class ScenePatrikTest;
+	friend class ScenePatrikRaycastTest;
 
 public:
 	PlayState();

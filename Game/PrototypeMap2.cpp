@@ -10,6 +10,7 @@ PrototypeMap2::PrototypeMap2(float scale) :
 	_scale {scale}
 {
 	setObjectLayer("Map");
+	setObjectTag("Map");
 
 	// Init sprite
 	auto mapTex = ResourceManager::getTextureStatic(MAP_TEXT_NAME);

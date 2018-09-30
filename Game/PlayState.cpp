@@ -12,6 +12,7 @@
 #include "BoxShape.h"
 #include "SceneJosipTest.h"
 #include "ScenePatrikTest.h"
+#include "ScenePatrikRaycastTest.h"
 
 PlayState::PlayState() 
 {
@@ -144,8 +145,12 @@ Maze * createMaze()
 void PlayState::initState() 
 {
 	// INITIALIZE STATE
-	ScenePatrikTest scene;
+	//ScenePatrikTest scene;
+	//scene.InitState(*this);
+
+	ScenePatrikRaycastTest scene;
 	scene.InitState(*this);
+
 }
 
 void PlayState::addGameObjectToState(GameObject * gameObject, unsigned int layer)

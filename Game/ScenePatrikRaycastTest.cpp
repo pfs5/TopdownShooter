@@ -1,9 +1,9 @@
-#include "ScenePatrikTest.h"
+#include "ScenePatrikRaycastTest.h"
 #include "PrototypeMap2.h"
 #include "Camera.h"
 #include "Enemy.h"
 
-void ScenePatrikTest::InitState(PlayState & playState)
+void ScenePatrikRaycastTest::InitState(PlayState & playState)
 {
 	// Player one
 	auto mainChar = new MainCharacter();

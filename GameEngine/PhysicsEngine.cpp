@@ -5,6 +5,7 @@
 #include "Debug.h"
 #include "VectorOperations.h"
 #include "ConfigManager.h"
+#include "FloatOperations.h"
 
 PhysicsEngine::PhysicsEngine() {
 }
@@ -148,6 +149,113 @@ sf::Vector2f PhysicsEngine::raycast(const sf::Vector2f & _start, const sf::Vecto
 	}
 	
 	return collisionPoint;
+}
+
+// tested and working. raycast 1 has some issues in this game
+RaycastData PhysicsEngine::raycast2(const sf::Vector2f & _start, const sf::Vector2f & _direction, const std::vector<std::string> &_tagFilter)
+{
+	RaycastData data;
+	float distance = std::numeric_limits<float>::max();
+
+	for (auto &col : m_colliders) 
+	{
+		// Check filter
+		bool isInFilter = false;
+
+		for (const auto &tag : _tagFilter)
+		{
+			if (col->getGameObject()->getObjectTag() == tag)
+			{
+				isInFilter = true;
+				break;
+			}
+		}
+
+		if (!isInFilter)
+		{
+			continue;;
+		}
+
+		// Find collision points
+		const sf::Vector2f &colSize = col->getSize();
+
+		const sf::Vector2f S = col->getPosition() - col->getSize() / 2.f;
+		const sf::Vector2f T = col->getPosition() + col->getSize() / 2.f;
+
+		const float directionRation1 = _direction.x / _direction.y;
+		const float directionRation2 = _direction.y / _direction.x;
+
+		const float t1 =  _start.x + (S.y - _start.y) * directionRation1 - S.x;
+		const float t2 =  _start.y + (S.x - _start.x) * directionRation2 - S.y;
+		const float t3 = -_start.x + (_start.y - T.y) * directionRation1 + T.x;
+		const float t4 = -_start.y + (_start.x - T.x) * directionRation2 + T.y;
+
+		if (FloatOperations::compare(t1, 0.f) >= 0 && FloatOperations::compare(t1, colSize.x) <= 0)
+		{
+			const float k = (S.y - _start.y) / _direction.y;
+			if (FloatOperations::compare(k, 0.f) >= 0)
+			{
+				sf::Vector2f p = S + t1 * sf::Vector2f{ 1,  0 };
+				float newDistance = VectorOperations::squaredNorm(_start - p);
+				if (newDistance < distance)
+				{
+					distance = newDistance;
+					data.hitPoint = p;
+					data.hitCollider = col;
+				}
+			}
+		}
+
+		if (FloatOperations::compare(t2, 0.f) >= 0 && FloatOperations::compare(t2, colSize.y) <= 0)
+		{
+			const float k = (S.x - _start.x) / _direction.x;
+			if (FloatOperations::compare(k, 0.f) >= 0)
+			{
+				sf::Vector2f p = S + t2 * sf::Vector2f{ 0,  1 };
+				float newDistance = VectorOperations::squaredNorm(_start - p);
+				if (newDistance < distance)
+				{
+					distance = newDistance;
+					data.hitPoint = p;
+					data.hitCollider = col;
+				}
+			}
+		}
+
+		if (FloatOperations::compare(t3, 0.f) >= 0 && FloatOperations::compare(t3, colSize.x) <= 0)
+		{
+			const float k = (T.y - _start.y) / _direction.y;
+			if (FloatOperations::compare(k, 0.f) >= 0)
+			{
+				sf::Vector2f p = T + t3 * sf::Vector2f{ -1,  0 };
+				float newDistance = VectorOperations::squaredNorm(_start - p);
+				if (newDistance < distance)
+				{
+					distance = newDistance;
+					data.hitPoint = p;
+					data.hitCollider = col;
+				}
+			}
+		}
+
+		if (FloatOperations::compare(t4, 0.f) >= 0 && FloatOperations::compare(t4, colSize.y) <= 0)
+		{
+			const float k = (T.x - _start.x) / _direction.x;
+			if (FloatOperations::compare(k, 0.f) >= 0)
+			{
+				sf::Vector2f p = T + t4 * sf::Vector2f{ 0, -1 };
+				float newDistance = VectorOperations::squaredNorm(_start - p);
+				if (newDistance < distance)
+				{
+					distance = newDistance;
+					data.hitPoint = p;
+					data.hitCollider = col;
+				}
+			}
+		}
+	}
+
+	return data;
 }
 
 bool PhysicsEngine::collisionTest(const sf::Vector2f & _point, const std::vector<std::string>& _collisionLayers) {

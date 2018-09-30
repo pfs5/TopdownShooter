@@ -169,7 +169,9 @@
     <ClCompile Include="PrototypeMap2.cpp" />
     <ClCompile Include="RandomMazeGenerator.cpp" />
     <ClCompile Include="SceneJosipTest.cpp" />
+    <ClCompile Include="ScenePatrikRaycastTest.cpp" />
     <ClCompile Include="ScenePatrikTest.cpp" />
+    <ClCompile Include="UILine.cpp" />
     <ClCompile Include="UISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -195,8 +197,10 @@
     <ClInclude Include="PrototypeMap2.h" />
     <ClInclude Include="RandomMazeGenerator.h" />
     <ClInclude Include="SceneJosipTest.h" />
+    <ClInclude Include="ScenePatrikRaycastTest.h" />
     <ClInclude Include="ScenePatrikTest.h" />
     <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UILine.h" />
     <ClInclude Include="UISlider.h" />
   </ItemGroup>
   <ItemGroup>

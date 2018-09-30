@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "IWeaponReactor.h"
 #include "MainCharacter.h"
+#include "UILine.h"
 
 class Enemy : public GameObject, public IWeaponReactor
 {
@@ -35,6 +36,13 @@ private:
 
 	const MainCharacter *_mainCharacter;
 
+	bool _isTrackingPlayer;
+
+	// Debug UI
+	UILine _testLine;
+	UILine _testLine2;
+	UILine _testLine3;
+	UILine _testLine4;
 private:
 	/* ------------------------- Functions ------------------------------------------------ */
 	void followPlayer(float dt);

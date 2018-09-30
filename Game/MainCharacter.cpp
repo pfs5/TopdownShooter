@@ -19,6 +19,7 @@ MainCharacter::MainCharacter() :
 	_reloadSlider{ sf::Vector2f{80.f, 10.f}, sf::Color{171, 165, 145}, sf::Color{ 227, 222, 203 } }
 {
 	setObjectLayer("Player");
+	setObjectTag("Player");
 
 	// -------- Init visuals -------- 
 	auto playerTex = ResourceManager::getTextureStatic(TEX_NAME_PLAYER);

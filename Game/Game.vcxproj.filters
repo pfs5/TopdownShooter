@@ -49,6 +49,9 @@
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{4d21966a-eb1c-4cd9-9018-dc523af1e980}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ui\basic-shapes">
+      <UniqueIdentifier>{5a516b72-9019-44e5-899e-748e5b60eb70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -109,6 +112,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UISlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UILine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePatrikRaycastTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -187,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="UISlider.h">
       <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UILine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePatrikRaycastTest.h">
+      <Filter>Header Files\game-states\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
