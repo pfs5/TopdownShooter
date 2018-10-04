@@ -12,6 +12,7 @@ void ScenePatrikRaycastTest::InitState(PlayState & playState)
 
 	// Enemy test
 	addEnemy(playState, sf::Vector2f{ 2300.f, 1100.f }, mainChar);
+	
 	addEnemy(playState, sf::Vector2f{ 2400.f, 1100.f }, mainChar);
 	addEnemy(playState, sf::Vector2f{ 2500.f, 1100.f }, mainChar);
 	addEnemy(playState, sf::Vector2f{ 2600.f, 1100.f }, mainChar);

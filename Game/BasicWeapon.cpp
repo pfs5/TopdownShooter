@@ -59,7 +59,7 @@ void BasicWeapon::setLocalPosition(const sf::Vector2f& _pos)
 
 void BasicWeapon::shoot() const
 {
-	auto projectile = dynamic_cast<Projectile*>(GameStateManager::instantiate(&Projectile{}, 2));
+	auto projectile = dynamic_cast<Projectile*>(GameStateManager::instantiate(&Projectile{_description.projectileMass, _description.doesPenetrate}, 2));
 	projectile->setLocalPosition(_globalPosition);
 	projectile->shootProjectile(_direction * 1000.f);
 
@@ -76,5 +76,17 @@ BasicWeaponDescription & BasicWeaponDescription::setRateOfFire(float rof)
 BasicWeaponDescription & BasicWeaponDescription::setRecoil(float rec)
 {
 	recoil = rec;
+	return *this;
+}
+
+BasicWeaponDescription & BasicWeaponDescription::setProjectileMass(float mass)
+{
+	projectileMass = mass;
+	return *this;
+}
+
+BasicWeaponDescription & BasicWeaponDescription::setDoesPenetrate(bool value)
+{
+	doesPenetrate = value;
 	return *this;
 }

@@ -36,15 +36,14 @@ void Application::runMainLoop() {
 			return;
 		}
 
-		if (Display::isInFocus()) {
-			Input::update();
-		}
-
 		// Physics
 		accumulator += clock.restart();
 
 		while (accumulator > dt) {
 			GameStateManager::activeGameState()->update(dt.asSeconds());
+			if (Display::isInFocus()) {
+				Input::update();
+			}
 
 			accumulator -= dt;
 		}

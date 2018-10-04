@@ -11,6 +11,9 @@ const std::vector<std::vector<bool>> PhysicsLayers::fillIgnoreMatrix() {
 		matrix.push_back(row);
 	}
 
+	//matrix[1][3] = true;
+	//matrix[3][1] = true;
+
 	//matrix[1][2] = true;	// player with map
 	//matrix[2][1] = true;	// player with map
 

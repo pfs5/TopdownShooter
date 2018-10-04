@@ -91,6 +91,7 @@ void Input::update() {
 void Input::updateKey(Input::KeyCode _key, sf::Keyboard::Key _sfmlKeyCode) {
 	bool newKeyValue = sf::Keyboard::isKeyPressed(_sfmlKeyCode);
 	int keyIndex = static_cast<int>(_key);
+
 	// check key down and key up
 	bool frameDifference = m_key[keyIndex] != newKeyValue;
 	m_keyDown[keyIndex] = (newKeyValue) ? frameDifference : false;

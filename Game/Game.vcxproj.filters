@@ -120,6 +120,9 @@
     <ClCompile Include="ScenePatrikRaycastTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BasicShotgun.cpp">
+      <Filter>Header Files\game-objects\weapons\concrete-weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -179,9 +182,6 @@
     <ClInclude Include="Projectile.h">
       <Filter>Header Files\game-objects\weapons</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IScene.h">
       <Filter>Header Files\game-states</Filter>
     </ClInclude>
@@ -197,11 +197,20 @@
     <ClInclude Include="UISlider.h">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
-    <ClInclude Include="UILine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ScenePatrikRaycastTest.h">
       <Filter>Header Files\game-states\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="IProjectileReactor.h">
+      <Filter>Header Files\game-objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\game-objects</Filter>
+    </ClInclude>
+    <ClInclude Include="UILine.h">
+      <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicShotgun.h">
+      <Filter>Header Files\game-objects\weapons\concrete-weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

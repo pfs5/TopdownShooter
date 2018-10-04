@@ -24,6 +24,11 @@
 
 	"textures" : [
 		{
+			"name": "default",
+			"path": "default.png"	
+		},
+
+		{
 			"name": "prototype-1-map-1-background",
 			"path": "prototype-1-map-1-background.png"
 		},

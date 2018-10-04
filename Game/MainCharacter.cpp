@@ -7,6 +7,7 @@
 #include "Debug.h"
 #include "GameStateManager.h"
 #include "BasicWeapon.h"
+#include "BasicShotgun.h"
 #include "Util.h"
 
 #include <memory>
@@ -44,13 +45,15 @@ MainCharacter::MainCharacter() :
 	baseCol->setTrigger(false, rb);
 
 	// --------  Init weapons -------- 
-	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.5f).setRecoil(1000.f);
-	BasicWeaponDescription wpnDescSlowMachineGun = BasicWeaponDescription{}.setRateOfFire(2.f).setRecoil(500.f);
-	BasicWeaponDescription wpnDescFastMachineGun = BasicWeaponDescription{}.setRateOfFire(10.f).setRecoil(100.f);
+	BasicWeaponDescription wpnDescSingleShot = BasicWeaponDescription{}.setRateOfFire(0.5f).setRecoil(1000.f).setProjectileMass(0.1f).setDoesPenetrate(true);
+	BasicWeaponDescription wpnDescSlowMachineGun = BasicWeaponDescription{}.setRateOfFire(2.f).setRecoil(500.f).setProjectileMass(0.05f);
+	BasicWeaponDescription wpnDescFastMachineGun = BasicWeaponDescription{}.setRateOfFire(10.f).setRecoil(100.f).setProjectileMass(0.03f);
+	BasicShotgunDescription wpnDescPumpShotgun = BasicShotgunDescription{}.setRateOfFire(0.8f).setRecoil(500.f).setProjectileMass(0.1f).setDoesPenetrate(false).setBurstBulletCount(15);
 
 	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSingleShot));
 	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescSlowMachineGun));
 	_weapons.push_back(std::make_unique<BasicWeapon>(this, wpnDescFastMachineGun));
+	_weapons.push_back(std::make_unique<BasicShotgun>(this, wpnDescPumpShotgun));
 
 	for (const auto &wep : _weapons)
 	{
@@ -171,6 +174,11 @@ void MainCharacter::handleWeaponSwitching()
 	if (Input::getKeyDown(Input::Num4) && _weapons.size() > 3)
 	{
 		_currentWeapon = 3;
+	}
+
+	if (Input::getKeyDown(Input::Num5) && _weapons.size() > 4)
+	{
+		_currentWeapon = 4;
 	}
 }
 

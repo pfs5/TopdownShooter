@@ -22,6 +22,8 @@ class ResourceManager {
 	const std::map<std::string, sf::SoundBuffer*> m_sounds = loadSounds();
 	const std::map<std::string, sf::Music*> m_music = loadMusic();
 
+	const std::string DEFAULT_OBJECT_NAME = "default";
+
 	ResourceManager() {};
 public:
 	#pragma region Singleton

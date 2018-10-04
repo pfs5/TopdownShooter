@@ -4,7 +4,7 @@
 class Projectile : public GameObject
 {
 public:
-	Projectile();
+	Projectile(float mass, bool doesPenetrate = false);
 	~Projectile() override;
 
 	void update(float _dt) override;
@@ -22,6 +22,13 @@ private:
 	/* ------------------------- Members ------------------------------------------------- */
 	// Constants
 	const std::string TEX_NAME_PROJECTILE = "prototype-1-player-projectile";
+	const float LIFETIME = 3.f;
+
+	float _counter;
+
+	// Parameters
+	float _mass;
+	bool _doesPenetrate;
 
 	// Movement
 	sf::Vector2f _direction;

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include "Util.h"
 
 /**
 	Basic vector (linear algebra) operations required in the engine.
@@ -53,5 +54,14 @@ namespace VectorOperations {
 		}
 
 		return result;
+	}
+
+	inline sf::Vector2f rotate(const sf::Vector2f &_v, float angle)
+	{
+		float angleRad = Util::degreeToRadian(angle);
+		float xRot = _v.x * cos(angleRad) - _v.y * sin(angleRad);
+		float yRot = _v.x * sin(angleRad) + _v.y * cos(angleRad);
+
+		return sf::Vector2f{ xRot, yRot };
 	}
 }

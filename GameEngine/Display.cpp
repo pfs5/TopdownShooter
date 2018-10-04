@@ -2,6 +2,7 @@
 #include "VectorOperations.h"
 #include <memory>
 #include <iostream>
+#include "GameSettings.h"
 
 namespace Display {
 	std::unique_ptr<sf::RenderWindow> window;
@@ -11,8 +12,14 @@ namespace Display {
 		sf::ContextSettings settings;
 		settings.antialiasingLevel = 16;
 
-		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT), TITLE, sf::Style::Default, settings);
-		window.get()->setFramerateLimit(60);
+		std::string title = TITLE + " " +
+			"v" + GameSettings::VERSION;
+
+		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT), title, sf::Style::Default, settings);
+		window->setFramerateLimit(250);
+		window->setVerticalSyncEnabled(true);
+
+		window->setPosition(sf::Vector2i{ 0u, 0u });
 	}
 
 	void clear(const sf::Color& _color) {

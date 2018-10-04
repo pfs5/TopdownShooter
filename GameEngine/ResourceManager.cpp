@@ -16,7 +16,12 @@ sf::Texture * ResourceManager::getTexture(const std::string &_textureName) const
 	try {
 		return m_textures.at(_textureName);
 	} catch (std::out_of_range e) {
-		return nullptr;
+		try {
+			return m_textures.at(DEFAULT_OBJECT_NAME);
+		}
+		catch (std::out_of_range e) {
+			return nullptr;
+		}
 	}
 }
 

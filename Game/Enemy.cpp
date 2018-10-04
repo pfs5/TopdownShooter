@@ -4,9 +4,16 @@
 #include "VectorOperations.h"
 #include "PhysicsEngine.h"
 #include "Debug.h"
+#include "ParticleSystem.h"
+#include "GameStateManager.h"
 
-Enemy::Enemy(const MainCharacter * mainCharacter) :
+Enemy::Enemy(const MainCharacter * mainCharacter, float hp) :
 	_isTrackingPlayer{false},
+	_externalVelocity{sf::Vector2f{0.f, 0.f}},
+	_initialRecoilVelocity{sf::Vector2f{0.f, 0.f}},
+	_recoilTimer{0.f},
+	_invincibilityTimer{0.f},
+	_hp{hp},
 	_testLine{2.f}
 {
 	_mainCharacter = mainCharacter;
@@ -37,6 +44,12 @@ void Enemy::update(float _dt)
 
 	// move towards main character
 	followPlayer(_dt);
+	applyDrag(_dt);
+
+	if (_invincibilityTimer < INVINCIBILITY_TIME)
+	{
+		_invincibilityTimer += _dt;
+	}
 }
 
 void Enemy::draw()
@@ -67,12 +80,25 @@ void Enemy::setLocalPosition(const sf::Vector2f & _pos)
 	}
 }
 
-void Enemy::onShoot()
+void Enemy::onHit(ProjectileInfo projectileInfo)
 {
-}
+	if (_invincibilityTimer < INVINCIBILITY_TIME)
+	{
+		return;
+	}
 
-void Enemy::applyKnockback(sf::Vector2f velocity)
-{
+	_invincibilityTimer = 0.f;
+
+	_initialRecoilVelocity = projectileInfo.velocity * projectileInfo.mass * 10.f;
+	_recoilTimer = 0.f;
+
+	_hp -= projectileInfo.mass * VectorOperations::norm(projectileInfo.velocity);
+
+	if (_hp < 0.f)
+	{
+		spawnExplosion();
+		GameStateManager::destroyObject(this);
+	}
 }
 
 void Enemy::followPlayer(float dt)
@@ -81,7 +107,6 @@ void Enemy::followPlayer(float dt)
 		_mainCharacter->getGlobalPosition() - getGlobalPosition(),
 		std::vector<std::string>{"Player", "Map"});
 
-	_isTrackingPlayer = false;
 	if (raycastData.hitCollider != nullptr && raycastData.hitCollider->getGameObject()->getObjectTag() == "Player")
 	{
 		auto playerPosition = _mainCharacter->getGlobalPosition();
@@ -91,13 +116,46 @@ void Enemy::followPlayer(float dt)
 			return;
 
 		playerEnemyDirection = VectorOperations::normalize(playerEnemyDirection);
-		move(playerEnemyDirection * MOVEMENT_SPEED * dt);
+		getRigidBody()->setVelocity(playerEnemyDirection * MOVEMENT_SPEED + _externalVelocity);
 
 		_isTrackingPlayer = true;
+	} else
+	{
+		_isTrackingPlayer = false;
+		getRigidBody()->setVelocity(_externalVelocity);
 	}
 
 	_testLine.setVisible(_isTrackingPlayer);
 
 	_testLine.setStartPoint(getGlobalPosition());
 	_testLine.setEndPoint(raycastData.hitPoint);
+}
+
+void Enemy::applyDrag(float dt)
+{
+	// Linear damping
+	_externalVelocity = (-_initialRecoilVelocity / RECOIL_DAMP_TIME) * _recoilTimer + _initialRecoilVelocity;
+
+	_recoilTimer = std::min(RECOIL_DAMP_TIME, _recoilTimer + dt);
+}
+
+void Enemy::spawnExplosion()
+{
+	ParticleSystem explosion {
+		ResourceManager::getTextureStatic("default"),
+		50u,
+		true,
+		true
+	};
+
+	explosion.setInitialAcceleration(sf::Vector2f{ 0.f, 0.f });
+	explosion.setInitialVelocity(sf::Vector2f{ -200.f, -200.f }, sf::Vector2f{ 200.f, 200.f });
+	explosion.setLifetime(3.f);
+	explosion.setSpawnRate(0.5f);
+	explosion.setScale(sf::Vector2f{ 0.2f, 0.2f });
+	explosion.setAlphaInTime(new Functions::LinearFunction{ Functions::LinearFunction::twoPoints(sf::Vector2f{ 0.f, 1.f }, sf::Vector2f{ .5f, 0.f }) });
+	explosion.setDestroyTime(10.f);
+
+	auto newExpl = GameStateManager::instantiate(&explosion);
+	newExpl->setLocalPosition(getGlobalPosition());
 }

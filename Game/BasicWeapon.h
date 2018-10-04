@@ -10,10 +10,14 @@ class BasicWeaponDescription
 public:
 	float rateOfFire = 0.f;							// projectiles per second
 	float recoil = 0.f;
+	float projectileMass = 0.f;
+	bool doesPenetrate = false;
 
 public:
-	BasicWeaponDescription & setRateOfFire(float rof);
-	BasicWeaponDescription & setRecoil(float rec);
+	BasicWeaponDescription& setRateOfFire(float rof);
+	BasicWeaponDescription& setRecoil(float rec);
+	BasicWeaponDescription& setProjectileMass(float mass);
+	BasicWeaponDescription& setDoesPenetrate(bool value);
 };
 
 class BasicWeapon : public IPlayerWeapon
@@ -30,15 +34,17 @@ public:
 	void setDirection(sf::Vector2f dir) override;
 
 	void setLocalPosition(const sf::Vector2f& _pos) override;
-private:
-	BasicWeaponDescription _description;
+
+protected:
 	float _firePeriod;
 
 	sf::Vector2f _direction;
 	float _fireTimer;
 	bool _isShooting;
 
-private:
-	void shoot() const;
+protected:
+	virtual void shoot() const;
 
+private:
+	BasicWeaponDescription _description;
 };

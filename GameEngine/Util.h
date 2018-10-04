@@ -7,6 +7,8 @@
 
 #define PI 3.14159265359f
 
+#include <SFML/Graphics.hpp>
+
 namespace Util {
 	static bool isInitialized = false;
 	
@@ -21,7 +23,24 @@ namespace Util {
 
 		return static_cast<float>(rand()) / RAND_MAX;
 	}
-	
+
+	/**
+		Random float in [minValue, maxValue] range
+	**/
+	inline float randomFloat(float minValue, float maxValue)
+	{
+		return minValue + (maxValue - minValue) * randomFloat();
+	}
+
+	inline sf::Vector2f randomVector2f(sf::Vector2f minValue, sf::Vector2f maxValue)
+	{
+		return sf::Vector2f 
+		{
+			randomFloat(minValue.x, maxValue.x),
+			randomFloat(minValue.y, maxValue.y),
+		};
+	}
+
 	/**
 		Random integer in [_min, _max] range
 	**/
@@ -44,6 +63,11 @@ namespace Util {
 
 	inline float radianToDegree(const float &_radians) {
 		return _radians * 180.f / PI;
+	}
+
+	inline float degreeToRadian(const float &_degrees)
+	{
+		return _degrees * PI / 180;
 	}
 
 	template <class T>
