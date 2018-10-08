@@ -62,7 +62,25 @@
 		{
 			"name": "prototype-1-player-projectile",
 			"path": "prototype-1-player-projectile.png"
+		},
+
+		{
+			"name": "prototype-map-1-island",
+			"path": "prototype-map-1-island.png"
+		},
+		{
+			"name": "prototype-map-1-bridge-horizontal",
+			"path": "prototype-map-1-bridge-horizontal.png"
+		},
+		{
+			"name": "prototype-map-1-bridge-vertical",
+			"path": "prototype-map-1-bridge-vertical.png"
+		},
+		{
+			"name": "prototype-map-1-bg",
+			"path": "prototype-map-1-bg.png"
 		}
+
 	],
 
 	"sounds" : [

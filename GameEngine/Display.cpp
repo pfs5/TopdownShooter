@@ -19,7 +19,8 @@ namespace Display {
 		window->setFramerateLimit(250);
 		window->setVerticalSyncEnabled(true);
 
-		window->setPosition(sf::Vector2i{ 0u, 0u });
+		window->setPosition(sf::Vector2i{ 100u, 0u });
+		window->setMouseCursorVisible(false);
 	}
 
 	void clear(const sf::Color& _color) {

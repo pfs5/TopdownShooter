@@ -12,7 +12,7 @@ Enemy::Enemy(const MainCharacter * mainCharacter, float hp) :
 	_externalVelocity{sf::Vector2f{0.f, 0.f}},
 	_initialRecoilVelocity{sf::Vector2f{0.f, 0.f}},
 	_recoilTimer{0.f},
-	_invincibilityTimer{0.f},
+	_invincibilityTimer{INVINCIBILITY_TIME + 1.f},
 	_hp{hp},
 	_testLine{2.f}
 {

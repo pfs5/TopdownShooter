@@ -27,7 +27,7 @@ private:
 	// Constants
 	const std::string TEX_NAME_ENEMY = "prototype-1-player";
 
-	const float MOVEMENT_SPEED = 200.f;
+	const float MOVEMENT_SPEED = 200.f;		// 200
 	const float SIZE_SCALE = 0.4f;
 	const float ATTACK_DISTANCE = 50.f;
 	const float RECOIL_DAMP_TIME = .5f;

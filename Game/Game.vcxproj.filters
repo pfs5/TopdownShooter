@@ -123,6 +123,9 @@
     <ClCompile Include="BasicShotgun.cpp">
       <Filter>Header Files\game-objects\weapons\concrete-weapons</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedPrototypeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -211,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="BasicShotgun.h">
       <Filter>Header Files\game-objects\weapons\concrete-weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedPrototypeMap.h">
+      <Filter>Header Files\maps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -160,6 +160,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GeneratedPrototypeMap.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeMap.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="BoxShape.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GeneratedPrototypeMap.h" />
     <ClInclude Include="IMap.h" />
     <ClInclude Include="IMazeGenerator.h" />
     <ClInclude Include="IPlayerWeapon.h" />

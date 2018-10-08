@@ -4,12 +4,15 @@
 #include "Enemy.h"
 #include "ParticleSystem.h"
 #include "ResourceManager.h"
+#include "Maze.h"
+#include "BacktrackerMazeGenerator.h"
+#include "GeneratedPrototypeMap.h"
 
 void ScenePatrikTest::InitState(PlayState & playState)
 {
 	// Player one
 	auto mainChar = new MainCharacter();
-	mainChar->setLocalPosition(sf::Vector2f{ 2000.f, 1000.f });
+	mainChar->setLocalPosition(sf::Vector2f{ 0.f, 0.f });
 	playState.addGameObjectToState(mainChar, 1);
 
 	// Camera
@@ -17,7 +20,10 @@ void ScenePatrikTest::InitState(PlayState & playState)
 	playState.addGameObjectToState(camera, 1);
 
 	// Map
-	playState._map = std::make_unique<PrototypeMap2>(1);
+	Maze* mapMaze = BacktrackerMazeGenerator{ 3, 3 }.generateMaze();
+	playState._map = std::make_unique<GeneratedPrototypeMap>(mapMaze);
+
+	mapMaze->printMaze();
 
 	// Testing
 	/*

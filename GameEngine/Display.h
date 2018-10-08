@@ -9,7 +9,7 @@ namespace Display {
 	constexpr uint16_t WIDTH = static_cast<uint16_t>(HEIGHT * 16.f / 9.f);
 	const std::string TITLE = "Topdown Shooter";
 
-	const float UPS = 60;   // 60
+	const float UPS = 120;   // 60
 
 	/**
 	* Initialize window

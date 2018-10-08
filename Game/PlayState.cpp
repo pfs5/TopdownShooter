@@ -148,7 +148,7 @@ void PlayState::initState()
 	//ScenePatrikTest scene;
 	//scene.InitState(*this);
 
-	ScenePatrikRaycastTest scene;
+	ScenePatrikTest scene;
 	scene.InitState(*this);
 
 }
