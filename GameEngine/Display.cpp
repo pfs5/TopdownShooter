@@ -3,6 +3,7 @@
 #include <memory>
 #include <iostream>
 #include "GameSettings.h"
+#include "Rendering.h"
 
 namespace Display {
 	std::unique_ptr<sf::RenderWindow> window;
@@ -69,7 +70,12 @@ namespace Display {
 	}
 	sf::Vector2f worldToScreenPosition(const sf::Vector2f & worldPos)
 	{
-		sf::Vector2f viewCenter = getWindow().getView().getCenter();
+		if (Rendering::getCameras().empty())
+		{
+			return sf::Vector2f{};
+		}
+
+		sf::Vector2f viewCenter = Rendering::getCameras()[0]->getView().getCenter();
 		sf::Vector2f viewPosition = viewCenter - VectorOperations::utof(getWindow().getSize()) / 2.f;
 
 		return worldPos - viewPosition;

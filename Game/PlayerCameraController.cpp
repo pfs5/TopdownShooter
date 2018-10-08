@@ -21,7 +21,7 @@ void PlayerCameraController::update(float _dt)
 
 void PlayerCameraController::draw()
 {
-	//_directionLine.draw();
+	_directionLine.draw();
 }
 
 void PlayerCameraController::onCollision(Collider * _this, Collider * _other)
@@ -49,6 +49,5 @@ void PlayerCameraController::updateDirection(float dt)
 void PlayerCameraController::moveCamera(float dt)
 {
 	sf::Vector2f moveVector = (_targetCamPosition - _camera->getGlobalPosition()) * 0.01f;
-	//_camera->move(moveVector);
-	_camera->setLocalPosition(_playerTransform->getGlobalPosition());
+	_camera->move(moveVector);
 }
