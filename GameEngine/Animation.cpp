@@ -4,6 +4,7 @@
 #include "VectorOperations.h"
 #include "Debug.h"
 #include <algorithm>
+#include "Rendering.h"
 
 Animation::Animation(std::string _name, int _numberOfFrames, const std::vector<int>& _frameLengths, int _scale, bool _isLooping, sf::Vector2f _textureScale) :
 	m_name(_name), m_isPlaying(true), m_currentFrame(0), m_numberOfFrames(_numberOfFrames), m_frameLengths(_frameLengths), m_scale(_scale),
@@ -92,7 +93,7 @@ void Animation::update(float _dt) {
 }
 
 void Animation::draw() {
-	Display::draw(m_sprite);
+	Rendering::draw(m_sprite);
 }
 
 void Animation::attachObserver(AnimationObserver * _o) {

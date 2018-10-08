@@ -2,6 +2,7 @@
 #include "VectorOperations.h"
 #include "Display.h"
 #include "Util.h"
+#include "Rendering.h"
 
 UILine::UILine(float thickness, sf::Color color) :
 	_isVisible {true},
@@ -22,7 +23,7 @@ void UILine::draw()
 		return;
 	}
 
-	Display::draw(_shape);
+	Rendering::draw(_shape);
 }
 
 void UILine::setVisible(bool value)

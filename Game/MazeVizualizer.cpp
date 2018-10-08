@@ -2,6 +2,7 @@
 #include "Display.h"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
+#include "Rendering.h"
 
 
 namespace sf {
@@ -70,11 +71,11 @@ void MazeVizualizer::draw()
 			const auto &node = nodes[y][x];
 			
 			// Draw required shapes
-			Display::draw(_cellShape);
-			if (!node->left) Display::draw(_wallLeftShape);
-			if (!node->right) Display::draw(_wallRightShape);
-			if (!node->top) Display::draw(_wallTopShape);
-			if (!node->bottom) Display::draw(_wallBottomShape);
+			Rendering::draw(_cellShape);
+			if (!node->left) Rendering::draw(_wallLeftShape);
+			if (!node->right) Rendering::draw(_wallRightShape);
+			if (!node->top) Rendering::draw(_wallTopShape);
+			if (!node->bottom) Rendering::draw(_wallBottomShape);
 		}
 	}
 }

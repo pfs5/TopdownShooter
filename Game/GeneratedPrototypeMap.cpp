@@ -2,6 +2,7 @@
 #include "Display.h"
 #include "ResourceManager.h"
 #include "VectorOperations.h"
+#include "Rendering.h"
 
 GeneratedPrototypeMap::GeneratedPrototypeMap(const Maze * maze) :
 	_maze{maze}
@@ -28,7 +29,7 @@ void GeneratedPrototypeMap::update(float dt)
 void GeneratedPrototypeMap::draw()
 {
 	// Draw map
-	Display::draw(_backgroundSprite);
+	Rendering::draw(_backgroundSprite);
 
 	auto &nodes = _maze->getNodes();
 	for (unsigned int y = 0; y<_maze->getRows(); ++y)
@@ -38,21 +39,21 @@ void GeneratedPrototypeMap::draw()
 			// Draw island
 			sf::Vector2f islandPos{ x * (ISLAND_SIZE.x + BRIDGE_HORIZONTAL_LENGTH), y * (ISLAND_SIZE.y + BRIDGE_VERTICAL_LENGTH) };
 			_islandSprite.setPosition(islandPos);
-			Display::draw(_islandSprite);
+			Rendering::draw(_islandSprite);
 
 			// Draw bridges
 			if (nodes[y][x]->right != nullptr)
 			{
 				sf::Vector2f bridgeRightPos = islandPos + sf::Vector2f{ ISLAND_SIZE.x, 0.f };
 				_bridgeHorizontalSprite.setPosition(bridgeRightPos);
-				Display::draw(_bridgeHorizontalSprite);
+				Rendering::draw(_bridgeHorizontalSprite);
 			}
 
 			if (nodes[y][x]->bottom != nullptr)
 			{
 				sf::Vector2f bridgeBottomPos = islandPos + sf::Vector2f{ 0.f, ISLAND_SIZE.y };
 				_bridgeVerticalSprite.setPosition(bridgeBottomPos);
-				Display::draw(_bridgeVerticalSprite);
+				Rendering::draw(_bridgeVerticalSprite);
 			}
 		}
 	}

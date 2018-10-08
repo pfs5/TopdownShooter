@@ -51,8 +51,8 @@ void ScenePatrikRaycastTest::InitState(PlayState & playState)
 	addEnemy(playState, sf::Vector2f{ 4200.f, 2400.f }, mainChar);
 
 	// Camera
-	auto camera = new Camera(mainChar);
-	playState.addGameObjectToState(camera, 1);
+	//auto camera = new Camera(mainChar);
+	//playState.addGameObjectToState(camera, 1);
 
 	// Map
 	playState._map = std::make_unique<PrototypeMap2>(1);

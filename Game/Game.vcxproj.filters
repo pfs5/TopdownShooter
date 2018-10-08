@@ -25,9 +25,6 @@
     <Filter Include="Header Files\characters">
       <UniqueIdentifier>{8dcbbdb9-2e11-4f3b-9073-8c9458f3591e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\camera">
-      <UniqueIdentifier>{08c10719-9cf8-42b9-bb18-0e0adee58603}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\maps">
       <UniqueIdentifier>{06df2470-f6d0-49bb-9e63-871a55718727}</UniqueIdentifier>
     </Filter>
@@ -51,6 +48,9 @@
     </Filter>
     <Filter Include="Header Files\ui\basic-shapes">
       <UniqueIdentifier>{5a516b72-9019-44e5-899e-748e5b60eb70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game-objects\camera">
+      <UniqueIdentifier>{8c4fcca2-93b4-41ef-a66b-0fa422088a81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainCharacter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MazeMap.cpp">
@@ -126,6 +123,9 @@
     <ClCompile Include="GeneratedPrototypeMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -148,9 +148,6 @@
     </ClInclude>
     <ClInclude Include="RandomMazeGenerator.h">
       <Filter>Header Files\maze-generation</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\camera</Filter>
     </ClInclude>
     <ClInclude Include="BacktrackerMazeGenerator.h">
       <Filter>Header Files\maze-generation</Filter>
@@ -217,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedPrototypeMap.h">
       <Filter>Header Files\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCameraController.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

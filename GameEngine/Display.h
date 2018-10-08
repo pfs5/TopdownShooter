@@ -31,7 +31,7 @@ namespace Display {
 	* Draw object on window
 	* @param drawable
 	*/
-	void draw(const sf::Drawable& _drawable);
+	//void draw(const sf::Drawable& _drawable);
 
 	/**
 	*

@@ -5,6 +5,7 @@
 #include "Debug.h"
 
 #include <fstream>
+#include "Rendering.h"
 
 PrototypeMap2::PrototypeMap2(float scale) :
 	_scale {scale}
@@ -30,7 +31,7 @@ void PrototypeMap2::update(float dt)
 
 void PrototypeMap2::draw()
 {
-	Display::draw(_mapSprite);
+	Rendering::draw(_mapSprite);
 }
 
 void PrototypeMap2::onCollision(Collider * _this, Collider * _other)

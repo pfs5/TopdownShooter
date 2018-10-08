@@ -3,6 +3,7 @@
 #include "Util.h"
 #include "Debug.h"
 #include "GameStateManager.h"
+#include "Rendering.h"
 
 // ---- Particle ----
 ParticleSystem::Particle::Particle(ParticleSystem* parentSystem, sf::Texture* texture, sf::Vector2f scale) :
@@ -45,7 +46,7 @@ void ParticleSystem::Particle::draw()
 	}
 
 	_sprite.setPosition(_parentSystem->getGlobalPosition() + localPosition);
-	Display::draw(_sprite);
+	Rendering::draw(_sprite);
 }
 
 void ParticleSystem::Particle::start(float lifetime)

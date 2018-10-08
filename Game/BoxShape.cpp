@@ -1,6 +1,7 @@
 #include "BoxShape.h"
 #include "Display.h"
 #include "Debug.h"
+#include "Rendering.h"
 
 BoxShape::BoxShape(sf::Vector2f size, sf::Color color) :
 	_shape{size}
@@ -20,7 +21,7 @@ void BoxShape::update(float _dt)
 
 void BoxShape::draw()
 {
-	Display::draw(_shape);
+	Rendering::draw(_shape);
 }
 
 void BoxShape::onCollision(Collider* _this, Collider* _other)

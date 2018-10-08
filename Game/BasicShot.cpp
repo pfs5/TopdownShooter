@@ -3,6 +3,7 @@
 #include "GameStateManager.h"
 #include "VectorOperations.h" 
 #include "Debug.h"
+#include "Rendering.h"
 
 BasicShot::BasicShot() : m_destructionTime{DESTROY_DELAY} {
 	float size = 10.f;
@@ -46,7 +47,7 @@ void BasicShot::update(float _dt) {
 }
 
 void BasicShot::draw() { 
-	Display::draw(m_shape);
+	Rendering::draw(m_shape);
 }
 
 void BasicShot::onCollision(Collider * _this, Collider * _other) {

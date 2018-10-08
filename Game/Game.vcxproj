@@ -157,7 +157,6 @@
     <ClCompile Include="BasicWeapon.cpp" />
     <ClCompile Include="BoxCharacter.cpp" />
     <ClCompile Include="BoxShape.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GeneratedPrototypeMap.cpp" />
@@ -165,6 +164,7 @@
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeMap.cpp" />
     <ClCompile Include="MazeVizualizer.cpp" />
+    <ClCompile Include="PlayerCameraController.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PrototypeMap1.cpp" />
@@ -183,7 +183,6 @@
     <ClInclude Include="BasicWeapon.h" />
     <ClInclude Include="BoxCharacter.h" />
     <ClInclude Include="BoxShape.h" />
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GeneratedPrototypeMap.h" />
     <ClInclude Include="IMap.h" />
@@ -196,6 +195,7 @@
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeMap.h" />
     <ClInclude Include="MazeVizualizer.h" />
+    <ClInclude Include="PlayerCameraController.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="PrototypeMap1.h" />

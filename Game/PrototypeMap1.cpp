@@ -1,6 +1,7 @@
 #include "PrototypeMap1.h"
 #include "ResourceManager.h"
 #include "Display.h"
+#include "Rendering.h"
 
 PrototypeMap1::PrototypeMap1(float scale) :
 	_cloudsBackPos {0.f},
@@ -41,8 +42,8 @@ void PrototypeMap1::update(float dt)
 
 void PrototypeMap1::draw()
 {
-	Display::draw(_backgroundSprite);
-	Display::draw(_cloudsBackSprite);
-	Display::draw(_cloudsFrontSprite);
-	Display::draw(_platformsSprite);
+	Rendering::draw(_backgroundSprite);
+	Rendering::draw(_cloudsBackSprite);
+	Rendering::draw(_cloudsFrontSprite);
+	Rendering::draw(_platformsSprite);
 }

@@ -11,6 +11,7 @@
 #include "Util.h"
 
 #include <memory>
+#include "Rendering.h"
 
 MainCharacter::MainCharacter() :
 	_currentWeapon{0},
@@ -78,8 +79,8 @@ void MainCharacter::update(float _dt)
 
 void MainCharacter::draw()
 {
-	Display::draw(_sprite);
-	Display::draw(_crosshairSprite);
+	Rendering::draw(_sprite);
+	Rendering::draw(_crosshairSprite);
 
 	_reloadSlider.draw();
 }

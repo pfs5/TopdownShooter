@@ -13,6 +13,7 @@
 #include "SceneJosipTest.h"
 #include "ScenePatrikTest.h"
 #include "ScenePatrikRaycastTest.h"
+#include "Rendering.h"
 
 PlayState::PlayState() 
 {
@@ -21,6 +22,9 @@ PlayState::PlayState()
 	{
 		_gameObjects.emplace_back(std::vector<GameObject*>());
 	}
+
+	Camera* defaultCamera = Rendering::createCamera();
+	defaultCamera->setView(Display::getWindow().getDefaultView());
 
 	initState();
 }

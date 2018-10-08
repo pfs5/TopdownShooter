@@ -3,6 +3,7 @@
 #include "Display.h"
 #include "VectorOperations.h"
 #include "Debug.h"
+#include "Rendering.h"
 
 MazeMap::MazeMap(const Maze *maze, const sf::Vector2f * playerPosition) :
 	_maze{ maze },
@@ -159,5 +160,5 @@ void MazeMap::drawCellAtPosition(const sf::Vector2f & pos, const sf::Color & col
 {
 	_cellShape.setPosition(pos);
 	_cellShape.setFillColor(color);
-	Display::draw(_cellShape);
+	Rendering::draw(_cellShape);
 }

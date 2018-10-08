@@ -9,6 +9,7 @@
 #include "Util.h"
 
 #include <SFML/System/Clock.hpp>
+#include "Rendering.h"
 
 Application::Application() :
 	m_fpsText{"fps: ", *ResourceManager::getInstance().getFont("couriernew1"), 15} {
@@ -26,6 +27,8 @@ void Application::runMainLoop() {
 	sf::Time accumulator;
 	sf::Time dt = sf::seconds(1.f / Display::UPS);
 	sf::Time max_acc = sf::seconds(0.2f);
+
+	Rendering &rendering = Rendering::getInstance();
 
 	while (Display::isOpen()) {
 		Display::checkWindowEvents();
@@ -57,9 +60,10 @@ void Application::runMainLoop() {
 		sf::Vector2f debugTextPos{viewCenter.x - windowSize.x / 2.f + 10.f, viewCenter.y - windowSize.y / 2.f};
 		m_fpsText.setPosition(debugTextPos);
 
-		Display::draw(m_fpsText);
+		Rendering::draw(m_fpsText);
 
 		calculateFPS(GameSettings::PRINT_FPS);
+		rendering.flushRenderingQueue();
 		Display::display();
 	}
 }

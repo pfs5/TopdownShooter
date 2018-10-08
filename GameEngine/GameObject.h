@@ -41,9 +41,6 @@ public:
 
 	virtual void onCollision(Collider * _this, Collider * _other) = 0;
 
-	// Transform
-	void move(sf::Vector2f _delta);
-	
 	// Prototype pattern allows cloning of gameobjects = prefab mechanism
 	virtual GameObject * clone() = 0;
 

@@ -2,6 +2,7 @@
 #include "Display.h"
 #include "Util.h"
 #include "Debug.h"
+#include "Rendering.h"
 
 UISlider::UISlider(const sf::Vector2f &size, const sf::Color &backgroundColor, const sf::Color &fillColor) :
 	_isVisible{true},
@@ -30,8 +31,8 @@ void UISlider::draw()
 	_backgroundShape.setPosition(_globalPosition);
 	_fillShape.setPosition(_globalPosition - _size / 2.f);
 
-	Display::draw(_backgroundShape);
-	Display::draw(_fillShape);
+	Rendering::draw(_backgroundShape);
+	Rendering::draw(_fillShape);
 }
 
 void UISlider::setVisible(bool value)

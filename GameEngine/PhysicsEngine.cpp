@@ -6,6 +6,7 @@
 #include "VectorOperations.h"
 #include "ConfigManager.h"
 #include "FloatOperations.h"
+#include "Rendering.h"
 
 PhysicsEngine::PhysicsEngine() {
 }
@@ -38,7 +39,7 @@ void PhysicsEngine::draw() {
 	if (ConfigManager::getInstance().getBool("debug", "show-colliders", false)) {
 		for (Collider * c : m_colliders) {
 			if (c->getGameObject()->isActive()) {
-				Display::draw(c->getDrawable());
+				Rendering::draw(c->getDrawable());
 			}
 		}
 	}

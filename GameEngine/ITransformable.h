@@ -11,6 +11,7 @@ public:
 	virtual void setLocalPosition(const sf::Vector2f &_pos);
 	inline const sf::Vector2f &getLocalPosition() const { return _localPosition; }
 	inline const sf::Vector2f &getGlobalPosition() const { return _globalPosition; }
+	inline void move(sf::Vector2f delta) { setLocalPosition(getLocalPosition() + delta); }
 
 	void attachChild(ITransformable * child);
 	void clearParent();

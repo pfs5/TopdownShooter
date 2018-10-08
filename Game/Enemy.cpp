@@ -6,6 +6,7 @@
 #include "Debug.h"
 #include "ParticleSystem.h"
 #include "GameStateManager.h"
+#include "Rendering.h"
 
 Enemy::Enemy(const MainCharacter * mainCharacter, float hp) :
 	_isTrackingPlayer{false},
@@ -54,7 +55,7 @@ void Enemy::update(float _dt)
 
 void Enemy::draw()
 {
-	Display::draw(_sprite);
+	Rendering::draw(_sprite);
 
 	_testLine.draw();
 }

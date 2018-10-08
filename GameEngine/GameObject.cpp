@@ -27,10 +27,6 @@ void GameObject::addCollider(Collider * _c) {
 	_colliders.push_back(_c);
 }
 
-void GameObject::move(sf::Vector2f _delta) {
-	setLocalPosition(getLocalPosition() + _delta);
-}
-
 /**
  * Creates a new rigid body, registers it with the physics engine and attaches to all existing colliders.
  */

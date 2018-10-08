@@ -5,6 +5,7 @@
 #include "GameStateManager.h"
 #include "BasicShot.h"
 #include "Debug.h"
+#include "Rendering.h"
 
 BoxCharacter::BoxCharacter(PLAYER_NUMBER _playerNo) : m_playerNo{ _playerNo } {
 	// Init visual
@@ -39,8 +40,8 @@ void BoxCharacter::update(float _dt) {
 }
 
 void BoxCharacter::draw() {
-	Display::draw(m_shape);
-	Display::draw(m_aimShape);
+	Rendering::draw(m_shape);
+	Rendering::draw(m_aimShape);
 }
 
 void BoxCharacter::onCollision(Collider * _this, Collider * _other) {

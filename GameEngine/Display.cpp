@@ -31,9 +31,9 @@ namespace Display {
 		window->display();
 	}
 
-	void draw(const sf::Drawable& _drawable) {
-		window->draw(_drawable);
-	}
+	//void draw(const sf::Drawable& _drawable) {
+	//	window->draw(_drawable);
+	//}
 
 	void checkWindowEvents() {
 		sf::Event e;

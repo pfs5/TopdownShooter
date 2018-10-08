@@ -6,6 +6,7 @@
 #include "Debug.h"
 #include "IProjectileReactor.h"
 #include "GameStateManager.h"
+#include "Rendering.h"
 
 Projectile::Projectile(float mass, bool doesPenetrate) :
 	_counter{0.f},
@@ -41,7 +42,7 @@ void Projectile::update(float _dt)
 
 void Projectile::draw()
 {
-	Display::draw(_mainSprite);
+	Rendering::draw(_mainSprite);
 }
 
 void Projectile::onCollision(Collider* _this, Collider* _other)

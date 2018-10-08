@@ -17,8 +17,8 @@ void SceneJosipTest::InitState(PlayState & playState)
 	playState.addGameObjectToState(enemy, 1);
 
 	// Camera
-	auto camera = new Camera(mainChar);
-	playState.addGameObjectToState(camera, 1);
+	//auto camera = new Camera(mainChar);
+	//playState.addGameObjectToState(camera, 1);
 
 	// Map
 	playState._map = std::make_unique<PrototypeMap2>(1);
