@@ -39,7 +39,7 @@
             "entries": [
                 {
                     "key": "show-colliders",
-                    "value": "False"
+                    "value": "True"
                 }
             ]
         }

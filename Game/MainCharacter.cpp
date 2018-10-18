@@ -41,6 +41,7 @@ MainCharacter::MainCharacter() :
 	auto baseCol = createCollider(sf::Vector2f{ 0.f , 0.f }, VectorOperations::utof(playerTex->getSize()) * SIZE_SCALE);
 	auto rb = createRigidBody();
 	rb->setGravity(false);
+	rb->setMass(100);
 
 	baseCol->setStatic(false);
 	baseCol->setTrigger(false, rb);
@@ -100,12 +101,6 @@ void MainCharacter::setLocalPosition(const sf::Vector2f & _pos)
 
 	_sprite.setPosition(_globalPosition);
 	_crosshairSprite.setPosition(_globalPosition + _aimDirection * CROSSHAIR_DISTANCE);
-
-
-	for(const auto &col : _colliders)
-	{
-		col->setPosition(_globalPosition);
-	}
 }
 
 void MainCharacter::onShoot()
@@ -132,7 +127,7 @@ void MainCharacter::moveAction(float dt)
 	_movementVelocity.x = dx + _externalVelocity.x;
 	_movementVelocity.y = dy + _externalVelocity.y;
 
-	move(_movementVelocity * dt);
+	getRigidBody()->setVelocity(_movementVelocity);
 }
 
 void MainCharacter::aimAction()

@@ -9,6 +9,7 @@
 #include "GeneratedPrototypeMap.h"
 #include "Rendering.h"
 #include "PlayerCameraController.h"
+#include "BoxObject.h"
 
 void ScenePatrikTest::InitState(PlayState & playState)
 {
@@ -16,6 +17,19 @@ void ScenePatrikTest::InitState(PlayState & playState)
 	auto mainChar = new MainCharacter();
 	mainChar->setLocalPosition(sf::Vector2f{ 0.f, 0.f });
 	playState.addGameObjectToState(mainChar, 1);
+
+	// Boxes
+	auto box1 = new BoxObject{ sf::Vector2f{100.f, 100.f}, 1 };
+	box1->setLocalPosition(sf::Vector2f{ 500.f, 500.f });
+	playState.addGameObjectToState(box1);
+
+	auto box2 = new BoxObject{ sf::Vector2f{ 100.f, 100.f }, 10 };
+	box2->setLocalPosition(sf::Vector2f{ 700.f, 500.f });
+	playState.addGameObjectToState(box2);
+
+	auto box3 = new BoxObject{ sf::Vector2f{ 100.f, 100.f }, 100 };
+	box3->setLocalPosition(sf::Vector2f{ 1000.f, 500.f });
+	playState.addGameObjectToState(box3);
 
 	// Cameras
 	Camera* mainCamera = Rendering::getCameras()[0];

@@ -16,6 +16,8 @@ class RigidBody {
 
 	bool m_hasGravity = true;
 	float m_bounceFactor = .3f;
+	float m_mass = 1.f;
+	float m_dragCoeff = 0.f;
 
 	GameObject * m_gameObject = nullptr;
 public:
@@ -26,14 +28,20 @@ public:
 	inline sf::Vector2f getVelocity() { return m_velocity; };
 	inline void setVelocity(sf::Vector2f _v) { m_velocity = _v; };
 
-	inline sf::Vector2f getAcceleration() { return m_acceleration; };
+	inline sf::Vector2f getAcceleration() const { return m_acceleration; };
 	inline void setAcceleration(sf::Vector2f _a) { m_acceleration = _a; };
 
-	inline bool hasGravity() { return m_hasGravity; };
+	inline bool hasGravity() const { return m_hasGravity; };
 	inline void setGravity(bool _grav) { m_hasGravity = _grav; };
 
-	inline float getBounceFactor() { return m_bounceFactor; };
+	inline float getBounceFactor() const { return m_bounceFactor; };
 	inline void setBounceFactor(float _b) { m_bounceFactor = _b; };
+
+	inline float getMass() const { return m_mass; };
+	inline void setMass(float _mass) { m_mass = _mass; };
+
+	inline float getDragCoefficient() const { return m_dragCoeff; };
+	inline void setDragCoefficient(float _dragCoeff) { m_dragCoeff = _dragCoeff; };
 
 	inline GameObject * getGameObject() { return m_gameObject; };
 #pragma endregion

@@ -62,4 +62,9 @@ int GameObject::getLayerNumber() {
 inline void GameObject::setLocalPosition(const sf::Vector2f & _pos)
 {
 	ITransformable::setLocalPosition(_pos);
+
+	for (const auto &col : _colliders)
+	{
+		col->setPosition(_globalPosition);
+	}
 }

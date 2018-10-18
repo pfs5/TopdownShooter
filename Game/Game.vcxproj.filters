@@ -126,6 +126,9 @@
     <ClCompile Include="PlayerCameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoxObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayState.h">
@@ -216,6 +219,9 @@
       <Filter>Header Files\maps</Filter>
     </ClInclude>
     <ClInclude Include="PlayerCameraController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -27,7 +27,8 @@ void PhysicsEngine::update(float _dt) {
 		sf::Vector2f movement = rb->getVelocity() * _dt + 0.5f * (rb->getAcceleration() + gravity) * powf(_dt, 2);
 		rb->getGameObject()->move(movement);
 
-		rb->setVelocity(rb->getVelocity() + (rb->getAcceleration() + gravity) * _dt);
+		sf::Vector2f newVelocity = (rb->getVelocity() + (rb->getAcceleration() + gravity) * _dt) * (1.f - rb->getDragCoefficient() * _dt);
+		rb->setVelocity(newVelocity);
 	}
 
 	// Collision detection
@@ -322,7 +323,8 @@ void PhysicsEngine::collisionDetection() {
 				// Collision response - both colliders not triggers
 				if (!c1->isTrigger() && !c2->isTrigger() && !PhysicsLayers::layerIgnoreMatrix[c1->getGameObject()->getLayerNumber()][c2->getGameObject()->getLayerNumber()]) {				
 					// ## Move object out of collision ##
-					sf::Vector2f axisVector{static_cast<float>(1 - collisionAxis), static_cast<float>(collisionAxis)};
+					sf::Vector2f collisionAxisVector{static_cast<float>(1 - collisionAxis), static_cast<float>(collisionAxis)};
+					sf::Vector2f perservedAxisVector = sf::Vector2f{ 1.f, 1.f } - collisionAxisVector;
 
 					// Base movement
 					float moveAmount1 = c1->isStatic() ? 0.f : finalDiff / 2.f;
@@ -336,35 +338,37 @@ void PhysicsEngine::collisionDetection() {
 					float direction2 = direction ? 1.f : -1.f;
 
 					// Move
-					c1->getGameObject()->move(axisVector * moveAmount1 * direction1);
-					c2->getGameObject()->move(axisVector * moveAmount2 * direction2);
+					c1->getGameObject()->move(collisionAxisVector * moveAmount1 * direction1);
+					c2->getGameObject()->move(collisionAxisVector * moveAmount2 * direction2);
 
 					// ## Phyics collision response ##
-					sf::Vector2f velocity1 = c1->getRigidBody()->getVelocity();
-					sf::Vector2f velocity2 = c2->getRigidBody()->getVelocity();
+					RigidBody* rb1 = c1->getRigidBody();
+					RigidBody* rb2 = c2->getRigidBody();
+
+					sf::Vector2f velocity1 = rb1->getVelocity();
+					sf::Vector2f velocity2 = rb2->getVelocity();
+
+					float mass1 = rb1->getMass();
+					float mass2 = rb2->getMass();
+					float M = mass1 + mass2;
+
+					float bounce1 = rb1->getBounceFactor();
+					float bounce2 = rb2->getBounceFactor();
 
 					if (!c1->isStatic()) {
-						float bounce = c1->getRigidBody()->getBounceFactor() / 2.f + 0.5f;
-						sf::Vector2f newVelocity1 = velocity1 - VectorOperations::memberwiseMultiplication(velocity1, (axisVector * 2.f)) * bounce;
-						//newVelocity1 += VectorOperations::memberwiseMultiplication(velocity2, axisVector) * c1->getRigidBody()->getBounceFactor();
+						sf::Vector2f newVelocity1 = ((mass1 - mass2) * velocity1 + 2 * mass2 * velocity2) / M;
+						newVelocity1 = VectorOperations::memberwiseMultiplication(newVelocity1, collisionAxisVector) +
+							VectorOperations::memberwiseMultiplication(velocity1, perservedAxisVector);
 
-						float generalDirection = VectorOperations::dotProduct(axisVector, velocity1) > 0.f ? 1.f : -1.f;
-
-						if (generalDirection == direction1) {
-							c1->getRigidBody()->setVelocity(newVelocity1);
-						}
+						c1->getRigidBody()->setVelocity(newVelocity1 * bounce1);
 					}
 
 					if (!c2->isStatic()) {
-						float bounce = c2->getRigidBody()->getBounceFactor() / 2.f + 0.5f;
-						sf::Vector2f newVelocity2 = velocity2 - VectorOperations::memberwiseMultiplication(velocity2, (axisVector * 2.f)) * bounce;
-						//newVelocity2 += VectorOperations::memberwiseMultiplication(velocity1, axisVector) * c2->getRigidBody()->getBounceFactor();
+						sf::Vector2f newVelocity2 = (2 * mass1 * velocity1 + (mass2 - mass1) * velocity2) / M;
+						newVelocity2 = VectorOperations::memberwiseMultiplication(newVelocity2, collisionAxisVector) +
+							VectorOperations::memberwiseMultiplication(velocity2, perservedAxisVector);
 
-						float generalDirection = VectorOperations::dotProduct(axisVector, velocity2) > 0.f ? 1.f : -1.f;
-
-						if (generalDirection == direction2) {
-							c2->getRigidBody()->setVelocity(newVelocity2);
-						}
+						c2->getRigidBody()->setVelocity(newVelocity2 * bounce2);
 					}
 				}
 

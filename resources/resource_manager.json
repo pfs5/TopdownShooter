@@ -79,6 +79,11 @@
 		{
 			"name": "prototype-map-1-bg",
 			"path": "prototype-map-1-bg.png"
+		},
+
+		{
+			"name": "box",
+			"path": "box.png"
 		}
 
 	],

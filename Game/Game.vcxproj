@@ -156,6 +156,7 @@
     <ClCompile Include="BasicShotgun.cpp" />
     <ClCompile Include="BasicWeapon.cpp" />
     <ClCompile Include="BoxCharacter.cpp" />
+    <ClCompile Include="BoxObject.cpp" />
     <ClCompile Include="BoxShape.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BasicWeapon.h" />
     <ClInclude Include="BoxCharacter.h" />
+    <ClInclude Include="BoxObject.h" />
     <ClInclude Include="BoxShape.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GeneratedPrototypeMap.h" />
