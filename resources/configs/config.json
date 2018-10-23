@@ -1,35 +1,11 @@
 {
     "config": [
         {
-            "section": "game",
+            "section": "data-paths",
             "entries": [
                 {
-                    "key": "key1",
-                    "value": "String test value"
-                },
-                {
-                    "key": "key2",
-                    "value": "123"
-                },
-                {
-                    "key": "key3",
-                    "value": "1.23"
-                },
-                {
-                    "key": "key4",
-                    "value": "True"
-                },
-                {
-                    "key": "key5",
-                    "value": "false"
-                },
-                {
-                    "key": "key6",
-                    "value": "1.2 1.3"
-                },
-                {
-                    "key": "key7",
-                    "value": "1.2 1.3 1.4"
+                    "key": "animations-folder",
+                    "value": "../resources/animations/"
                 }
             ]
         },
@@ -39,7 +15,7 @@
             "entries": [
                 {
                     "key": "show-colliders",
-                    "value": "True"
+                    "value": "False"
                 }
             ]
         }

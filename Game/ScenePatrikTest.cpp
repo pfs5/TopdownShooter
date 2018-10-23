@@ -10,26 +10,20 @@
 #include "Rendering.h"
 #include "PlayerCameraController.h"
 #include "BoxObject.h"
+#include "EnemySpawnManager.h"
+#include "AnimationTesterObject.h"
 
 void ScenePatrikTest::InitState(PlayState & playState)
 {
 	// Player one
 	auto mainChar = new MainCharacter();
 	mainChar->setLocalPosition(sf::Vector2f{ 0.f, 0.f });
-	playState.addGameObjectToState(mainChar, 1);
+	//playState.addGameObjectToState(mainChar, 1);
 
-	// Boxes
-	auto box1 = new BoxObject{ sf::Vector2f{100.f, 100.f}, 1 };
-	box1->setLocalPosition(sf::Vector2f{ 500.f, 500.f });
-	playState.addGameObjectToState(box1);
-
-	auto box2 = new BoxObject{ sf::Vector2f{ 100.f, 100.f }, 10 };
-	box2->setLocalPosition(sf::Vector2f{ 700.f, 500.f });
-	playState.addGameObjectToState(box2);
-
-	auto box3 = new BoxObject{ sf::Vector2f{ 100.f, 100.f }, 100 };
-	box3->setLocalPosition(sf::Vector2f{ 1000.f, 500.f });
-	playState.addGameObjectToState(box3);
+	//// Boxes
+	//auto box1 = new BoxObject{ sf::Vector2f{100.f, 100.f}, 100 };
+	//box1->setLocalPosition(sf::Vector2f{ 500.f, 500.f });
+	//playState.addGameObjectToState(box1);
 
 	// Cameras
 	Camera* mainCamera = Rendering::getCameras()[0];
@@ -51,6 +45,29 @@ void ScenePatrikTest::InitState(PlayState & playState)
 	Maze* mapMaze = BacktrackerMazeGenerator{ 3, 3 }.generateMaze();
 	playState._map = std::make_unique<GeneratedPrototypeMap>(mapMaze);
 
+	// Animation testing
+	auto testObj = new AnimationTesterObject{};
+	playState.addGameObjectToState(testObj);
+
+	//// Managers
+	//auto enemySpawnManager = new EnemySpawnManager(new Enemy{mainChar});
+	//enemySpawnManager->setSpawnRate(1.f);
+	//enemySpawnManager->setSpawnPositions(
+	//{
+	//	sf::Vector2f{450.f,  350.f},
+	//	sf::Vector2f{2450.f, 350.f},
+	//	sf::Vector2f{4450.f, 350.f},
+
+	//	sf::Vector2f{ 450.f,  1350.f },
+	//	sf::Vector2f{ 2450.f, 1350.f },
+	//	sf::Vector2f{ 4450.f, 1350.f },
+
+	//	sf::Vector2f{ 450.f,  2350.f },
+	//	sf::Vector2f{ 2450.f, 2350.f },
+	//	sf::Vector2f{ 4450.f, 2350.f }
+	//});
+	//playState.addGameObjectToState(enemySpawnManager);
+
 	// Testing
 	/*
 	auto partSys = new ParticleSystem(ResourceManager::getTextureStatic("default"), 50u, true, false);
@@ -64,5 +81,4 @@ void ScenePatrikTest::InitState(PlayState & playState)
 
 	playState.addGameObjectToState(partSys);
 	*/
-	
 }

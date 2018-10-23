@@ -38,6 +38,11 @@ Enemy::~Enemy()
 {
 }
 
+void Enemy::attachObserver(IEnemyDestroyObserver * o)
+{
+	_observers.push_back(o);
+}
+
 void Enemy::update(float _dt)
 {
 	if (!_mainCharacter)
@@ -57,7 +62,7 @@ void Enemy::draw()
 {
 	Rendering::draw(_sprite);
 
-	_testLine.draw();
+	//_testLine.draw();
 }
 
 void Enemy::onCollision(Collider * _this, Collider * _other)
@@ -66,7 +71,7 @@ void Enemy::onCollision(Collider * _this, Collider * _other)
 
 GameObject * Enemy::clone()
 {
-	return nullptr;
+	return new Enemy{_mainCharacter, _hp};
 }
 
 void Enemy::setLocalPosition(const sf::Vector2f & _pos)
@@ -104,6 +109,13 @@ void Enemy::onHit(ProjectileInfo projectileInfo)
 
 void Enemy::followPlayer(float dt)
 {
+	if (VectorOperations::squaredNorm(_mainCharacter->getGlobalPosition() - getGlobalPosition()) > SQUARED_RANGE)
+	{
+		_isTrackingPlayer = false;
+		getRigidBody()->setVelocity(_externalVelocity);
+		return;
+	}
+
 	RaycastData raycastData = PhysicsEngine::getInstance().raycast2(getGlobalPosition(),
 		_mainCharacter->getGlobalPosition() - getGlobalPosition(),
 		std::vector<std::string>{"Player", "Map"});

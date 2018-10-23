@@ -52,6 +52,12 @@
     <Filter Include="Header Files\game-objects\camera">
       <UniqueIdentifier>{8c4fcca2-93b4-41ef-a66b-0fa422088a81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game-objects\managers">
+      <UniqueIdentifier>{1c4f8f79-df6d-4da9-a1fd-bf37a9a90aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game-objects\testing">
+      <UniqueIdentifier>{b1807fcc-a97e-4bd3-b931-6f7ed17f8915}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -127,6 +133,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BoxObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpawnManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationTesterObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -223,6 +235,15 @@
     </ClInclude>
     <ClInclude Include="BoxObject.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawnManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemyDestroyObserver.h">
+      <Filter>Header Files\game-objects</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationTesterObject.h">
+      <Filter>Header Files\game-objects\testing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

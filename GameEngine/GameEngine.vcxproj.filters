@@ -69,9 +69,6 @@
     <ClInclude Include="AnimationObserver.h">
       <Filter>Header Files\animation</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files\animation</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationController.h">
       <Filter>Header Files\animation</Filter>
     </ClInclude>
@@ -135,11 +132,11 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AnimationController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -189,6 +186,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

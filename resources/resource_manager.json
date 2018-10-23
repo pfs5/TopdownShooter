@@ -84,8 +84,25 @@
 		{
 			"name": "box",
 			"path": "box.png"
-		}
+		},
 
+		{
+			"name": "spawn-icon",
+			"path": "spawn-icon.png"
+		},
+
+		{
+			"name": "SS_test",
+			"path": "SS_test.png"
+		},
+		{
+			"name": "SS_dummy-character_idle",
+			"path": "SS_dummy-character_idle.png"
+		},
+		{
+			"name": "SS_dummy-character_walk",
+			"path": "SS_dummy-character_walk.png"
+		}
 	],
 
 	"sounds" : [

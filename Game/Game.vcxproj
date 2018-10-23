@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationTesterObject.cpp" />
     <ClCompile Include="BacktrackerMazeGenerator.cpp" />
     <ClCompile Include="BasicShot.cpp" />
     <ClCompile Include="BasicShotgun.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="BoxObject.cpp" />
     <ClCompile Include="BoxShape.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemySpawnManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GeneratedPrototypeMap.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
@@ -178,6 +180,7 @@
     <ClCompile Include="UISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationTesterObject.h" />
     <ClInclude Include="BacktrackerMazeGenerator.h" />
     <ClInclude Include="BasicShot.h" />
     <ClInclude Include="BasicShotgun.h" />
@@ -186,7 +189,9 @@
     <ClInclude Include="BoxObject.h" />
     <ClInclude Include="BoxShape.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemySpawnManager.h" />
     <ClInclude Include="GeneratedPrototypeMap.h" />
+    <ClInclude Include="IEnemyDestroyObserver.h" />
     <ClInclude Include="IMap.h" />
     <ClInclude Include="IMazeGenerator.h" />
     <ClInclude Include="IPlayerWeapon.h" />

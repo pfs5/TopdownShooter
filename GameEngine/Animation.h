@@ -1,66 +1,64 @@
 #pragma once
-#include "stdafx.h"
+#include <string>
+#include <SFML/Graphics/Sprite.hpp>
+#include <vector>
 
-#include <SFML/Graphics.hpp>
-#include "AnimationObserver.h"
-/**
-	Class represents one animation. Played from a single sprite sheet.
-**/
-class Animation {
-	std::string m_name;
+class AnimationObserver;
 
-	// Frame parameters
-	sf::Vector2u m_frameSize;			// size of a single frame
-	std::vector<int> m_frameLengths;	// number of updates for each frame
-	int m_numberOfFrames;				// total number of frames
-	int m_scale;						// multiplier for frameLengths
-
-	// Current state
-	int m_frameTime;		// updates left for current frame
-	bool m_isPlaying;
-	int m_currentFrame;		// current frame index
-	bool m_isLooping;
-
-	// Visuals
-	sf::Sprite m_sprite;	
-	sf::Texture *m_texture;	// texture pointer. texture resources are handled by the resource manager\
-
-	// Animation observers
-	std::vector<AnimationObserver*> m_observers;
+class Animation
+{
 public:
-	Animation(std::string _name, int _numberOfFrames, const std::vector<int> &_frameLengths, int _scale, bool _isLooping = true, sf::Vector2f _textureScale = sf::Vector2f{ 1, 1 });
-	~Animation();
+	Animation(const std::string &name);
 
-	// Animation controll
-	void play();
-	void pause();
-	void reset();
-	void stop();
-	
-	void setTime(float _time, bool _pause = true);
-	void setFrame(int _frame, bool _pause = true);
-
-	// Base engine methods
 	void update(float _dt);
 	void draw();
+
+	void setSpeed(float speed);
+	void setSize(const sf::Vector2f &size);
+	void setColor(const sf::Color &color);
+	void setPosition(const sf::Vector2f &position);
+	void setRotation(float rotation);
+	bool isLooping() const;
+	void setIsLooping(bool value);
+
+	// Control
+	void play();
+	void stop();
+	void pause();
 
 	// Observers
 	void attachObserver(AnimationObserver *_o);
 	void dettachObserver(AnimationObserver *_o);
+
 private:
-	void setSpriteRect();
+	std::string _name;
+	sf::Texture * _spritesheet;
+	unsigned int _rows;
+	unsigned int _cols;
+	std::vector<float> _frameTimes;
+	float _speed;
+	bool _looping;
+
+	// Visual
+	sf::Sprite _sprite;
+
+	// Sprite frame data
+	float _frameWidth;
+	float _frameHeight;
+
+	// Animation data
+	unsigned int _currentFrame;
+	float _timer;
+
+	// Play state
+	bool _isPlaying;
+
+	std::vector<AnimationObserver*> _observers;
+
+
+private:
+	void loadAnimation(const std::string &path);
+	void setCurrentFrame();
+	void reset();
 	void notifyOnAnimationEnd();
-#pragma region Getters and setters
-public:
-	inline std::string getName() { return m_name; };
-	inline void setName(std::string _name) { m_name = _name; };
-
-	inline sf::Vector2f getPosition() { return m_sprite.getPosition(); };
-	inline void setPosition(const sf::Vector2f &_pos) { m_sprite.setPosition(_pos); };
-
-	inline bool isLooping() { return m_isLooping; };
-
-	inline void setRotation(float _rotation) { m_sprite.setRotation(_rotation); };
-	inline void setColor(sf::Color _color) { m_sprite.setColor(_color); };
-#pragma endregion
 };

@@ -5,7 +5,7 @@
 #include <sstream>
 
 AnimationController::AnimationController(float _rotation) : 
-	m_rotation(_rotation), m_currentAnimation (0), m_nextAnimation(0), m_isPlaying(false) {
+	_rotation(_rotation), _currentAnimation (0), _nextAnimation(0), _isPlaying(false) {
 }
 
 AnimationController::~AnimationController() {
@@ -16,41 +16,42 @@ void AnimationController::load(std::string _name, bool _play) {
 		Debug::logError("[AnimationController] Error loading " + _name);
 	}
 
-	m_isPlaying = _play;
+	_isPlaying = _play;
 
 	if (_play) {
-		m_animations[m_currentAnimation]->play();
+		_animations[_currentAnimation]->play();
 	}
 	else {
-		m_animations[m_currentAnimation]->stop();
+		_animations[_currentAnimation]->stop();
 	}
 }
 
 void AnimationController::update(float _dt) {
-	if (m_isPlaying) {
-		m_animations[m_currentAnimation]->update(_dt);
+	if (_isPlaying) {
+		_animations[_currentAnimation]->update(_dt);
 	}
 }
 
 void AnimationController::draw() {
-	m_animations[m_currentAnimation]->draw();
+	_animations[_currentAnimation]->draw();
 }
 
 void AnimationController::playAnimation(std::string _animation, bool _playInstantly) {
-	int animationIndex = m_animationIndices.at(_animation);
+	int animationIndex = _animationIndices.at(_animation);
 	playAnimation(animationIndex, _playInstantly);
 }
 
-void AnimationController::setAnimationTime(float _time, bool _pause) {
-	m_animations[m_currentAnimation]->setTime(_time, _pause);
-}
+// #TODO
+//void AnimationController::setAnimationTime(float _time, bool _pause) {
+//	m_animations[m_currentAnimation]->setTime(_time, _pause);
+//}
 
 void AnimationController::setTrigger(std::string _trigger, bool _playInstantly) {
 	try {
-		int nextAnimation = m_triggerTransitions[m_currentAnimation].at(_trigger);
+		int nextAnimation = _triggerTransitions[_currentAnimation].at(_trigger);
 		playAnimation(nextAnimation, _playInstantly);
 
-		m_isPlaying = true;
+		_isPlaying = true;
 	} catch (std::out_of_range) {
 		return;
 	}
@@ -62,7 +63,7 @@ void AnimationController::stop() {
 }
 
 void AnimationController::pause() {
-	m_isPlaying = false;
+	_isPlaying = false;
 }
 
 void AnimationController::reset() {
@@ -71,11 +72,11 @@ void AnimationController::reset() {
 
 void AnimationController::playAnimation(int _animation, bool _playInstantly) {
 	try {
-		m_nextAnimation = _animation;
+		_nextAnimation = _animation;
 		if (_playInstantly) {
 			playNextAnimation();
 		}
-		m_isPlaying = true;
+		_isPlaying = true;
 	} catch (std::out_of_range e) {
 		return;
 	}
@@ -91,19 +92,22 @@ bool AnimationController::loadFromFile(std::string _name) {
 		// Animations
 		for (auto &a : data["animations"]) {
 			std::string name = a["name"];
-			std::vector<int> frames = a["frames"];
-			int scale = a["scale"];
-			bool isLooping = a["looping"];
+			bool isLooping = a["islooping"] == "true";
+			std::string speed = a["speed"];
 
-			Animation *a = new Animation(_name + "_" + name, frames.size(), frames, scale, isLooping);
-			a->setRotation(m_rotation);
-			m_animations.push_back(a);
-			m_transitions.push_back(-1);
-			m_triggerTransitions.push_back(std::map<std::string, int>());
+			Animation *anim = new Animation(name);
+			
+			anim->setRotation(_rotation);
+			anim->setSpeed(std::stof(speed));
+			anim->setIsLooping(isLooping);
 
-			a->attachObserver(this);
+			_animations.push_back(anim);
+			_transitions.push_back(-1);
+			_triggerTransitions.emplace_back();		// #TODO CHECK
 
-			m_animationIndices.emplace(name, m_animations.size() - 1);
+			anim->attachObserver(this);
+
+			_animationIndices.emplace(name, _animations.size() - 1);
 		}
 
 		// Transitions
@@ -112,38 +116,39 @@ bool AnimationController::loadFromFile(std::string _name) {
 			std::string from = t["from"];
 			std::string to = t["to"];
 
-			int fromIndex = m_animationIndices[from];
-			int toIndex = m_animationIndices[to];
+			int fromIndex = _animationIndices[from];
+			int toIndex = _animationIndices[to];
 
 			if (trigger == "default") {
-				m_transitions[fromIndex] = toIndex;
+				_transitions[fromIndex] = toIndex;
 			} else {
-				m_triggerTransitions[fromIndex].emplace(trigger, toIndex);
+				_triggerTransitions[fromIndex].emplace(trigger, toIndex);
 			}
 		}
 
 		file.close();
-	} else {
-		return false;
+		return true;
 	}
+	
+	return false;
 }
 
 void AnimationController::playNextAnimation() {
-	m_animations[m_currentAnimation]->reset();
-	m_currentAnimation = m_nextAnimation;
-	m_animations[m_currentAnimation]->play();
+	_animations[_currentAnimation]->stop();
+	_currentAnimation = _nextAnimation;
+	_animations[_currentAnimation]->play();
 
-	if (m_transitions[m_currentAnimation] != -1) {
-		m_nextAnimation = m_transitions[m_currentAnimation];
+	if (_transitions[_currentAnimation] != -1) {
+		_nextAnimation = _transitions[_currentAnimation];
 	}
 }
 
 void AnimationController::onAnimationEnd() {
 	// Switch to next animation
-	if (m_nextAnimation != m_currentAnimation || m_animations[m_currentAnimation]->isLooping()) {
+	if (_nextAnimation != _currentAnimation || _animations[_currentAnimation]->isLooping()) {
 		playNextAnimation();
 	}
 	else {
-		m_isPlaying = false;
+		_isPlaying = false;
 	}
 }

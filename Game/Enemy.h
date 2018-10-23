@@ -6,11 +6,15 @@
 #include "UILine.h"
 #include "IProjectileReactor.h"
 
+class IEnemyDestroyObserver;
+
 class Enemy : public GameObject, public IProjectileReactor
 {
 public:
 	Enemy(const MainCharacter * mainCharacter, float hp = 100.f);
 	~Enemy();
+
+	void attachObserver(IEnemyDestroyObserver *o);
 
 	void update(float _dt) override;
 	void draw() override;
@@ -31,7 +35,10 @@ private:
 	const float SIZE_SCALE = 0.4f;
 	const float ATTACK_DISTANCE = 50.f;
 	const float RECOIL_DAMP_TIME = .5f;
-	const float INVINCIBILITY_TIME = .1;	// time of enemy being invincible after getting hit
+	const float INVINCIBILITY_TIME = .1f;	// time of enemy being invincible after getting hit
+	const float SQUARED_RANGE = 500.f * 500.f;
+
+	std::vector<IEnemyDestroyObserver*> _observers;
 
 	// Visuals
 	sf::Sprite _sprite;

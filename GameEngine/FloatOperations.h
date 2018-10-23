@@ -2,7 +2,7 @@
 #include <cmath>
 
 namespace FloatOperations {
-	const float PRECISION = 1e-5;
+	const float PRECISION = 1e-5f;
 
 	inline int compare(const float &_f1, const float &_f2) {
 		float difference = fabsf(_f1 - _f2);

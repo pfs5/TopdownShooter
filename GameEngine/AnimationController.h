@@ -1,8 +1,11 @@
 #pragma once
-#include "Animation.h"
-
 #include <vector>
 #include <map>
+#include "Animation.h"
+#include "AnimationObserver.h"
+
+// #TODO
+// REFACTOR THIS CLASS WITH NEW CODING STYLE
 
 /**
 	Class servers as a container for animations. Handles animation switching.
@@ -10,21 +13,21 @@
 **/
 class AnimationController : public AnimationObserver {
 	const std::string RESOURCE_FOLDER = "../resources/animation_controllers/";
-	const std::string EXTENSION = ".json";
+	const std::string EXTENSION = ".animctrl";
 
-	sf::Vector2f m_position;
-	float m_rotation;
+	sf::Vector2f _position;
+	float _rotation;
 
-	std::vector<Animation*> m_animations;
-	int m_currentAnimation;
-	int m_nextAnimation;
+	std::vector<Animation*> _animations;
+	int _currentAnimation;
+	int _nextAnimation;
 
-	bool m_isPlaying;
+	bool _isPlaying;
 
-	std::map<std::string, int> m_animationIndices;
+	std::map<std::string, int> _animationIndices;
 
-	std::vector<int> m_transitions;
-	std::vector<std::map<std::string, int>> m_triggerTransitions;
+	std::vector<int> _transitions;
+	std::vector<std::map<std::string, int>> _triggerTransitions;
 public:
 	AnimationController(float _rotation = 0.f);
 	~AnimationController();
@@ -37,9 +40,10 @@ public:
 
 	// Controller methods
 	void playAnimation(std::string _animation, bool _playInstantly = true);
-	void setAnimationTime(float _time, bool _pause = true);
+	//void setAnimationTime(float _time, bool _pause = true);	// #TODO
 	void setTrigger(std::string _trigger, bool _playInstantly = true);
 
+	//void play();	// #TODO
 	void stop();
 	void pause();
 	void reset();
@@ -52,27 +56,40 @@ private:
 	void playNextAnimation();
 #pragma region Getters and setters
 public:
-	inline sf::Vector2f getPosition() { return m_position; };
-	inline void setPosition(const sf::Vector2f &_pos) { 
-		m_position = _pos; 
-		for (Animation *a : m_animations) {
+	inline sf::Vector2f getPosition() const{ return _position; };
+	inline void setPosition(const sf::Vector2f &_pos) 
+	{ 
+		_position = _pos; 
+		for (Animation *a : _animations) 
+		{
 			a->setPosition(_pos);
 		}
 	};
 
-	inline bool isPlaying() { return m_isPlaying; };
-	inline void setColor(sf::Color _color) {
-		for (auto &an : m_animations) {
+	inline bool isPlaying() const { return _isPlaying; };
+	inline void setColor(sf::Color _color) 
+	{
+		for (auto &an : _animations) 
+		{
 			an->setColor(_color);
 		}
 	}
 	
-	inline void setRotation(float _rot) {
-		for (auto &an : m_animations) {
+	inline void setRotation(float _rot) 
+	{
+		for (auto &an : _animations) 
+		{
 			an->setRotation(_rot);
 		}
 	}
 
+	inline void setSize(const sf::Vector2f &size)
+	{
+		for (auto &an : _animations)
+		{
+			an->setSize(size);
+		}
+	}
 #pragma endregion
 
 };
